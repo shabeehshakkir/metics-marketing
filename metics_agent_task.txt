@@ -1,0 +1,229 @@
+
+AGENT TASK: Build Metics Landing Page Content (Marketing + Use Cases)
+
+ROLE
+You are a content+frontend assistant working in a codebase with a simple static site (Next.js or React, or plain HTML). Your goal is to implement production‑ready copy blocks for the Metics landing page and provide structured assets (markdown/JSON) that engineers/designers can drop in.
+
+OBJECTIVE
+1) Create a single source of truth for the Metics landing page copy.
+2) Provide ready-to-use sections (hero, value props, features, use cases, credibility, FAQs, CTA).
+3) Include SEO metadata (title, meta description, OpenGraph/Twitter, JSON‑LD).
+4) Provide content variants for short ad blurbs.
+5) Keep tone: credible, construction‑industry, concise, benefit-led.
+
+DELIVERABLES
+- /content/metics_landing.md — full page copy with headings and CTA annotations.
+- /content/metics_use_cases.md — detailed use cases as cards (title, audience, pain, solution, proof).
+- /content/metics_faq.md — FAQs derived from platform behavior.
+- /content/seo/metics_seo.json — SEO metadata + JSON-LD.
+- /content/ads/metics_ads_blurbs.md — 8 short ad/LinkedIn post variants.
+If you cannot create files, output them inline in this order with clear file name fences.
+
+BRAND + TONE
+- Audience: contractors, QS firms, developers/owners, SME suppliers, enterprise procurement.
+- Voice: professional, practical, transparent. Avoid hype. Prefer action verbs. UK/EU spelling acceptable.
+- Reading level: B2. Avoid jargon unless standard in procurement (RFQ, PO, Incoterms).
+
+COPY STARTS BELOW — USE AS‑IS (you may lightly trim whitespace; do not rewrite meaning).
+
+====================================
+FILE: /content/metics_landing.md
+====================================
+# Hero
+**Headline:** Procurement Made Smarter. Built for Construction.
+**Sub‑headline:** Metics connects buyers and suppliers with a transparent, data‑driven platform — simplifying RFQs, bids, and purchase orders from start to finish.
+**Primary CTA:** [Request a Demo]
+**Secondary CTA:** [Get Started]
+
+# Value Propositions
+- ⚡ **Speed Up Procurement** — Generate RFQs, compare bids, and award contracts in minutes — not weeks.
+- 📊 **Transparent Decisions** — Every bid, comparison, and PO is tracked with clear analytics and audit trails.
+- 🤝 **Seamless Collaboration** — Real‑time chat, supplier onboarding, and document sharing in one place.
+- 🏗️ **Construction‑Ready** — Tailored to contractors, QS firms, and suppliers.
+
+# Key Features
+## For Buyers
+- Create RFQs with headers, lines, attributes (open/closed bids, partial bidding, show bid prices before deadline).
+- Invite authorized suppliers or open to all in category; receive multiple bids.
+- Compare bids side‑by‑side; negotiate via chat; award best offer.
+- Auto‑generate Purchase Orders on award; export PO as PDF.
+- Edit RFQs (pre‑deadline), save drafts, import via CSV/API.
+- Manage suppliers (contacts, docs, contracts) and team roles.
+
+## For Suppliers
+- Register, set company & categories; receive category‑matched RFQs.
+- Submit bids (including partial quantities), add T&C templates and remarks.
+- Track bid status and buyer responses; accept/reject Purchase Orders.
+- Maintain client list; publish shareable product catalog; handle inquiries.
+- Store compliance documents; manage organization templates and settings.
+
+## Collaboration & Control
+- Real‑time chat per RFQ, FAQs, notifications, and activity updates.
+- Role‑based access, auditability, and document/version control.
+- Support for Incoterms and international trade contexts.
+
+# Use Cases (Cards)
+1) **General Contractor**
+   - *Problem:* Fragmented tendering across trades creates delays and cost drift.
+   - *Solution:* Issue RFQs per package (steel, MEP, finishes), collect comparable bids, award or split via partial awards, auto‑PO.
+   - *Outcome:* Faster award cycles, documented decisions, predictable delivery.
+
+2) **Quantity Surveyor / Consultant**
+   - *Problem:* Manual bid normalization and reporting wastes time.
+   - *Solution:* Side‑by‑side comparisons, partial bidding support, automated tender summaries and supplier scorecards.
+   - *Outcome:* Less spreadsheet work, clearer advice to clients, repeatable governance.
+
+3) **Developer / Project Owner**
+   - *Problem:* Limited visibility into supplier capacity and cost risk.
+   - *Solution:* Transparent comparisons, partial awards across multiple suppliers, live updates on bids and POs.
+   - *Outcome:* Lower risk of over‑reliance, better budget adherence, traceable procurement.
+
+4) **SME Supplier**
+   - *Problem:* Hard to discover opportunities and prove reliability.
+   - *Solution:* Category‑matched RFQs, reusable T&C templates, public product catalogs with inquiry flow.
+   - *Outcome:* More invitations, higher win rate, cleaner POs and communication.
+
+5) **Enterprise Procurement**
+   - *Problem:* High RFQ volume and compliance demands.
+   - *Solution:* CSV/API import, controlled supplier lists, audit trails, PO PDFs, centralized chat & docs.
+   - *Outcome:* Scalable operations, governance by design, ERP‑friendly workflows.
+
+# Credibility
+- Designed with construction professionals in NL & NZ.
+- Supports Incoterms, compliance docs, and international RFQs.
+- Flexible for SMEs and large enterprises.
+
+# CTA Block
+*Procurement shouldn’t slow down your project.* Start making data‑driven decisions today.
+[Request a Demo]  [Join Beta]
+
+------------------------------------
+
+====================================
+FILE: /content/metics_use_cases.md
+====================================
+# Use Case Library
+
+## 1) General Contractor: Multi‑Package Tendering
+**Audience:** Tier‑2/3 GC, regional builder.
+**Pain:** Multiple trades, inconsistent bid formats, delays.
+**Solution:** Create RFQs per package; enable partial bids; compare; negotiate in chat; award; auto‑PO.
+**Proof Points:** Versioned RFQs; audit trail; PO PDF; supplier performance visibility.
+**KPIs:** RFQ cycle time ↓, variance to budget ↓, award lead time ↓.
+
+## 2) Quantity Surveyor: Advisory & Reporting
+**Audience:** QS firms/consultancies.
+**Pain:** Manual normalization; scattered emails.
+**Solution:** Side‑by‑side comparisons; supplier scorecards; draft/save/edit RFQs; exportable summaries.
+**KPIs:** Reporting time ↓, client satisfaction ↑, rework ↓.
+
+## 3) Developer/Owner: Risk‑Managed Sourcing
+**Audience:** Client‑side PMO, owner’s rep.
+**Pain:** Single‑vendor dependency; opaque pricing.
+**Solution:** Closed vs open RFQs; partial awards; live updates; PO tracking.
+**KPIs:** Supplier concentration risk ↓, overruns ↓.
+
+## 4) SME Supplier: Win & Operate
+**Audience:** Small/medium manufacturers/distributors.
+**Pain:** Low discovery; admin overhead.
+**Solution:** Category RFQs; reusable T&C templates; public product catalog with inquiry.
+**KPIs:** Invitations ↑, win rate ↑, PO acceptance time ↓.
+
+## 5) Enterprise Procurement: Scale & Compliance
+**Audience:** Large multi‑site firms.
+**Pain:** Volume and governance.
+**Solution:** CSV/API import; authorized supplier lists; audit logs; exportable POs.
+**KPIs:** Throughput ↑, exceptions ↓, audit findings ↓.
+
+------------------------------------
+
+====================================
+FILE: /content/metics_faq.md
+====================================
+# FAQs
+
+**Can suppliers bid partially?**
+Yes. Buyers can enable partial bidding; suppliers then quote partial quantities. Buyers can also make partial awards across suppliers.
+
+**Can I restrict an RFQ to selected suppliers?**
+Yes. Choose Closed (selected/authorized suppliers) or Open (all in category).
+
+**Do POs generate automatically?**
+Yes. Awarding a bid auto‑generates a purchase order with agreed terms; buyers can export a PDF.
+
+**Can I edit an RFQ after publishing?**
+Before the deadline: yes (with notifications to participants). Critical fields may lock after bids arrive to keep fairness.
+
+**Can I integrate with my ERP?**
+Yes, import RFQs via CSV or API; mapping templates supported.
+
+**How do suppliers get RFQs?**
+By category matching after they set company & product categories.
+
+**Is there in‑platform communication?**
+Yes, real‑time chat on each RFQ, plus notifications and an updates feed.
+
+------------------------------------
+
+====================================
+FILE: /content/seo/metics_seo.json
+====================================
+{
+  "meta": {
+    "title": "Metics — Procurement Made Smarter for Construction",
+    "description": "Metics streamlines RFQs, bid comparisons, and purchase orders for construction buyers and suppliers. Faster awards, transparent decisions, and collaboration in one platform.",
+    "ogTitle": "Metics | Construction Procurement Platform",
+    "ogDescription": "Create RFQs, compare bids, and auto‑generate POs. Built for contractors, QS firms, and suppliers.",
+    "ogType": "website",
+    "ogImage": "/og/metics-og.png",
+    "twitterCard": "summary_large_image"
+  },
+  "jsonLd": {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Metics",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "description": "Procurement‑analytics platform for construction buyers and suppliers: RFQs, bid comparisons, and purchase orders.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Metics"
+    }
+  }
+}
+
+------------------------------------
+
+====================================
+FILE: /content/ads/metics_ads_blurbs.md
+====================================
+- Cut RFQ time from weeks to days. Metics makes construction procurement transparent and fast. [Request a demo]
+- Compare bids side‑by‑side. Award with one click. Auto PO. Try Metics.
+- Too many emails in tendering? Chat, bids, and POs — all in one place.
+- Suppliers: get category‑matched RFQs and win more with partial bids.
+- Owners: split awards across suppliers to reduce risk — directly in Metics.
+- Enterprise teams: import RFQs via CSV/API and scale with governance.
+- QS firms: less spreadsheet cleaning, more client value. Metics does the heavy lifting.
+- Built for construction. Start smarter procurement today with Metics.
+
+------------------------------------
+
+ACCEPTANCE CRITERIA
+- Content renders as markdown without lint errors.
+- JSON is valid; keys present as above.
+- Copy uses UK/EU friendly punctuation; no Americanisms required.
+- CTAs are consistent: “Request a Demo”, “Get Started”, “Join Beta”.
+- No lorem ipsum. No broken placeholders except /og/metics-og.png.
+
+IMPLEMENTATION NOTES (OPTIONAL)
+- If building a Next.js page, split sections into components and load markdown via MDX.
+- Map use‑case cards to a grid with icons (contract, chart, factory, building, shield).
+- Add anchor links for #features #use-cases #faqs #contact.
+- Add sticky top CTA button.
+
+END OF TASK
