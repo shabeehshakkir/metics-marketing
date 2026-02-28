@@ -40,8 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // ── Configuration ──
-$to_email    = 'shabeeh@oxmics.com';
-$from_email  = 'noreply@oxmics.com';  // Change to your domain's email
+$to_email = 'shabeeh@oxmics.com';
+$from_email = 'noreply@oxmics.com'; // Change to your domain's email
 
 // ── Rate Limiting (simple file-based) ──
 $rate_limit_dir = sys_get_temp_dir() . '/metics_rate_limit';
@@ -53,7 +53,7 @@ $client_ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
 $rate_file = $rate_limit_dir . '/' . md5($client_ip);
 
 if (file_exists($rate_file)) {
-    $last_submit = (int) file_get_contents($rate_file);
+    $last_submit = (int)file_get_contents($rate_file);
     if (time() - $last_submit < 30) {
         http_response_code(429);
         echo json_encode(['error' => 'Too many requests. Please wait before trying again.']);
@@ -67,7 +67,8 @@ $content_type = $_SERVER['CONTENT_TYPE'] ?? '';
 if (strpos($content_type, 'application/json') !== false) {
     $raw = file_get_contents('php://input');
     $data = json_decode($raw, true);
-} else {
+}
+else {
     $data = $_POST;
 }
 
@@ -78,19 +79,21 @@ if (empty($data)) {
 }
 
 // ── Sanitize ──
-function clean($value) {
-    if (!is_string($value)) return '';
+function clean($value)
+{
+    if (!is_string($value))
+        return '';
     return htmlspecialchars(strip_tags(trim($value)), ENT_QUOTES, 'UTF-8');
 }
 
 $firstName = clean($data['firstName'] ?? '');
-$lastName  = clean($data['lastName'] ?? '');
-$email     = filter_var(trim($data['email'] ?? ''), FILTER_VALIDATE_EMAIL);
-$company   = clean($data['company'] ?? '');
-$role      = clean($data['role'] ?? '');
-$size      = clean($data['size'] ?? '');
-$packages  = clean($data['packages'] ?? '');
-$message   = clean($data['message'] ?? '');
+$lastName = clean($data['lastName'] ?? '');
+$email = filter_var(trim($data['email'] ?? ''), FILTER_VALIDATE_EMAIL);
+$company = clean($data['company'] ?? '');
+$role = clean($data['role'] ?? '');
+$size = clean($data['size'] ?? '');
+$packages = clean($data['packages'] ?? '');
+$message = clean($data['message'] ?? '');
 
 // ── Honeypot Check ──
 if (!empty($data['website'])) {
@@ -121,40 +124,67 @@ if (in_array($domain, $free_providers, true)) {
     exit;
 }
 
-// ── Build Email ──
-$subject = "Metics Demo Request from $firstName $lastName";
+// ── Build & Send Email via PHPMailer ──
+require_once __DIR__ . '/vendor/autoload.php';
 
-$body = "New demo request received from the Metics website.\n\n";
-$body .= "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
-$body .= "Name:       $firstName $lastName\n";
-$body .= "Email:      $email\n";
-$body .= "Company:    " . ($company ?: 'Not provided') . "\n";
-$body .= "Role:       " . ($role ?: 'Not provided') . "\n";
-$body .= "Team Size:  " . ($size ?: 'Not provided') . "\n";
-$body .= "Packages:   " . ($packages ?: 'Not provided') . "\n\n";
-$body .= "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
-$body .= "Message:\n$message\n\n";
-$body .= "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
-$body .= "Submitted: " . date('Y-m-d H:i:s T') . "\n";
-$body .= "IP: $client_ip\n";
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
-$headers = [
-    "From: Metics Website <$from_email>",
-    "Reply-To: $firstName $lastName <$email>",
-    "X-Mailer: Metics-Contact-Form/1.0",
-    "MIME-Version: 1.0",
-    "Content-Type: text/plain; charset=UTF-8",
-];
+$mail = new PHPMailer(true);
 
-// ── Send ──
-$sent = mail($to_email, $subject, $body, implode("\r\n", $headers));
+try {
+    // SMTP settings from environment variables
+    $mail->isSMTP();
+    $mail->Host = getenv('SMTP_HOST') ?: 'smtp.example.com';
+    $mail->SMTPAuth = filter_var(getenv('SMTP_AUTH') ?: 'on', FILTER_VALIDATE_BOOLEAN);
+    $mail->Username = getenv('SMTP_USER') ?: '';
+    $mail->Password = getenv('SMTP_PASSWORD') ?: '';
+    $mail->Port = (int)(getenv('SMTP_PORT') ?: 587);
 
-if ($sent) {
-    // Record rate limit
+    $starttls = strtolower(getenv('SMTP_STARTTLS') ?: 'on');
+    $tls = strtolower(getenv('SMTP_TLS') ?: 'off');
+    if ($starttls === 'on') {
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    }
+    elseif ($tls === 'on') {
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+    }
+    else {
+        $mail->SMTPAutoTLS = false;
+    }
+
+    $fromEmail = getenv('SMTP_FROM') ?: 'noreply@metics.io';
+    $mail->setFrom($fromEmail, 'Metics Website');
+    $mail->addReplyTo($email, "$firstName $lastName");
+    $mail->addAddress('shabeeh@oxmics.com', 'Shabeeh');
+
+    $mail->Subject = "Metics Demo Request from $firstName $lastName";
+    $mail->isHTML(false);
+    $mail->Body = "New demo request received from the Metics website.\n\n"
+        . "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        . "Name:       $firstName $lastName\n"
+        . "Email:      $email\n"
+        . "Company:    " . ($company ?: 'Not provided') . "\n"
+        . "Role:       " . ($role ?: 'Not provided') . "\n"
+        . "Team Size:  " . ($size ?: 'Not provided') . "\n"
+        . "Packages:   " . ($packages ?: 'Not provided') . "\n\n"
+        . "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        . "Message:\n$message\n\n"
+        . "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        . "Submitted: " . date('Y-m-d H:i:s T') . "\n"
+        . "IP: $client_ip\n";
+
+    $mail->send();
+
+    // Record rate limit on success
     file_put_contents($rate_file, time());
 
     echo json_encode(['ok' => true, 'message' => 'Your message has been sent. We will be in touch soon.']);
-} else {
+
+}
+catch (Exception $e) {
+    error_log("PHPMailer Error: " . $mail->ErrorInfo);
     http_response_code(500);
-    echo json_encode(['error' => 'Failed to send email. Please try again or contact us directly at shabeeh@oxmics.com.']);
+    echo json_encode(['error' => 'Failed to send email. Please try again or email us directly at shabeeh@oxmics.com.']);
 }
