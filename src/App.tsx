@@ -6,13 +6,13 @@ function useStickyHeader(ref: React.RefObject<HTMLElement>) {
     const handleScroll = () => {
       const shouldCollapse = window.scrollY > 40;
       if (ref.current) {
-        ref.current.style.transform = shouldCollapse ? 'scale(0.98)' : 'scale(1)';
+        ref.current.style.transform = shouldCollapse ? 'scale(0.99)' : 'scale(1)';
         ref.current.style.background = shouldCollapse
-          ? 'rgba(255, 255, 255, 0.94)'
-          : 'rgba(255, 255, 255, 0.82)';
+          ? 'rgba(255, 255, 255, 0.96)'
+          : 'rgba(255, 255, 255, 0.88)';
         ref.current.style.boxShadow = shouldCollapse
-          ? '0 24px 70px rgba(35, 39, 47, 0.12)'
-          : '0 18px 50px rgba(32, 36, 43, 0.08)';
+          ? '0 8px 32px rgba(15, 23, 42, 0.1)'
+          : '0 4px 16px rgba(15, 23, 42, 0.06)';
       }
     };
 
