@@ -64,20 +64,27 @@ export default function Contact() {
             return;
         }
 
-        // Collect form data
-        const formData = new FormData(form);
-        // Remove honeypot from submission
-        formData.delete('website');
-        // Add reply-to so Formspree sets reply email
-        formData.set('_replyto', email);
-        formData.set('_subject', `Metics Demo Request from ${firstName} ${lastName}`);
+        // Collect form data as JSON
+        const payload = {
+            firstName,
+            lastName,
+            email,
+            company: sanitize(form.querySelector<HTMLInputElement>('input[name="company"]')?.value || ''),
+            role: sanitize(form.querySelector<HTMLSelectElement>('select[name="role"]')?.value || ''),
+            size: sanitize(form.querySelector<HTMLSelectElement>('select[name="size"]')?.value || ''),
+            packages: sanitize(form.querySelector<HTMLSelectElement>('select[name="packages"]')?.value || ''),
+            message: sanitize(form.querySelector<HTMLTextAreaElement>('textarea[name="message"]')?.value || ''),
+        };
 
         try {
             setSubmitting(true);
-            const res = await fetch('https://formspree.io/f/xeoevwzd', {
+            const res = await fetch('/api/contact.php', {
                 method: 'POST',
-                body: formData,
-                headers: { 'Accept': 'application/json' },
+                body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
             });
 
             if (res.ok) {
