@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  web:
+    image: ghcr.io/shabeehshakkir/metics-marketing-web:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - php
+    restart: always
+
+  php:
+    image: ghcr.io/shabeehshakkir/metics-marketing-php:latest
+    volumes:
+      - ./api:/app/api
+    env_file:
+      - .env
+    restart: always
