@@ -168,17 +168,18 @@ try {
 
     $mail->Subject = "Metics Demo Request from $firstName $lastName";
     $mail->isHTML(false);
+    $mail->CharSet = PHPMailer::CHARSET_UTF8;
     $mail->Body = "New demo request received from the Metics website.\n\n"
-        . "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        . "----------------------------------------\n\n"
         . "Name:       $firstName $lastName\n"
         . "Email:      $email\n"
         . "Company:    " . ($company ?: 'Not provided') . "\n"
         . "Role:       " . ($role ?: 'Not provided') . "\n"
         . "Team Size:  " . ($size ?: 'Not provided') . "\n"
         . "Packages:   " . ($packages ?: 'Not provided') . "\n\n"
-        . "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        . "----------------------------------------\n\n"
         . "Message:\n$message\n\n"
-        . "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        . "----------------------------------------\n\n"
         . "Submitted: " . date('Y-m-d H:i:s T') . "\n"
         . "IP: $client_ip\n";
 
