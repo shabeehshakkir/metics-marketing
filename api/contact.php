@@ -125,7 +125,7 @@ if (in_array($domain, $free_providers, true)) {
 }
 
 // ── Build & Send Email via PHPMailer ──
-require_once __DIR__ . '/vendor/autoload.php';
+require_once '/app/vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -141,6 +141,13 @@ try {
     $mail->Username = getenv('SMTP_USER') ?: '';
     $mail->Password = getenv('SMTP_PASSWORD') ?: '';
     $mail->Port = (int)(getenv('SMTP_PORT') ?: 587);
+
+    // Debug: log SMTP connection details (NOT password) to PHP error log
+    error_log("PHPMailer connecting to: " . $mail->Host . ":" . $mail->Port . " | Auth: " . ($mail->SMTPAuth ? 'yes' : 'no') . " | User: " . $mail->Username);
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+    $mail->Debugoutput = function ($str, $level) {
+        error_log("SMTP[$level]: " . trim($str));
+    };
 
     $starttls = strtolower(getenv('SMTP_STARTTLS') ?: 'on');
     $tls = strtolower(getenv('SMTP_TLS') ?: 'off');
