@@ -2,8 +2,8 @@
 set -e
 
 # Support environment variables for SMTP configuration
-SMTP_HOST=${SMTP_HOST:-mailpit}
-SMTP_PORT=${SMTP_PORT:-1025}
+SMTP_HOST=${SMTP_HOST:-smtp.example.com}
+SMTP_PORT=${SMTP_PORT:-587}
 SMTP_FROM=${SMTP_FROM:-noreply@metics.io}
 SMTP_AUTH=${SMTP_AUTH:-off}
 SMTP_TLS=${SMTP_TLS:-off}
