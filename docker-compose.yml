@@ -17,6 +17,8 @@ services:
       dockerfile: docker/php.Dockerfile
     volumes:
       - ./api:/app/api
+    env_file:
+      - .env
     depends_on:
       - mailpit
     restart: always
