@@ -14,6 +14,7 @@ function useReveal() {
 
 export default function Contact() {
     const [submitted, setSubmitted] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
     const [error, setError] = useState('');
     const timer = useRef<number>();
     const lastSubmit = useRef<number>(0);
@@ -25,7 +26,7 @@ export default function Contact() {
 
     const sanitize = (val: string) => val.trim().replace(/<[^>]*>/g, '');
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError('');
         const form = e.currentTarget;
@@ -63,10 +64,35 @@ export default function Contact() {
             return;
         }
 
-        lastSubmit.current = now;
-        form.reset();
-        setSubmitted(true);
-        timer.current = window.setTimeout(() => setSubmitted(false), 5000);
+        // Collect form data
+        const formData = new FormData(form);
+        // Remove honeypot from submission
+        formData.delete('website');
+        // Add reply-to so Formspree sets reply email
+        formData.set('_replyto', email);
+        formData.set('_subject', `Metics Demo Request from ${firstName} ${lastName}`);
+
+        try {
+            setSubmitting(true);
+            const res = await fetch('https://formspree.io/f/xeoevwzd', {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' },
+            });
+
+            if (res.ok) {
+                lastSubmit.current = now;
+                form.reset();
+                setSubmitted(true);
+                timer.current = window.setTimeout(() => setSubmitted(false), 8000);
+            } else {
+                setError('Something went wrong. Please try again or email us directly at shabeeh@oxmics.com.');
+            }
+        } catch {
+            setError('Network error. Please try again or email us directly at shabeeh@oxmics.com.');
+        } finally {
+            setSubmitting(false);
+        }
     };
 
     return (
@@ -149,7 +175,9 @@ export default function Contact() {
                                 <textarea id="message" name="message" rows={4} maxLength={2000} placeholder="Tell us what is slowing down your team, what tools you are currently using, and what you would like to improve..." />
                             </div>
                             {error && <p className="form-error" style={{ color: '#ef4444', fontSize: '.85rem', fontWeight: 500, marginBottom: '8px' }}>{error}</p>}
-                            <button type="submit" className="btn-primary full">Request a Demo</button>
+                            <button type="submit" className="btn-primary full" disabled={submitting}>
+                                {submitting ? 'Sending...' : 'Request a Demo'}
+                            </button>
                             {submitted && <p className="form-success">Thank you! Our team will be in touch within 24 hours to schedule your walkthrough.</p>}
                         </form>
                     </div>
