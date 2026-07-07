@@ -75,7 +75,7 @@ export default function Layout() {
             <header className={`site-nav${scrolled ? ' scrolled' : ''}`}>
                 <div className="site-nav-inner">
                     <Link className="site-nav-logo" to="/" aria-label="Metics home" onMouseEnter={() => prefetchRoute('/')}>
-                        <img src="/Metics-blue.png" alt="Metics Logo" height="24" />
+                        <img src="/Metics-blue.png" alt="Metics Logo" height="32" />
                     </Link>
 
                     <nav className={`site-nav-links${navOpen ? ' active' : ''}`} id="primary-navigation">
@@ -184,7 +184,7 @@ export default function Layout() {
                     <div className="site-footer-top">
                         <div className="site-footer-brand">
                             <Link to="/" className="site-footer-logo">
-                                <img src="/Metics-blue.png" alt="Metics Logo" height="20" />
+                                <img src="/Metics-blue.png" alt="Metics Logo" height="28" />
                             </Link>
                             <p>Procurement decision intelligence. RFQs, bids, approvals, and purchase orders in one shared record.</p>
                             <div className="site-footer-trust">
