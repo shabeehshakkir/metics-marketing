@@ -4,6 +4,27 @@ This document covers everything needed to deploy the Metics website on a product
 
 ---
 
+## Deployment Documentation
+
+### SSH Configuration
+
+To access the production server, use the following SSH configuration (already added to your `~/.ssh/config`):
+
+```ssh
+Host metics-marketing
+    HostName 54.93.32.184
+    User ubuntu
+    IdentityFile ~/keys/metics-marketing.pem
+```
+
+#### Connecting to the Server
+Run:
+```bash
+ssh metics-marketing
+```
+
+---
+
 ## Architecture Overview
 
 The application runs as two Docker containers orchestrated by Docker Compose:

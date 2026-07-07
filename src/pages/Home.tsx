@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { CTABanner } from '../components/shared';
 
 const proofPoints = [
@@ -114,25 +115,81 @@ export default function Home() {
 
     return (
         <div className="platform-editorial">
-            <section className="home-hero">
-                <div className="home-hero-inner">
-                    <p className="platform-kicker">Metics Platform</p>
-                    <h1>The procurement workspace your projects can live in.</h1>
-                    <p className="platform-hero-lede">
+            <section className="home-hero overflow-hidden relative py-20 lg:py-32">
+                {/* Decorative background element */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-6xl pointer-events-none opacity-20">
+                    <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[60%] rounded-full bg-accent blur-[120px]" />
+                    <div className="absolute bottom-[-10%] left-[-5%] w-[40%] h-[60%] rounded-full bg-secondary blur-[120px]" />
+                </div>
+
+                <div className="home-hero-inner relative z-10">
+                    <motion.p 
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="platform-kicker"
+                    >
+                        Metics Platform
+                    </motion.p>
+                    
+                    <motion.h1 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                        className="text-4xl md:text-6xl font-serif leading-tight mb-6"
+                    >
+                        The procurement workspace your projects can live in.
+                    </motion.h1>
+
+                    <motion.p 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="platform-hero-lede max-w-3xl mx-auto text-lg md:text-xl text-primary opacity-80 mb-8"
+                    >
                         Procurement goes wrong when the cost picture, the supplier risk, and the approval trail live in different places. Metics puts the tender, the bids, the decision, and the purchase order in one record.
-                    </p>
-                    <p className="home-hero-hook">Most teams find out the real cost of a supplier relationship after the award. Metics shows it before.</p>
-                    <div className="platform-hero-actions">
-                        <Link className="platform-primary-link" to="/contact">Book a walkthrough</Link>
-                        <Link className="platform-secondary-link" to="/platform">See how it works</Link>
-                    </div>
-                    <div className="home-hero-stats">
-                        <span className="home-hero-stats-item"><strong>Decision intelligence</strong> - not just workflow</span>
-                        <span className="home-hero-stats-sep" aria-hidden="true" />
-                        <span className="home-hero-stats-item"><strong>Free for suppliers</strong> - no participation fee</span>
-                        <span className="home-hero-stats-sep" aria-hidden="true" />
-                        <span className="home-hero-stats-item"><strong>CSRD-ready</strong> - sustainability built in</span>
-                    </div>
+                    </motion.p>
+
+                    <motion.p 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.8, delay: 0.4 }}
+                        className="home-hero-hook italic mb-10 text-accent font-medium"
+                    >
+                        Most teams find out the real cost of a supplier relationship after the award. Metics shows it before.
+                    </motion.p>
+
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                        className="platform-hero-actions flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+                    >
+                        <Link className="platform-primary-link px-8 py-4 bg-primary text-white rounded-lg font-bold hover:bg-accent transition-colors shadow-lg shadow-black/10" to="/contact">Book a walkthrough</Link>
+                        <Link className="platform-secondary-link px-8 py-4 border-2 border-primary/10 rounded-lg font-bold hover:border-accent transition-colors" to="/platform">See how it works</Link>
+                    </motion.div>
+
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8, delay: 0.5 }}
+                        className="home-hero-stats bg-white/40 backdrop-blur-md border border-white/20 p-6 rounded-2xl shadow-xl max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 items-center"
+                    >
+                        <div className="home-hero-stats-item text-sm md:text-base">
+                            <span className="block text-accent font-bold uppercase tracking-wider text-[10px] mb-1">Approach</span>
+                            <strong>Decision intelligence</strong> - not just workflow
+                        </div>
+                        <div className="hidden md:block w-px h-8 bg-black/10 mx-auto" />
+                        <div className="home-hero-stats-item text-sm md:text-base">
+                            <span className="block text-accent font-bold uppercase tracking-wider text-[10px] mb-1">Access</span>
+                            <strong>Free for suppliers</strong> - no participation fee
+                        </div>
+                        <div className="hidden md:block w-px h-8 bg-black/10 mx-auto" />
+                        <div className="home-hero-stats-item text-sm md:text-base">
+                            <span className="block text-accent font-bold uppercase tracking-wider text-[10px] mb-1">Compliance</span>
+                            <strong>CSRD-ready</strong> - sustainability built in
+                        </div>
+                    </motion.div>
                 </div>
             </section>
 

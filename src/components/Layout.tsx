@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
 function ScrollToTop() {
@@ -69,79 +70,45 @@ export default function Layout() {
     const isActive = (path: string) => location.pathname === path;
 
     return (
-        <div className="page-shell">
+        <div className="page-shell bg-paper selection:bg-accent/30 selection:text-primary">
             <ScrollToTop />
 
-            <header className={`site-nav${scrolled ? ' scrolled' : ''}`}>
-                <div className="site-nav-inner">
-                    <Link className="site-nav-logo" to="/" aria-label="Metics home" onMouseEnter={() => prefetchRoute('/')}>
-                        <img src="/Metics-blue.png" alt="Metics Logo" height="32" />
+            <header className={`site-nav fixed top-0 left-0 right-0 transition-all duration-300 ${scrolled ? 'py-2 bg-white/80 backdrop-blur-md shadow-sm border-b border-black/5' : 'py-4 bg-transparent border-transparent'}`}>
+                <div className="site-nav-inner max-w-7xl mx-auto px-6 flex items-center justify-between">
+                    <Link className="site-nav-logo z-50" to="/" aria-label="Metics home" onMouseEnter={() => prefetchRoute('/')}>
+                        <img src="/Metics-blue.png" alt="Metics Logo" height="32" className="h-8 w-auto" />
                     </Link>
 
-                    <nav className={`site-nav-links${navOpen ? ' active' : ''}`} id="primary-navigation">
-                        <Link
-                            to="/platform"
-                            className={isActive('/platform') ? 'active' : ''}
-                            onClick={() => setNavOpen(false)}
-                            onMouseEnter={() => prefetchRoute('/platform')}
-                        >
-                            Platform
-                        </Link>
-                        <Link
-                            to="/solutions"
-                            className={isActive('/solutions') ? 'active' : ''}
-                            onClick={() => setNavOpen(false)}
-                            onMouseEnter={() => prefetchRoute('/solutions')}
-                        >
-                            Solutions
-                        </Link>
-                        <Link
-                            to="/industries"
-                            className={isActive('/industries') ? 'active' : ''}
-                            onClick={() => setNavOpen(false)}
-                            onMouseEnter={() => prefetchRoute('/industries')}
-                        >
-                            Industries
-                        </Link>
-                        <Link
-                            to="/case-studies"
-                            className={isActive('/case-studies') ? 'active' : ''}
-                            onClick={() => setNavOpen(false)}
-                            onMouseEnter={() => prefetchRoute('/case-studies')}
-                        >
-                            Case studies
-                        </Link>
-                        <Link
-                            to="/insights"
-                            className={isActive('/insights') ? 'active' : ''}
-                            onClick={() => setNavOpen(false)}
-                            onMouseEnter={() => prefetchRoute('/insights')}
-                        >
-                            Insights
-                        </Link>
-                        <Link
-                            to="/pricing"
-                            className={isActive('/pricing') ? 'active' : ''}
-                            onClick={() => setNavOpen(false)}
-                            onMouseEnter={() => prefetchRoute('/pricing')}
-                        >
-                            Pricing
-                        </Link>
-                        <div className="site-nav-mobile-cta">
+                    {/* Desktop Navigation */}
+                    <nav className="hidden lg:flex items-center gap-8">
+                        {[
+                            { name: 'Platform', path: '/platform' },
+                            { name: 'Solutions', path: '/solutions' },
+                            { name: 'Industries', path: '/industries' },
+                            { name: 'Case studies', path: '/case-studies' },
+                            { name: 'Insights', path: '/insights' },
+                            { name: 'Pricing', path: '/pricing' }
+                        ].map((link) => (
                             <Link
-                                className="site-nav-cta-btn"
-                                to="/contact"
-                                onClick={() => setNavOpen(false)}
-                                onMouseEnter={() => prefetchRoute('/contact')}
+                                key={link.path}
+                                to={link.path}
+                                className={`text-sm font-semibold transition-colors hover:text-accent ${isActive(link.path) ? 'text-primary border-b-2 border-accent' : 'text-primary/60'}`}
+                                onMouseEnter={() => prefetchRoute(link.path)}
                             >
-                                Get started
+                                {link.name}
                             </Link>
-                        </div>
+                        ))}
                     </nav>
 
-                    <div className="site-nav-cta">
+                    <div className="hidden lg:flex items-center gap-4">
                         <Link
-                            className="site-nav-cta-btn"
+                            className="text-sm font-bold text-primary hover:text-accent transition-colors"
+                            to="/contact"
+                        >
+                            Log in
+                        </Link>
+                        <Link
+                            className="px-5 py-2.5 bg-primary text-white text-sm font-bold rounded-lg hover:bg-accent transition-colors shadow-md shadow-black/5"
                             to="/contact"
                             onMouseEnter={() => prefetchRoute('/contact')}
                         >
@@ -150,19 +117,71 @@ export default function Layout() {
                     </div>
 
                     <button
-                        className={`site-nav-toggle${navOpen ? ' open' : ''}`}
+                        className="lg:hidden z-50 p-2"
                         type="button"
-                        aria-label="Toggle navigation"
-                        aria-expanded={navOpen}
-                        aria-controls="primary-navigation"
-                        onClick={() => setNavOpen(prev => !prev)}
+                        onClick={() => setNavOpen(!navOpen)}
+                        aria-label="Menu"
                     >
-                        <span /><span /><span />
+                        <div className="w-6 flex flex-col gap-1.5">
+                            <span className={`h-0.5 w-full bg-primary transition-all ${navOpen ? 'rotate-45 translate-y-2' : ''}`} />
+                            <span className={`h-0.5 w-full bg-primary transition-all ${navOpen ? 'opacity-0' : ''}`} />
+                            <span className={`h-0.5 w-full bg-primary transition-all ${navOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+                        </div>
                     </button>
                 </div>
+
+                {/* Mobile Navigation Overlay */}
+                <AnimatePresence>
+                    {navOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, x: '100%' }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: '100%' }}
+                            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                            className="fixed inset-0 bg-white z-40 flex flex-col p-8 pt-24"
+                        >
+                            <nav className="flex flex-col gap-6">
+                                {[
+                                    { name: 'Platform', path: '/platform' },
+                                    { name: 'Solutions', path: '/solutions' },
+                                    { name: 'Industries', path: '/industries' },
+                                    { name: 'Case studies', path: '/case-studies' },
+                                    { name: 'Insights', path: '/insights' },
+                                    { name: 'Pricing', path: '/pricing' },
+                                    { name: 'Contact', path: '/contact' }
+                                ].map((link) => (
+                                    <Link
+                                        key={link.path}
+                                        to={link.path}
+                                        className="text-2xl font-serif font-medium text-primary"
+                                        onClick={() => setNavOpen(false)}
+                                    >
+                                        {link.name}
+                                    </Link>
+                                ))}
+                            </nav>
+                            <div className="mt-auto flex flex-col gap-4">
+                                <Link
+                                    className="w-full py-4 text-center font-bold border-2 border-primary/10 rounded-xl"
+                                    to="/contact"
+                                    onClick={() => setNavOpen(false)}
+                                >
+                                    Log in
+                                </Link>
+                                <Link
+                                    className="w-full py-4 text-center font-bold bg-primary text-white rounded-xl shadow-lg shadow-black/10"
+                                    to="/contact"
+                                    onClick={() => setNavOpen(false)}
+                                >
+                                    Get started
+                                </Link>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </header>
 
-            <main>
+            <main className="pt-20">
                 <div key={location.pathname} className="page-enter">
                     <Outlet />
                 </div>
@@ -179,55 +198,59 @@ export default function Layout() {
                 </svg>
             </button>
 
-            <footer className="site-footer">
-                <div className="site-footer-inner">
-                    <div className="site-footer-top">
+            <footer className="site-footer bg-primary text-white/60 py-20">
+                <div className="site-footer-inner max-w-7xl mx-auto px-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-16">
                         <div className="site-footer-brand">
-                            <Link to="/" className="site-footer-logo">
-                                <img src="/Metics-blue.png" alt="Metics Logo" height="28" />
+                            <Link to="/" className="site-footer-logo inline-block mb-8">
+                                <img src="/Metics-blue.png" alt="Metics Logo" height="28" className="h-7 w-auto brightness-0 invert" />
                             </Link>
-                            <p>Procurement decision intelligence. RFQs, bids, approvals, and purchase orders in one shared record.</p>
-                            <div className="site-footer-trust">
-                                <span className="site-footer-trust-badge">GDPR compliant</span>
-                                <span className="site-footer-trust-badge">EU data residency</span>
-                                <span className="site-footer-trust-badge">Free for suppliers</span>
+                            <p className="text-lg leading-relaxed max-w-sm mb-8">
+                                Procurement decision intelligence. RFQs, bids, approvals, and purchase orders in one shared record.
+                            </p>
+                            <div className="flex flex-wrap gap-3">
+                                {['GDPR compliant', 'EU data residency', 'Free for suppliers'].map(badge => (
+                                    <span key={badge} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs font-semibold text-white/80">
+                                        {badge}
+                                    </span>
+                                ))}
                             </div>
                         </div>
 
-                        <div className="site-footer-cols">
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-10">
                             <div>
-                                <h4>Product</h4>
-                                <ul>
-                                    <li><Link to="/platform">Platform</Link></li>
-                                    <li><Link to="/solutions">Solutions</Link></li>
-                                    <li><Link to="/industries">Industries</Link></li>
-                                    <li><Link to="/pricing">Pricing</Link></li>
+                                <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-6">Product</h4>
+                                <ul className="flex flex-col gap-4">
+                                    <li><Link to="/platform" className="hover:text-white transition-colors">Platform</Link></li>
+                                    <li><Link to="/solutions" className="hover:text-white transition-colors">Solutions</Link></li>
+                                    <li><Link to="/industries" className="hover:text-white transition-colors">Industries</Link></li>
+                                    <li><Link to="/pricing" className="hover:text-white transition-colors">Pricing</Link></li>
                                 </ul>
                             </div>
                             <div>
-                                <h4>Resources</h4>
-                                <ul>
-                                    <li><Link to="/case-studies">Case studies</Link></li>
-                                    <li><Link to="/insights">Insights</Link></li>
-                                    <li><Link to="/solutions">By role</Link></li>
+                                <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-6">Resources</h4>
+                                <ul className="flex flex-col gap-4">
+                                    <li><Link to="/case-studies" className="hover:text-white transition-colors">Case studies</Link></li>
+                                    <li><Link to="/insights" className="hover:text-white transition-colors">Insights</Link></li>
+                                    <li><Link to="/solutions" className="hover:text-white transition-colors">By role</Link></li>
                                 </ul>
                             </div>
                             <div>
-                                <h4>Company</h4>
-                                <ul>
-                                    <li><Link to="/contact">Book a demo</Link></li>
-                                    <li><Link to="/contact">Contact</Link></li>
-                                    <li><a href="#">Security</a></li>
+                                <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-6">Company</h4>
+                                <ul className="flex flex-col gap-4">
+                                    <li><Link to="/contact" className="hover:text-white transition-colors">Book a demo</Link></li>
+                                    <li><Link to="/contact" className="hover:text-white transition-colors">Contact</Link></li>
+                                    <li><a href="#" className="hover:text-white transition-colors">Security</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
-                    <div className="site-footer-bottom">
+                    <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
                         <p>&copy; {new Date().getFullYear()} Metics. All rights reserved.</p>
-                        <div className="site-footer-legal">
-                            <a href="#">Privacy</a>
-                            <a href="#">Terms</a>
+                        <div className="flex gap-8">
+                            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+                            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
                         </div>
                     </div>
                 </div>

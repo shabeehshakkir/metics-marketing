@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import './style.css';
+import './index.css';
 
 const Home = React.lazy(() => import('./pages/Home'));
 const Platform = React.lazy(() => import('./pages/Platform'));
