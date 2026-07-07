@@ -184,7 +184,7 @@ export default function Layout() {
                     <div className="site-footer-top">
                         <div className="site-footer-brand">
                             <Link to="/" className="site-footer-logo">
-                                <img src="/Metics-blue.png" alt="Metics Logo" height="20" style={{ filter: 'brightness(0) invert(1)' }} />
+                                <img src="/Metics-blue.png" alt="Metics Logo" height="20" />
                             </Link>
                             <p>Procurement decision intelligence. RFQs, bids, approvals, and purchase orders in one shared record.</p>
                             <div className="site-footer-trust">
