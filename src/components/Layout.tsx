@@ -73,8 +73,8 @@ export default function Layout() {
         <div className="page-shell bg-paper selection:bg-accent/30 selection:text-primary">
             <ScrollToTop />
 
-            <header className="site-nav fixed top-0 left-0 right-0 py-3 bg-[#FAF8F6] border-b border-black/10 transition-all duration-300">
-                <div className="site-nav-inner max-w-7xl mx-auto px-6 flex items-center justify-between">
+            <header className="site-nav fixed top-0 left-0 right-0 bg-[#FAF8F6] border-b border-black/10 transition-all duration-300">
+                <div className="site-nav-inner flex items-center justify-between">
                     <Link className="site-nav-logo z-50" to="/" aria-label="Metics home" onMouseEnter={() => prefetchRoute('/')}>
                         <img src="/Metics-blue.png" alt="Metics Logo" height="32" className="h-8 w-auto" />
                     </Link>
