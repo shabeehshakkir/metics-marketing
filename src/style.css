@@ -4964,14 +4964,16 @@ cite {
 }
 
 .site-nav-logo {
-    font-family: var(--fh);
-    font-size: 15px;
-    font-weight: 800;
-    letter-spacing: 0.14em;
-    color: var(--platform-ink, #171717);
-    text-transform: uppercase;
+    display: flex;
+    align-items: center;
     flex-shrink: 0;
     text-decoration: none;
+}
+
+.site-nav-logo img {
+    display: block;
+    width: auto;
+    height: 24px;
 }
 
 .site-nav-logo:hover {
@@ -5240,14 +5242,16 @@ cite {
 }
 
 .site-footer-logo {
-    display: block;
-    font-family: var(--fh);
-    font-size: 14px;
-    font-weight: 800;
-    letter-spacing: 0.14em;
-    color: #fff;
-    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
     margin-bottom: 16px;
+    text-decoration: none;
+}
+
+.site-footer-logo img {
+    display: block;
+    width: auto;
+    height: 20px;
 }
 
 .site-footer-brand p {
