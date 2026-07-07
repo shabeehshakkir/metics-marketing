@@ -87,8 +87,13 @@ export default function Pricing() {
                                 {plan.period && <span>{plan.period}</span>}
                             </div>
                             <p>{plan.note}</p>
-                            <ul>
-                                {plan.features.map((feature) => <li key={feature}>{feature}</li>)}
+                            <ul className="price-card-features">
+                                {plan.features.map((feature) => (
+                                    <li key={feature} className="flex items-start gap-3">
+                                        <span className="text-accent mt-1">✓</span>
+                                        {feature}
+                                    </li>
+                                ))}
                             </ul>
                             <Link className={plan.featured ? 'platform-primary-link' : 'platform-secondary-link'} to="/contact">
                                 {plan.cta}

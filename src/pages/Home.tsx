@@ -6,19 +6,23 @@ import { CTABanner } from '../components/shared';
 const proofPoints = [
     {
         title: 'Start with one package',
-        body: 'Create an RFQ from a BOQ, a template, or a blank sheet. Invite the suppliers who should see it.'
+        body: 'Create an RFQ from a BOQ, a template, or a blank sheet. Invite the suppliers who should see it.',
+        icon: '📦'
     },
     {
         title: 'Keep bids comparable',
-        body: 'Suppliers answer in the same structure, so price, scope, and delivery dates sit side by side.'
+        body: 'Suppliers answer in the same structure, so price, scope, and delivery dates sit side by side.',
+        icon: '⚖️'
     },
     {
         title: 'Decide with the record open',
-        body: 'Clarifications, revisions, approvals, and notes stay attached to the package.'
+        body: 'Clarifications, revisions, approvals, and notes stay attached to the package.',
+        icon: '📝'
     },
     {
         title: 'Issue the PO',
-        body: 'Turn an awarded bid into a purchase order without rebuilding the work in another system.'
+        body: 'Turn an awarded bid into a purchase order without rebuilding the work in another system.',
+        icon: '✅'
     },
 ];
 
@@ -117,13 +121,14 @@ export default function Home() {
         <div className="platform-editorial">
             <section className="home-hero overflow-hidden relative py-20 lg:py-32">
                 {/* Decorative background element */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-6xl pointer-events-none opacity-20">
-                    <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[60%] rounded-full bg-accent blur-[120px]" />
-                    <div className="absolute bottom-[-10%] left-[-5%] w-[40%] h-[60%] rounded-full bg-secondary blur-[120px]" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-6xl pointer-events-none opacity-30">
+                    <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[70%] rounded-full bg-accent/20 blur-[120px]" />
+                    <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[70%] rounded-full bg-secondary/20 blur-[120px]" />
+                    <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
                 </div>
 
                 <div className="home-hero-inner relative z-10">
-                    <motion.p 
+                    <motion.p
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
@@ -131,8 +136,8 @@ export default function Home() {
                     >
                         Metics Platform
                     </motion.p>
-                    
-                    <motion.h1 
+
+                    <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.1 }}
@@ -141,7 +146,7 @@ export default function Home() {
                         The procurement workspace your projects can live in.
                     </motion.h1>
 
-                    <motion.p 
+                    <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
@@ -150,7 +155,7 @@ export default function Home() {
                         Procurement goes wrong when the cost picture, the supplier risk, and the approval trail live in different places. Metics puts the tender, the bids, the decision, and the purchase order in one record.
                     </motion.p>
 
-                    <motion.p 
+                    <motion.p
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
@@ -159,7 +164,7 @@ export default function Home() {
                         Most teams find out the real cost of a supplier relationship after the award. Metics shows it before.
                     </motion.p>
 
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.3 }}
@@ -169,7 +174,7 @@ export default function Home() {
                         <Link className="platform-secondary-link px-8 py-4 border-2 border-primary/10 rounded-lg font-bold hover:border-accent transition-colors" to="/platform">See how it works</Link>
                     </motion.div>
 
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8, delay: 0.5 }}
@@ -196,7 +201,8 @@ export default function Home() {
             <section className="platform-proof-strip" aria-label="How the workflow runs">
                 <div className="platform-proof-grid">
                     {proofPoints.map((item) => (
-                        <article className="platform-proof-card reveal" key={item.title}>
+                        <article className="platform-proof-card reveal group" key={item.title}>
+                            <div className="text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">{item.icon}</div>
                             <h2>{item.title}</h2>
                             <p>{item.body}</p>
                         </article>

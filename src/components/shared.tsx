@@ -41,16 +41,17 @@ export function FeatureCard({
     body: string;
 }) {
     return (
-        <motion.div 
+        <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            whileHover={{ y: -5 }}
-            className="p-8 bg-white border border-black/5 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300"
+            whileHover={{ y: -8, transition: { duration: 0.3 } }}
+            className="group p-10 bg-white border border-black/[0.03] rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 relative overflow-hidden"
         >
-            <span className="inline-flex items-center justify-center w-12 h-12 bg-accent/10 rounded-xl text-2xl mb-6" role="img" aria-hidden="true">{icon}</span>
-            <h3 className="text-xl font-bold mb-4">{title}</h3>
-            <p className="text-primary/70 leading-relaxed">{body}</p>
+            <div className="absolute top-0 left-0 w-2 h-full bg-accent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <span className="inline-flex items-center justify-center w-16 h-16 bg-accent/5 rounded-2xl text-3xl mb-8 group-hover:scale-110 group-hover:bg-accent/10 transition-all duration-500" role="img" aria-hidden="true">{icon}</span>
+            <h3 className="text-2xl font-bold mb-4 group-hover:text-accent transition-colors">{title}</h3>
+            <p className="text-primary/60 leading-relaxed text-lg">{body}</p>
         </motion.div>
     );
 }
@@ -68,10 +69,11 @@ export function StatCard({
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="p-10 bg-paper-soft border border-black/5 rounded-2xl"
+            whileHover={{ scale: 1.02 }}
+            className="p-12 bg-[#FAF8F6] border border-black/[0.03] rounded-3xl shadow-sm hover:shadow-lg transition-all duration-300"
         >
-            <h3 className="text-4xl font-serif text-accent mb-4">{metric}</h3>
-            <p className="text-lg font-medium text-primary/70">{body}</p>
+            <h3 className="text-5xl font-serif text-accent mb-6 leading-none">{metric}</h3>
+            <p className="text-xl font-medium text-primary/60 leading-snug">{body}</p>
         </motion.div>
     );
 }
@@ -97,23 +99,24 @@ export function CTABanner({
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden rounded-3xl bg-primary text-white py-20 px-8 text-center"
+            className="relative overflow-hidden rounded-[2.5rem] bg-primary text-white py-24 px-8 text-center shadow-2xl"
         >
-            {/* Background pattern */}
-            <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-10">
-                <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[100%] rounded-full bg-accent blur-[100px]" />
-                <div className="absolute bottom-[-20%] left-[-10%] w-[50%] h-[100%] rounded-full bg-secondary blur-[100px]" />
+            {/* Background patterns */}
+            <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+                <div className="absolute top-[-20%] right-[-10%] w-[60%] h-[120%] rounded-full bg-accent/20 blur-[120px]" />
+                <div className="absolute bottom-[-20%] left-[-10%] w-[60%] h-[120%] rounded-full bg-secondary/30 blur-[120px]" />
+                <div className="absolute top-0 left-0 w-full h-full opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
             </div>
 
-            <div className="relative z-10 max-w-3xl mx-auto">
-                <h2 className="text-3xl md:text-5xl font-serif mb-6">{heading}</h2>
-                <p className="text-lg md:text-xl text-white/70 mb-10">{body}</p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <Link className="w-full sm:w-auto px-8 py-4 bg-accent text-white rounded-xl font-bold hover:scale-105 transition-transform shadow-lg shadow-accent/20" to={primaryTo}>
+            <div className="relative z-10 max-w-4xl mx-auto">
+                <h2 className="text-4xl md:text-6xl font-serif mb-8 leading-tight">{heading}</h2>
+                <p className="text-xl md:text-2xl text-white/70 mb-12 max-w-2xl mx-auto leading-relaxed">{body}</p>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                    <Link className="w-full sm:w-auto px-10 py-5 bg-accent text-white rounded-2xl font-bold hover:scale-105 hover:bg-[#ff7a33] transition-all shadow-xl shadow-accent/20 text-lg" to={primaryTo}>
                         {primaryLabel}
                     </Link>
                     {secondaryLabel && secondaryTo && (
-                        <Link className="w-full sm:w-auto px-8 py-4 border-2 border-white/10 rounded-xl font-bold hover:bg-white/5 transition-colors" to={secondaryTo}>
+                        <Link className="w-full sm:w-auto px-10 py-5 border-2 border-white/20 rounded-2xl font-bold hover:bg-white/10 hover:border-white/40 transition-all text-lg" to={secondaryTo}>
                             {secondaryLabel}
                         </Link>
                     )}

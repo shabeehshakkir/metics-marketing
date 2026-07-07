@@ -30,18 +30,54 @@ const roles = [
 ];
 
 const sectors = [
-    ['Construction and infrastructure', 'Packages, BOQs, Incoterms, long-lead equipment, phased delivery, and specialist trades.'],
-    ['Manufacturing', 'Component sourcing, supplier concentration monitoring, MRO spend, and supplier quality scoring.'],
-    ['Energy and utilities', 'Complex technical approvals, international supply chains, carbon tracking, and CSRD reporting.'],
-    ['Government and public sector', 'Audit trail, multi-step approval workflows, transparent award records, and spend reporting.']
+    {
+        title: 'Construction and infrastructure',
+        body: 'Packages, BOQs, Incoterms, long-lead equipment, phased delivery, and specialist trades.',
+        icon: '🏗️'
+    },
+    {
+        title: 'Manufacturing',
+        body: 'Component sourcing, supplier concentration monitoring, MRO spend, and supplier quality scoring.',
+        icon: '🏭'
+    },
+    {
+        title: 'Energy and utilities',
+        body: 'Complex technical approvals, international supply chains, carbon tracking, and CSRD reporting.',
+        icon: '⚡'
+    },
+    {
+        title: 'Government and public sector',
+        body: 'Audit trail, multi-step approval workflows, transparent award records, and spend reporting.',
+        icon: '🏛️'
+    }
 ];
 
 const outcomes = [
-    ['Comparisons happen faster', 'Bids land in a shared format. The team reads them in the same place without rebuilding the tender first.'],
-    ['Approvals stay attached', 'The recommendation, comments, and sign-off sit on the package. No separate email thread to find six months later.'],
-    ['Response rates improve', 'When suppliers get a clear scope, real line items, and a fixed closing date, more of them bid properly.'],
-    ['Records that hold up', 'Documents, decisions, revisions, and purchase orders stay together. If someone asks about an award later, the answer is there.'],
-    ['Spend picture stays current', 'Actual PO values track against the target prices set at RFQ stage. Savings, cycle time, and supplier concentration are visible without a separate report.']
+    {
+        title: 'Comparisons happen faster',
+        body: 'Bids land in a shared format. The team reads them in the same place without rebuilding the tender first.',
+        icon: '⚡'
+    },
+    {
+        title: 'Approvals stay attached',
+        body: 'The recommendation, comments, and sign-off sit on the package. No separate email thread to find six months later.',
+        icon: '📎'
+    },
+    {
+        title: 'Response rates improve',
+        body: 'When suppliers get a clear scope, real line items, and a fixed closing date, more of them bid properly.',
+        icon: '📈'
+    },
+    {
+        title: 'Records that hold up',
+        body: 'Documents, decisions, revisions, and purchase orders stay together. If someone asks about an award later, the answer is there.',
+        icon: '🛡️'
+    },
+    {
+        title: 'Spend picture stays current',
+        body: 'Actual PO values track against the target prices set at RFQ stage. Savings, cycle time, and supplier concentration are visible without a separate report.',
+        icon: '💰'
+    }
 ];
 
 function useReveal() {
@@ -117,10 +153,11 @@ export default function Solutions() {
                     <h2>Across every sector that buys at scale.</h2>
                 </div>
                 <div className="editorial-card-grid four">
-                    {sectors.map(([title, body]) => (
-                        <article className="editorial-simple-card reveal" key={title}>
-                            <h3>{title}</h3>
-                            <p>{body}</p>
+                    {sectors.map((item) => (
+                        <article className="editorial-simple-card reveal group" key={item.title}>
+                            <div className="text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">{item.icon}</div>
+                            <h3>{item.title}</h3>
+                            <p>{item.body}</p>
                         </article>
                     ))}
                 </div>
@@ -132,10 +169,11 @@ export default function Solutions() {
                     <h2>The work gets easier to follow.</h2>
                 </div>
                 <div className="editorial-card-grid">
-                    {outcomes.map(([title, body]) => (
-                        <article className="editorial-simple-card reveal" key={title}>
-                            <h3>{title}</h3>
-                            <p>{body}</p>
+                    {outcomes.map((item) => (
+                        <article className="editorial-simple-card reveal group" key={item.title}>
+                            <div className="text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">{item.icon}</div>
+                            <h3>{item.title}</h3>
+                            <p>{item.body}</p>
                         </article>
                     ))}
                 </div>

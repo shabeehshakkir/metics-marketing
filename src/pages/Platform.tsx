@@ -5,19 +5,23 @@ import { CTABanner } from '../components/shared';
 const proofPoints = [
     {
         title: 'Start with one package',
-        body: 'Create an RFQ from a BOQ, a template, or a clean blank sheet. Invite the suppliers who should see it.'
+        body: 'Create an RFQ from a BOQ, a template, or a clean blank sheet. Invite the suppliers who should see it.',
+        icon: '📦'
     },
     {
         title: 'Keep bids comparable',
-        body: 'Suppliers answer in the same structure, so price, scope, exclusions, and delivery dates can be read side by side.'
+        body: 'Suppliers answer in the same structure, so price, scope, exclusions, and delivery dates can be read side by side.',
+        icon: '⚖️'
     },
     {
         title: 'Decide with the record open',
-        body: 'Clarifications, revisions, approvals, and notes stay attached to the package.'
+        body: 'Clarifications, revisions, approvals, and notes stay attached to the package.',
+        icon: '📝'
     },
     {
         title: 'Issue the PO',
-        body: 'Turn an awarded bid into a purchase order without rebuilding the work in another system.'
+        body: 'Turn an awarded bid into a purchase order without rebuilding the work in another system.',
+        icon: '✅'
     }
 ];
 
@@ -316,7 +320,8 @@ export default function Platform() {
             <section className="platform-proof-strip" aria-label="Platform workflow">
                 <div className="platform-proof-grid">
                     {proofPoints.map((item) => (
-                        <article className="platform-proof-card reveal" key={item.title}>
+                        <article className="platform-proof-card reveal group" key={item.title}>
+                            <div className="text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">{item.icon}</div>
                             <h2>{item.title}</h2>
                             <p>{item.body}</p>
                         </article>
