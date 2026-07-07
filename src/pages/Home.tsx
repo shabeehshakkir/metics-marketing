@@ -121,10 +121,8 @@ export default function Home() {
         <div className="platform-editorial">
             <section className="home-hero overflow-hidden relative py-20 lg:py-32">
                 {/* Decorative background element */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-6xl pointer-events-none opacity-30">
-                    <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[70%] rounded-full bg-accent/20 blur-[120px]" />
-                    <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[70%] rounded-full bg-secondary/20 blur-[120px]" />
-                    <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+                <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
+                    <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
                 </div>
 
                 <div className="home-hero-inner relative z-10">
@@ -170,31 +168,27 @@ export default function Home() {
                         transition={{ duration: 0.6, delay: 0.3 }}
                         className="platform-hero-actions flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
                     >
-                        <Link className="platform-primary-link px-8 py-4 bg-primary text-white rounded-lg font-bold hover:bg-accent transition-colors shadow-lg shadow-black/10" to="/contact">Book a walkthrough</Link>
-                        <Link className="platform-secondary-link px-8 py-4 border-2 border-primary/10 rounded-lg font-bold hover:border-accent transition-colors" to="/platform">See how it works</Link>
+                        <Link className="platform-primary-link" to="/contact">Book a walkthrough</Link>
+                        <Link className="platform-secondary-link" to="/platform">See how it works</Link>
                     </motion.div>
 
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8, delay: 0.5 }}
-                        className="home-hero-stats bg-white/40 backdrop-blur-md border border-white/20 p-6 rounded-2xl shadow-xl max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 items-center"
-                    >
-                        <div className="home-hero-stats-item text-sm md:text-base">
-                            <span className="block text-accent font-bold uppercase tracking-wider text-[10px] mb-1">Approach</span>
-                            <strong>Decision intelligence</strong> - not just workflow
-                        </div>
-                        <div className="hidden md:block w-px h-8 bg-black/10 mx-auto" />
-                        <div className="home-hero-stats-item text-sm md:text-base">
-                            <span className="block text-accent font-bold uppercase tracking-wider text-[10px] mb-1">Access</span>
-                            <strong>Free for suppliers</strong> - no participation fee
-                        </div>
-                        <div className="hidden md:block w-px h-8 bg-black/10 mx-auto" />
-                        <div className="home-hero-stats-item text-sm md:text-base">
-                            <span className="block text-accent font-bold uppercase tracking-wider text-[10px] mb-1">Compliance</span>
-                            <strong>CSRD-ready</strong> - sustainability built in
-                        </div>
-                    </motion.div>
+                </div>
+            </section>
+
+            <section className="border-y border-black/10 py-12 bg-white/50">
+                <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <div className="space-y-2">
+                        <h4 className="text-xl font-serif font-medium text-primary">Decision intelligence</h4>
+                        <p className="text-sm text-primary/60">Not just another procurement workflow tool. Live analytics and total cost comparisons built in.</p>
+                    </div>
+                    <div className="space-y-2">
+                        <h4 className="text-xl font-serif font-medium text-primary">Free for suppliers</h4>
+                        <p className="text-sm text-primary/60">No platform fees, no registration barriers, no paywalls. More bid coverage for buyers.</p>
+                    </div>
+                    <div className="space-y-2">
+                        <h4 className="text-xl font-serif font-medium text-primary">CSRD compliance</h4>
+                        <p className="text-sm text-primary/60">Scope 3 carbon tracking and sustainability metrics built directly into the RFQ and PO record.</p>
+                    </div>
                 </div>
             </section>
 

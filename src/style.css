@@ -7129,19 +7129,26 @@ blockquote,
 .testimonials-card,
 .editorial-price-card,
 .editorial-simple-card,
+.platform-proof-card,
+.editorial-contact-form,
 .case-grid article,
 .workflow-grid article {
     background: var(--bg-soft) !important;
     border: 1px solid var(--platform-line) !important;
+    border-left: 1px solid var(--platform-line) !important; /* Force override asymmetrical border */
     border-radius: 4px !important;
     box-shadow: none !important;
     transition: border-color 0.2s ease, background 0.2s ease !important;
 }
 .value-card:hover,
 .editorial-price-card:hover,
-.editorial-simple-card:hover {
+.editorial-simple-card:hover,
+.platform-proof-card:hover {
     border-color: var(--accent) !important;
+    border-left-color: var(--accent) !important;
     background: #fff !important;
+    transform: none !important;
+    box-shadow: none !important;
 }
 .editorial-price-card.featured {
     border: 2px solid var(--accent) !important;
@@ -7337,5 +7344,31 @@ blockquote,
 @keyframes slideUp {
     from { transform: translateY(20px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
+}
+
+@media (max-width: 640px) {
+    .reading-modal-backdrop {
+        padding: 0 !important;
+    }
+    .reading-modal-content {
+        padding: 64px 20px 32px !important;
+        border-radius: 0 !important;
+        height: 100% !important;
+        max-height: 100% !important;
+    }
+    .reading-modal-close {
+        top: 16px !important;
+        right: 16px !important;
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 18px !important;
+    }
+    .reading-modal-body h1 {
+        font-size: 2rem !important;
+    }
+    .reading-modal-section p {
+        font-size: 1.05rem !important;
+        line-height: 1.7 !important;
+    }
 }
 

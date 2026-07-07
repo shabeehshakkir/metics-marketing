@@ -42,7 +42,7 @@ export default function Layout() {
 
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth > 960) setNavOpen(false);
+            if (window.innerWidth >= 1024) setNavOpen(false);
         };
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
@@ -73,7 +73,7 @@ export default function Layout() {
         <div className="page-shell bg-paper selection:bg-accent/30 selection:text-primary">
             <ScrollToTop />
 
-            <header className={`site-nav fixed top-0 left-0 right-0 transition-all duration-300 ${scrolled ? 'py-2 bg-white/80 backdrop-blur-md shadow-sm border-b border-black/5' : 'py-4 bg-transparent border-transparent'}`}>
+            <header className="site-nav fixed top-0 left-0 right-0 py-3 bg-[#FAF8F6] border-b border-black/10 transition-all duration-300">
                 <div className="site-nav-inner max-w-7xl mx-auto px-6 flex items-center justify-between">
                     <Link className="site-nav-logo z-50" to="/" aria-label="Metics home" onMouseEnter={() => prefetchRoute('/')}>
                         <img src="/Metics-blue.png" alt="Metics Logo" height="32" className="h-8 w-auto" />
@@ -92,7 +92,7 @@ export default function Layout() {
                             <Link
                                 key={link.path}
                                 to={link.path}
-                                className={`text-sm font-semibold transition-colors hover:text-accent ${isActive(link.path) ? 'text-primary border-b-2 border-accent' : 'text-primary/60'}`}
+                                className={`text-sm transition-colors hover:text-primary ${isActive(link.path) ? 'text-primary font-bold' : 'text-primary/60 font-medium'}`}
                                 onMouseEnter={() => prefetchRoute(link.path)}
                             >
                                 {link.name}
@@ -102,13 +102,13 @@ export default function Layout() {
 
                     <div className="hidden lg:flex items-center gap-4">
                         <Link
-                            className="text-sm font-bold text-primary hover:text-accent transition-colors"
+                            className="text-sm font-bold text-primary/60 hover:text-primary transition-colors"
                             to="/contact"
                         >
                             Log in
                         </Link>
                         <Link
-                            className="px-5 py-2.5 bg-primary text-white text-sm font-bold rounded-lg hover:bg-accent transition-colors shadow-md shadow-black/5"
+                            className="px-5 py-2.5 bg-primary text-white text-sm font-bold rounded hover:bg-accent transition-colors"
                             to="/contact"
                             onMouseEnter={() => prefetchRoute('/contact')}
                         >
@@ -160,16 +160,16 @@ export default function Layout() {
                                     </Link>
                                 ))}
                             </nav>
-                            <div className="mt-auto flex flex-col gap-4">
+                             <div className="mt-auto flex flex-col gap-4">
                                 <Link
-                                    className="w-full py-4 text-center font-bold border-2 border-primary/10 rounded-xl"
+                                    className="w-full py-3.5 text-center font-bold border border-primary/20 rounded text-primary hover:border-accent hover:text-accent transition-colors"
                                     to="/contact"
                                     onClick={() => setNavOpen(false)}
                                 >
                                     Log in
                                 </Link>
                                 <Link
-                                    className="w-full py-4 text-center font-bold bg-primary text-white rounded-xl shadow-lg shadow-black/10"
+                                    className="w-full py-3.5 text-center font-bold bg-primary text-white rounded hover:bg-accent transition-colors"
                                     to="/contact"
                                     onClick={() => setNavOpen(false)}
                                 >

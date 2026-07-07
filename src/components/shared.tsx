@@ -96,27 +96,25 @@ export function CTABanner({
 }) {
     return (
         <motion.section
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden rounded-[2.5rem] bg-primary text-white py-24 px-8 text-center shadow-2xl"
+            className="relative overflow-hidden rounded bg-primary text-white py-20 px-8 text-center"
         >
-            {/* Background patterns */}
-            <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-                <div className="absolute top-[-20%] right-[-10%] w-[60%] h-[120%] rounded-full bg-accent/20 blur-[120px]" />
-                <div className="absolute bottom-[-20%] left-[-10%] w-[60%] h-[120%] rounded-full bg-secondary/30 blur-[120px]" />
-                <div className="absolute top-0 left-0 w-full h-full opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+            {/* Clean Grid Background pattern */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.03]">
+                <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
             </div>
 
             <div className="relative z-10 max-w-4xl mx-auto">
-                <h2 className="text-4xl md:text-6xl font-serif mb-8 leading-tight">{heading}</h2>
-                <p className="text-xl md:text-2xl text-white/70 mb-12 max-w-2xl mx-auto leading-relaxed">{body}</p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                    <Link className="w-full sm:w-auto px-10 py-5 bg-accent text-white rounded-2xl font-bold hover:scale-105 hover:bg-[#ff7a33] transition-all shadow-xl shadow-accent/20 text-lg" to={primaryTo}>
+                <h2 className="text-3xl md:text-5xl font-serif mb-6 leading-tight">{heading}</h2>
+                <p className="text-lg md:text-xl text-white/70 mb-10 max-w-2xl mx-auto leading-relaxed">{body}</p>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <Link className="w-full sm:w-auto px-6 py-3 bg-accent text-white rounded font-bold hover:bg-accent/90 transition-colors text-base" to={primaryTo}>
                         {primaryLabel}
                     </Link>
                     {secondaryLabel && secondaryTo && (
-                        <Link className="w-full sm:w-auto px-10 py-5 border-2 border-white/20 rounded-2xl font-bold hover:bg-white/10 hover:border-white/40 transition-all text-lg" to={secondaryTo}>
+                        <Link className="w-full sm:w-auto px-6 py-3 border border-white/20 rounded font-bold hover:bg-white/10 hover:border-white/40 transition-colors text-base" to={secondaryTo}>
                             {secondaryLabel}
                         </Link>
                     )}
