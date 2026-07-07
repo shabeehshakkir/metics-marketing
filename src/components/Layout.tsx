@@ -9,14 +9,17 @@ function ScrollToTop() {
     return null;
 }
 
-// Prefetch route chunks on nav link hover
 const prefetchedRoutes = new Set<string>();
 function prefetchRoute(routeName: string) {
     if (prefetchedRoutes.has(routeName)) return;
     prefetchedRoutes.add(routeName);
     switch (routeName) {
+        case '/': import('../pages/Home'); break;
         case '/platform': import('../pages/Platform'); break;
         case '/solutions': import('../pages/Solutions'); break;
+        case '/industries': import('../pages/Industries'); break;
+        case '/case-studies': import('../pages/CaseStudies'); break;
+        case '/insights': import('../pages/Insights'); break;
         case '/pricing': import('../pages/Pricing'); break;
         case '/contact': import('../pages/Contact'); break;
     }
@@ -24,7 +27,7 @@ function prefetchRoute(routeName: string) {
 
 export default function Layout() {
     const [navOpen, setNavOpen] = useState(false);
-    const [showBackToTop, setShowBackToTop] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const location = useLocation();
 
     useEffect(() => {
@@ -44,13 +47,12 @@ export default function Layout() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    // Back-to-top visibility
     useEffect(() => {
         let ticking = false;
         const onScroll = () => {
             if (!ticking) {
                 requestAnimationFrame(() => {
-                    setShowBackToTop(window.scrollY > 600);
+                    setScrolled(window.scrollY > 20);
                     ticking = false;
                 });
                 ticking = true;
@@ -70,96 +72,164 @@ export default function Layout() {
         <div className="page-shell">
             <ScrollToTop />
 
-            <header className="top-nav">
-                <Link className="nav-logo" to="/" aria-label="Metics home">
-                    <img src="/Metics-blue.png" alt="Metics" width="140" height="36" />
-                </Link>
+            <header className={`site-nav${scrolled ? ' scrolled' : ''}`}>
+                <div className="site-nav-inner">
+                    <Link className="site-nav-logo" to="/" aria-label="Metics home" onMouseEnter={() => prefetchRoute('/')}>
+                        METICS
+                    </Link>
 
-                <nav className={`nav-links${navOpen ? ' active' : ''}`} id="primary-navigation">
-                    <Link to="/platform" className={isActive('/platform') ? 'active' : ''} onClick={() => setNavOpen(false)} onMouseEnter={() => prefetchRoute('/platform')}>Platform</Link>
-                    <Link to="/solutions" className={isActive('/solutions') ? 'active' : ''} onClick={() => setNavOpen(false)} onMouseEnter={() => prefetchRoute('/solutions')}>Solutions</Link>
-                    <Link to="/pricing" className={isActive('/pricing') ? 'active' : ''} onClick={() => setNavOpen(false)} onMouseEnter={() => prefetchRoute('/pricing')}>Pricing</Link>
-                    <div className="nav-mobile-cta">
-                        <Link className="mobile-primary" to="/contact" onClick={() => setNavOpen(false)} onMouseEnter={() => prefetchRoute('/contact')}>Request Demo</Link>
-                        <Link className="mobile-secondary" to="/contact" onClick={() => setNavOpen(false)}>Contact Sales</Link>
+                    <nav className={`site-nav-links${navOpen ? ' active' : ''}`} id="primary-navigation">
+                        <Link
+                            to="/platform"
+                            className={isActive('/platform') ? 'active' : ''}
+                            onClick={() => setNavOpen(false)}
+                            onMouseEnter={() => prefetchRoute('/platform')}
+                        >
+                            Platform
+                        </Link>
+                        <Link
+                            to="/solutions"
+                            className={isActive('/solutions') ? 'active' : ''}
+                            onClick={() => setNavOpen(false)}
+                            onMouseEnter={() => prefetchRoute('/solutions')}
+                        >
+                            Solutions
+                        </Link>
+                        <Link
+                            to="/industries"
+                            className={isActive('/industries') ? 'active' : ''}
+                            onClick={() => setNavOpen(false)}
+                            onMouseEnter={() => prefetchRoute('/industries')}
+                        >
+                            Industries
+                        </Link>
+                        <Link
+                            to="/case-studies"
+                            className={isActive('/case-studies') ? 'active' : ''}
+                            onClick={() => setNavOpen(false)}
+                            onMouseEnter={() => prefetchRoute('/case-studies')}
+                        >
+                            Case studies
+                        </Link>
+                        <Link
+                            to="/insights"
+                            className={isActive('/insights') ? 'active' : ''}
+                            onClick={() => setNavOpen(false)}
+                            onMouseEnter={() => prefetchRoute('/insights')}
+                        >
+                            Insights
+                        </Link>
+                        <Link
+                            to="/pricing"
+                            className={isActive('/pricing') ? 'active' : ''}
+                            onClick={() => setNavOpen(false)}
+                            onMouseEnter={() => prefetchRoute('/pricing')}
+                        >
+                            Pricing
+                        </Link>
+                        <div className="site-nav-mobile-cta">
+                            <Link
+                                className="site-nav-cta-btn"
+                                to="/contact"
+                                onClick={() => setNavOpen(false)}
+                                onMouseEnter={() => prefetchRoute('/contact')}
+                            >
+                                Get started
+                            </Link>
+                        </div>
+                    </nav>
+
+                    <div className="site-nav-cta">
+                        <Link
+                            className="site-nav-cta-btn"
+                            to="/contact"
+                            onMouseEnter={() => prefetchRoute('/contact')}
+                        >
+                            Get started
+                        </Link>
                     </div>
-                </nav>
 
-                <div className="nav-cta">
-                    <Link className="ghost" to="/contact" onMouseEnter={() => prefetchRoute('/contact')}>Contact Sales</Link>
-                    <Link className="solid" to="/contact" onMouseEnter={() => prefetchRoute('/contact')}>Request Demo</Link>
+                    <button
+                        className={`site-nav-toggle${navOpen ? ' open' : ''}`}
+                        type="button"
+                        aria-label="Toggle navigation"
+                        aria-expanded={navOpen}
+                        aria-controls="primary-navigation"
+                        onClick={() => setNavOpen(prev => !prev)}
+                    >
+                        <span /><span /><span />
+                    </button>
                 </div>
-
-                <button
-                    className={`nav-toggle${navOpen ? ' open' : ''}`}
-                    type="button"
-                    aria-label="Toggle navigation"
-                    aria-expanded={navOpen}
-                    aria-controls="primary-navigation"
-                    onClick={() => setNavOpen(prev => !prev)}
-                >
-                    <span /><span />
-                </button>
             </header>
 
             <main>
-                <Outlet />
+                <div key={location.pathname} className="page-enter">
+                    <Outlet />
+                </div>
             </main>
 
-            {/* Back-to-top button */}
             <button
-                className={`back-to-top${showBackToTop ? ' visible' : ''}`}
+                className={`back-to-top${scrolled ? ' visible' : ''}`}
                 onClick={scrollToTop}
                 aria-label="Back to top"
                 type="button"
             >
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
                     <path d="M10 16V4M10 4L4 10M10 4L16 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
             </button>
 
-            <footer className="footer">
-                <div className="footer-inner">
-                    <div className="footer-brand">
-                        <Link className="logo footer-logo" to="/" aria-label="Metics home">
-                            <img src="/Metics-blue.png" alt="" width="36" height="36" loading="lazy" className="footer-logo-icon" />
-                            <span className="footer-logo-text">Metics</span>
-                        </Link>
-                        <p>Enterprise procurement intelligence for the built world. Connecting buyers and suppliers with data-driven transparency.</p>
+            <footer className="site-footer">
+                <div className="site-footer-inner">
+                    <div className="site-footer-top">
+                        <div className="site-footer-brand">
+                            <span className="site-footer-logo">METICS</span>
+                            <p>Procurement decision intelligence. RFQs, bids, approvals, and purchase orders in one shared record.</p>
+                            <div className="site-footer-trust">
+                                <span className="site-footer-trust-badge">GDPR compliant</span>
+                                <span className="site-footer-trust-badge">EU data residency</span>
+                                <span className="site-footer-trust-badge">Free for suppliers</span>
+                            </div>
+                        </div>
+
+                        <div className="site-footer-cols">
+                            <div>
+                                <h4>Product</h4>
+                                <ul>
+                                    <li><Link to="/platform">Platform</Link></li>
+                                    <li><Link to="/solutions">Solutions</Link></li>
+                                    <li><Link to="/industries">Industries</Link></li>
+                                    <li><Link to="/pricing">Pricing</Link></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Resources</h4>
+                                <ul>
+                                    <li><Link to="/case-studies">Case studies</Link></li>
+                                    <li><Link to="/insights">Insights</Link></li>
+                                    <li><Link to="/solutions">By role</Link></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Company</h4>
+                                <ul>
+                                    <li><Link to="/contact">Book a demo</Link></li>
+                                    <li><Link to="/contact">Contact</Link></li>
+                                    <li><a href="#">Security</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className="footer-links">
-                        <div>
-                            <h4>Platform</h4>
-                            <Link to="/platform" onMouseEnter={() => prefetchRoute('/platform')}>Overview</Link>
-                            <Link to="/platform">For Buyers</Link>
-                            <Link to="/platform">For Suppliers</Link>
-                        </div>
-                        <div>
-                            <h4>Company</h4>
-                            <Link to="/solutions" onMouseEnter={() => prefetchRoute('/solutions')}>Solutions</Link>
-                            <Link to="/pricing" onMouseEnter={() => prefetchRoute('/pricing')}>Pricing</Link>
-                            <Link to="/contact" onMouseEnter={() => prefetchRoute('/contact')}>Contact</Link>
-                        </div>
-                        <div>
-                            <h4>Resources</h4>
-                            <a href="#" rel="noopener noreferrer">Documentation</a>
-                            <a href="#" rel="noopener noreferrer">API Reference</a>
-                            <a href="#" rel="noopener noreferrer">Status</a>
-                        </div>
-                    </div>
-
-                    <div className="footer-bottom">
+                    <div className="site-footer-bottom">
                         <p>&copy; {new Date().getFullYear()} Metics. All rights reserved.</p>
-                        <div className="footer-badges">
-                            <span>GDPR Compliant</span>
-                            <span>ISO-Ready</span>
-                            <span>EU Data Residency</span>
-                            <span>SSO &amp; SAML</span>
+                        <div className="site-footer-legal">
+                            <a href="#">Privacy</a>
+                            <a href="#">Terms</a>
                         </div>
                     </div>
                 </div>
-            </footer >
-        </div >
+            </footer>
+        </div>
     );
 }

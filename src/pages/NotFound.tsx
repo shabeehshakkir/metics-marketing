@@ -2,17 +2,18 @@ import { Link } from 'react-router-dom';
 
 export default function NotFound() {
     return (
-        <section className="page-hero" style={{ minHeight: '70vh', display: 'flex', alignItems: 'center' }}>
-            <div className="page-hero-inner" style={{ textAlign: 'center' }}>
-                <h1 style={{ fontSize: 'clamp(6rem, 12vw, 10rem)', fontWeight: 800, background: 'linear-gradient(135deg, var(--i5), var(--v5))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', lineHeight: 1, marginBottom: '24px' }}>404</h1>
-                <p className="page-hero-sub" style={{ marginBottom: '40px' }}>
-                    The page you are looking for does not exist or has been moved.
-                </p>
-                <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                    <Link className="btn-glow" to="/">Back to Home</Link>
-                    <Link className="btn-glass" to="/contact">Contact Us</Link>
+        <div className="platform-editorial editorial-page">
+            <section className="editorial-not-found">
+                <div>
+                    <p className="platform-kicker">404</p>
+                    <h1>This page is not part of the package.</h1>
+                    <p>The link may have moved, or the page may no longer exist.</p>
+                    <div className="platform-hero-actions">
+                        <Link className="platform-primary-link" to="/">Back to platform</Link>
+                        <Link className="platform-secondary-link" to="/contact">Contact us</Link>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
     );
 }

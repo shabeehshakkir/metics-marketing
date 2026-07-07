@@ -1,0 +1,8 @@
+- Cut RFQ time from weeks to days. Metics makes construction procurement transparent and fast. [Request a demo]
+- Compare bids side-by-side. Award with one click. Auto PO. Try Metics.
+- Too many emails in tendering? Chat, bids, and POs — all in one place.
+- Suppliers: get category-matched RFQs and win more with partial bids.
+- Owners: split awards across suppliers to reduce risk — directly in Metics.
+- Enterprise teams: import RFQs via CSV/API and scale with governance.
+- QS firms: less spreadsheet cleaning, more client value. Metics does the heavy lifting.
+- Built for construction. Start smarter procurement today with Metics.

@@ -1,283 +1,457 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PageHero, SectionHeading, CTABanner } from '../components/shared';
+import { CTABanner } from '../components/shared';
+
+const proofPoints = [
+    {
+        title: 'Start with one package',
+        body: 'Create an RFQ from a BOQ, a template, or a clean blank sheet. Invite the suppliers who should see it.'
+    },
+    {
+        title: 'Keep bids comparable',
+        body: 'Suppliers answer in the same structure, so price, scope, exclusions, and delivery dates can be read side by side.'
+    },
+    {
+        title: 'Decide with the record open',
+        body: 'Clarifications, revisions, approvals, and notes stay attached to the package.'
+    },
+    {
+        title: 'Issue the PO',
+        body: 'Turn an awarded bid into a purchase order without rebuilding the work in another system.'
+    }
+];
+
+const buyerSteps = [
+    'Build RFQs with line items, quantities, units, documents, and bidding rules.',
+    'Invite suppliers by trade, region, approval status, or a saved project list.',
+    'Compare full and partial bids without reworking supplier spreadsheets.',
+    'Route awards through approval steps and export a clean PO when the decision is made.'
+];
+
+const supplierSteps = [
+    'Keep company details, trade categories, certificates, and terms in one profile.',
+    'Receive RFQs that match the work you actually do.',
+    'Submit a full package bid or price only the line items you can deliver.',
+    'See bid status and respond to buyer clarifications from the same thread.'
+];
+
+const toolSections = [
+    {
+        kicker: 'RFQ builder',
+        heading: 'A package starts as structured work, not a messy attachment.',
+        body: 'Each tender gets scope, line items, drawings, dates, bidding rules, and an approved supplier list. You can import from a spreadsheet to start, but the working record stays in one place after that.'
+    },
+    {
+        kicker: 'Bid room',
+        heading: 'Supplier answers arrive ready to compare.',
+        body: 'Supplier responses come in with commercial terms, alternates, and files attached to the right line items. Clarification threads stay with the package, not in a side email chain.'
+    },
+    {
+        kicker: 'Award record',
+        heading: 'The reason for the award stays with the award.',
+        body: 'Shortlists, scoring notes, approvals, and final purchase orders are kept together. When someone asks why a supplier won, the answer is already there.'
+    },
+    {
+        kicker: 'TCO comparison',
+        heading: 'The lowest unit price is not always the lowest cost.',
+        body: 'Each bid adjusts for Incoterms logistics, delivery lead time, and the supplier\'s historical fill rate. Suppliers rank by total cost of ownership. The adjusted comparison exports alongside the bid summary.'
+    },
+    {
+        kicker: 'Sustainability',
+        heading: 'Carbon data sits inside the procurement record, not outside it.',
+        body: 'Each bid carries a carbon estimate. Awards can be weighted by emissions as well as price. Supplier compliance evidence, certifications, and CSRD data live in the same record as the RFQ and PO.'
+    }
+];
+
+const analyticsItems = [
+    'Spend vs budget: actual PO values against the target prices set at RFQ stage, per category.',
+    'Procurement cycle time: average days from RFQ created to purchase order confirmed.',
+    'Supplier concentration: categories where one supplier holds more than 80% of spend are flagged.',
+    'Procurement health score: one number covering competitive bidding rate, savings rate, speed, and supplier diversity.',
+    'Award optimizer: ranks split-award options across suppliers when the package is too large for a single source.',
+];
+
+const governanceItems = [
+    'Role-based access for procurement, commercial, project, finance, and supplier teams.',
+    'Document history for drawings, specifications, contracts, certificates, and PO changes.',
+    'Delivery receipts, supplier invoices, and payment records attached to each purchase order.',
+    'Exportable summaries for client reports, board packs, and audit reviews.',
+    'ERP integrations: SAP Ariba, Zoho, QuickBooks, Odoo, and a generic API path for teams with custom finance systems.'
+];
+
+function TcoBarsGraphic() {
+    const suppliers = [
+        { name: 'Supplier A', base: 96, logistics: 6, leadTime: 0, quality: 3, total: 105 },
+        { name: 'Supplier B', base: 88, logistics: 4, leadTime: 5, quality: 7, total: 104 },
+        { name: 'Supplier C', base: 82, logistics: 11, leadTime: 9, quality: 6, total: 108 },
+    ];
+    const max = 116;
+    const w = 360;
+    const rowH = 52;
+    const barH = 22;
+    const labelW = 80;
+    const chartW = w - labelW - 4;
+    const lowestIdx = suppliers.reduce((li, s, i) => s.total < suppliers[li].total ? i : li, 0);
+
+    return (
+        <div className="infographic-tco" aria-label="TCO comparison chart">
+            <p className="infographic-label">Facade works — TCO comparison</p>
+            <svg viewBox={`0 0 ${w} ${suppliers.length * rowH + 30}`} aria-hidden="true" style={{ overflow: 'visible' }}>
+                {suppliers.map((s, i) => {
+                    const y = i * rowH + 20;
+                    const baseW = (s.base / max) * chartW;
+                    const logW = (s.logistics / max) * chartW;
+                    const ltW = (s.leadTime / max) * chartW;
+                    const qW = (s.quality / max) * chartW;
+                    const totalW = baseW + logW + ltW + qW;
+                    const isLowest = i === lowestIdx;
+                    return (
+                        <g key={s.name}>
+                            {isLowest && <rect x={labelW} y={y - 2} width={totalW} height={barH + 4} rx="4" fill="none" stroke="#ff6719" strokeWidth="1.5" strokeDasharray="3 2" />}
+                            <text x={labelW - 8} y={y + barH / 2 + 4} textAnchor="end" fontSize="11" fill={isLowest ? '#171717' : '#888'} fontWeight={isLowest ? '600' : '400'} fontFamily="Inter, sans-serif">{s.name}</text>
+                            <rect x={labelW} y={y} width={baseW} height={barH} fill={isLowest ? '#d6cfc2' : '#e8e3d8'} rx="2" />
+                            <rect x={labelW + baseW} y={y} width={logW} height={barH} fill="#f5b088" rx="2" />
+                            <rect x={labelW + baseW + logW} y={y} width={ltW} height={barH} fill="#f28c5e" rx="2" />
+                            <rect x={labelW + baseW + logW + ltW} y={y} width={qW} height={barH} fill="#e06030" rx="2" />
+                            {isLowest && (
+                                <text x={labelW + totalW + 7} y={y + barH / 2 + 4} fontSize="10" fill="#ff6719" fontWeight="700" fontFamily="Inter, sans-serif">lowest TCO</text>
+                            )}
+                        </g>
+                    );
+                })}
+                <g transform={`translate(${labelW}, ${suppliers.length * rowH + 12})`}>
+                    <rect width="9" height="9" fill="#d6cfc2" rx="2" /><text x="13" y="8" fontSize="9" fill="#aaa" fontFamily="Inter, sans-serif">Unit price</text>
+                    <rect x="68" width="9" height="9" fill="#f5b088" rx="2" /><text x="81" y="8" fontSize="9" fill="#aaa" fontFamily="Inter, sans-serif">Logistics</text>
+                    <rect x="132" width="9" height="9" fill="#f28c5e" rx="2" /><text x="145" y="8" fontSize="9" fill="#aaa" fontFamily="Inter, sans-serif">Lead time</text>
+                    <rect x="200" width="9" height="9" fill="#e06030" rx="2" /><text x="213" y="8" fontSize="9" fill="#aaa" fontFamily="Inter, sans-serif">Quality</text>
+                </g>
+            </svg>
+        </div>
+    );
+}
+
+function HealthScoreGraphic({ active }: { active: boolean }) {
+    const score = 74;
+    const r = 62;
+    const cx = 80;
+    const cy = 80;
+    const circumference = 2 * Math.PI * r;
+    const arcPct = 0.75;
+    const dashArr = arcPct * circumference;
+    const progress = active ? (score / 100) * dashArr : 0;
+    const rotation = 135;
+
+    const bars = [
+        { label: 'Competitive bidding', score: 80 },
+        { label: 'Savings vs budget', score: 68 },
+        { label: 'Procurement speed', score: 72 },
+        { label: 'Supplier diversity', score: 76 },
+    ];
+
+    return (
+        <div className="infographic-health" aria-label="Procurement health score">
+            <div className="infographic-health-dial">
+                <svg viewBox="0 0 160 120" aria-hidden="true">
+                    <text x={cx} y="14" textAnchor="middle" fontSize="9" fontWeight="700" letterSpacing="0.08em" fill="#aaa" fontFamily="Inter, sans-serif" textDecoration="none">HEALTH SCORE</text>
+                    <circle cx={cx} cy={cy} r={r} fill="none" stroke="#e8e3d8" strokeWidth="11"
+                        strokeDasharray={`${dashArr} ${circumference}`}
+                        strokeLinecap="round"
+                        transform={`rotate(${rotation} ${cx} ${cy})`} />
+                    <circle cx={cx} cy={cy} r={r} fill="none" stroke="#ff6719" strokeWidth="11"
+                        strokeDasharray={`${progress} ${circumference}`}
+                        strokeLinecap="round"
+                        transform={`rotate(${rotation} ${cx} ${cy})`}
+                        style={{ transition: active ? 'stroke-dasharray 1.2s cubic-bezier(0.4,0,0.2,1)' : 'none' }} />
+                    <text x={cx} y={cy + 4} textAnchor="middle" fontSize="30" fontWeight="700" fill="#171717" fontFamily="Georgia, serif">{score}</text>
+                    <text x={cx} y={cy + 20} textAnchor="middle" fontSize="9.5" fill="#bbb" fontFamily="Inter, sans-serif">out of 100</text>
+                </svg>
+            </div>
+            <div className="infographic-health-bars">
+                {bars.map(b => (
+                    <div key={b.label} className="infographic-mini-bar">
+                        <span className="infographic-mini-label">{b.label}</span>
+                        <div className="infographic-mini-track">
+                            <div className="infographic-mini-fill" style={{ width: active ? `${b.score}%` : '0%' }} />
+                        </div>
+                        <span className="infographic-mini-val">{b.score}</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+function ProcurementFlowGraphic() {
+    const steps = [
+        { label: 'RFQ', sub: 'Structured tender' },
+        { label: 'Bid room', sub: 'Suppliers respond' },
+        { label: 'TCO review', sub: 'Adjusted ranking' },
+        { label: 'Award', sub: 'Decision + notes' },
+        { label: 'PO', sub: 'Purchase order' },
+        { label: 'Delivery', sub: 'GRN + invoice' },
+    ];
+    return (
+        <div className="infographic-flow reveal" aria-label="Procurement workflow steps">
+            {steps.map((step, i) => (
+                <div key={step.label} className="infographic-flow-step">
+                    <div className="infographic-flow-node">
+                        <span>{String(i + 1).padStart(2, '0')}</span>
+                        <strong>{step.label}</strong>
+                        <em>{step.sub}</em>
+                    </div>
+                    {i < steps.length - 1 && <div className="infographic-flow-arrow" aria-hidden="true" />}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function CountUp({ target, duration = 900, active }: { target: number; duration?: number; active: boolean }) {
+    const [val, setVal] = useState(0);
+    useEffect(() => {
+        if (!active) return;
+        const start = performance.now();
+        const step = (now: number) => {
+            const p = Math.min((now - start) / duration, 1);
+            setVal(Math.round(p * target));
+            if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+    }, [active, target, duration]);
+    return <>{val}</>;
+}
 
 function useReveal() {
     useEffect(() => {
-        const els = document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right');
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); obs.unobserve(e.target); } });
+        const elements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
         }, { threshold: 0.08 });
-        els.forEach(el => obs.observe(el));
-        return () => obs.disconnect();
+
+        elements.forEach((element) => observer.observe(element));
+        return () => observer.disconnect();
     }, []);
 }
 
 export default function Platform() {
     useReveal();
+    const cardRef = useRef<HTMLDivElement>(null);
+    const [cardInView, setCardInView] = useState(false);
+    const analyticsRef = useRef<HTMLDivElement>(null);
+    const [analyticsInView, setAnalyticsInView] = useState(false);
+
+    useEffect(() => {
+        const el = cardRef.current;
+        if (!el) return;
+        const obs = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) { setCardInView(true); obs.disconnect(); }
+        }, { threshold: 0.45 });
+        obs.observe(el);
+        return () => obs.disconnect();
+    }, []);
+
+    useEffect(() => {
+        const el = analyticsRef.current;
+        if (!el) return;
+        const obs = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) { setAnalyticsInView(true); obs.disconnect(); }
+        }, { threshold: 0.3 });
+        obs.observe(el);
+        return () => obs.disconnect();
+    }, []);
 
     return (
-        <>
-            <PageHero
-                eyebrow="Platform"
-                title="One platform. Complete procurement control."
-                subtitle="Stop juggling spreadsheets, emails, and disconnected tools. Metics brings your entire procurement lifecycle — from RFQ creation to purchase order — into a single, intelligent workspace."
-            />
-
-            {/* ── THE PROBLEM ── */}
-            <section className="bento-section">
-                <SectionHeading
-                    eyebrow="The Problem"
-                    title="Construction procurement is broken"
-                    lede="Every day, procurement teams waste hours on tasks that should take minutes. Here's what we hear from teams before they switch to Metics."
-                />
-                <div className="bento-grid">
-                    <div className="bento-card bento-lg reveal">
-                        <div className="bento-label">Fragmentation</div>
-                        <h3>Your data lives in 5+ different places</h3>
-                        <p>RFQs in email. Bids in spreadsheets. POs in another system. Supplier info scattered across shared drives. When you need to trace a decision, it takes hours — if you can find it at all.</p>
-                        <div className="bento-tags">
-                            <span>Email Chains</span>
-                            <span>Spreadsheets</span>
-                            <span>Shared Drives</span>
-                            <span>WhatsApp</span>
-                            <span>Phone Calls</span>
+        <div className="platform-editorial">
+            <section className="platform-story-hero">
+                <div className="platform-story-inner">
+                    <div className="platform-story-copy">
+                        <p className="platform-kicker">Metics Platform</p>
+                        <h1>The procurement workspace your project can live in.</h1>
+                        <p className="platform-hero-lede">
+                            Procurement decisions break when cost, risk, and compliance live in separate places. Metics keeps every RFQ, bid, approval, and purchase order in one shared record so the decision is visible when you need it.
+                        </p>
+                        <div className="platform-hero-actions">
+                            <Link className="platform-primary-link" to="/contact">Book a walkthrough</Link>
+                            <Link className="platform-secondary-link" to="/pricing">See pricing</Link>
                         </div>
                     </div>
-                    <div className="bento-card reveal">
-                        <div className="bento-label">Time Waste</div>
-                        <h3>Manual bid comparison eats your week</h3>
-                        <p>Normalizing supplier responses into comparable formats takes 2-3 days per tender. Multiply that across 50+ packages per project and your team is drowning in admin.</p>
-                    </div>
-                    <div className="bento-card reveal">
-                        <div className="bento-label">Risk</div>
-                        <h3>Audit trails that don't exist</h3>
-                        <p>When governance teams ask "why did you choose this supplier?" — you shouldn't have to reconstruct the answer from email threads and meeting notes.</p>
-                    </div>
-                    <div className="bento-card bento-dark reveal">
-                        <div className="bento-label light">Cost Overruns</div>
-                        <h3>€2.4M+ average procurement leakage per project</h3>
-                        <p>Without structured comparison and real-time visibility, teams overpay, miss deadlines, and lose negotiating leverage. The cost of inefficiency compounds across every project.</p>
-                    </div>
-                    <div className="bento-card reveal">
-                        <div className="bento-label">Supplier Fatigue</div>
-                        <h3>Good suppliers stop responding</h3>
-                        <p>When your process is unclear, slow, or unprofessional, top-tier suppliers deprioritize your projects. You end up working with whoever happens to reply.</p>
+
+                    <div className="platform-paper-stack" aria-label="Example procurement package">
+                        <div ref={cardRef} className={`platform-package-card${cardInView ? ' in-view' : ''}`}>
+                            <div className="package-card-header">
+                                <span>Package</span>
+                                <strong>Facade works</strong>
+                            </div>
+                            <div className="package-progress">
+                                <span />
+                            </div>
+                            <dl className="package-card-list">
+                                <div>
+                                    <dt>Suppliers invited</dt>
+                                    <dd><CountUp target={8} active={cardInView} /></dd>
+                                </div>
+                                <div>
+                                    <dt>Bids received</dt>
+                                    <dd><CountUp target={5} active={cardInView} duration={750} /></dd>
+                                </div>
+                                <div>
+                                    <dt>Clarifications</dt>
+                                    <dd><CountUp target={12} active={cardInView} duration={1050} /></dd>
+                                </div>
+                            </dl>
+                            <div className="package-note">
+                                Shortlist ready for commercial review
+                            </div>
+                        </div>
+                        <div className="platform-package-shadow" />
                     </div>
                 </div>
             </section>
 
-            {/* ── THE SOLUTION: FOR BUYERS ── */}
-            <section className="capabilities-section">
-                <SectionHeading
-                    eyebrow="For Buyers"
-                    title="Take control of every procurement package"
-                    lede="Metics gives procurement managers, project directors, and QS teams a single workspace to manage the entire buy-side lifecycle."
-                />
+            <section className="platform-proof-strip" aria-label="Platform workflow">
+                <div className="platform-proof-grid">
+                    {proofPoints.map((item) => (
+                        <article className="platform-proof-card reveal" key={item.title}>
+                            <h2>{item.title}</h2>
+                            <p>{item.body}</p>
+                        </article>
+                    ))}
+                </div>
+            </section>
 
-                <div className="capability-block reveal-left">
-                    <div className="capability-content">
-                        <div className="capability-label">Create & Launch</div>
-                        <h3>Build RFQs in minutes, not days</h3>
-                        <ul className="capability-list">
-                            <li><strong>Structured RFQ Builder —</strong> Define headers, line items, quantities, units, and custom attributes. Set bidding rules (open/closed, partial/full) and deadlines with a few clicks.</li>
-                            <li><strong>Template Library —</strong> Clone previous RFQs or start from industry templates for steel, MEP, finishes, concrete, and more. Stop rebuilding from scratch.</li>
-                            <li><strong>Smart Supplier Matching —</strong> Invite suppliers by trade category, region, and certification. Metics suggests qualified suppliers you haven't worked with yet.</li>
-                            <li><strong>Bulk Import —</strong> Upload BOQs via CSV or connect to your ERP via API. Your existing data flows right in.</li>
-                            <li><strong>Draft & Resume —</strong> Save work-in-progress packages and pick up exactly where you left off. Share drafts with colleagues for review before publishing.</li>
+            <section className="platform-stats-strip">
+                <div className="platform-stats-grid">
+                    <div className="platform-stat-item reveal">
+                        <span className="platform-stat-value">P2P</span>
+                        <span className="platform-stat-desc">Full procure-to-pay. From the first RFQ line item to the delivery receipt, one place.</span>
+                    </div>
+                    <div className="platform-stat-item reveal">
+                        <span className="platform-stat-value">Free</span>
+                        <span className="platform-stat-desc">Suppliers receive RFQs, submit bids, and track status. No account fee, no participation cost.</span>
+                    </div>
+                    <div className="platform-stat-item reveal">
+                        <span className="platform-stat-value">CSRD</span>
+                        <span className="platform-stat-desc">Carbon data, certifications, and compliance records inside the procurement record, not in a separate system.</span>
+                    </div>
+                </div>
+            </section>
+
+            <section className="platform-flow-section">
+                <ProcurementFlowGraphic />
+            </section>
+
+            <section className="platform-split-section">
+                <div className="platform-split-intro reveal">
+                    <p className="platform-kicker">Both sides of the tender</p>
+                    <h2>Buyers and suppliers work from the same package record.</h2>
+                    <p>
+                        Both sides need the process to be clear. Buyers run the tender. Suppliers price it, ask questions, and track the outcome. The same package record holds both views.
+                    </p>
+                </div>
+
+                <div className="platform-two-column">
+                    <article className="platform-role-panel reveal-left">
+                        <span>For buyers</span>
+                        <h3>Run the tender without rebuilding it every week.</h3>
+                        <ul>
+                            {buyerSteps.map((step) => <li key={step}>{step}</li>)}
                         </ul>
-                    </div>
-                    <div className="capability-visual">
-                        <div className="visual-card">
-                            <div className="visual-label">RFQ Dashboard</div>
-                            <div className="visual-stat">12 active packages</div>
-                            <div className="visual-stat">47 bids received</div>
-                            <div className="visual-stat">3 POs generated today</div>
-                            <div className="visual-stat">€1.2M in active tenders</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="capability-block reverse reveal-right">
-                    <div className="capability-content">
-                        <div className="capability-label">Compare & Decide</div>
-                        <h3>Side-by-side bid analysis that actually works</h3>
-                        <ul className="capability-list">
-                            <li><strong>Automated Normalization —</strong> Bids arrive in a structured format. No more reformatting supplier responses into your spreadsheet template.</li>
-                            <li><strong>Multi-Criteria Scoring —</strong> Weight price, quality, delivery time, compliance, and custom criteria. See composite scores instantly.</li>
-                            <li><strong>Partial Bid Support —</strong> Suppliers can bid on individual line items. Compare at the item level and split awards across multiple suppliers.</li>
-                            <li><strong>Negotiation Tools —</strong> Send clarification requests, counter-offers, and revised specifications directly within the platform. Full conversation history attached to every bid.</li>
-                            <li><strong>One-Click Reports —</strong> Generate tender summaries, comparison matrices, and recommendation reports as client-ready PDFs.</li>
+                    </article>
+                    <article className="platform-role-panel reveal-right">
+                        <span>For suppliers</span>
+                        <h3>Price the work clearly, then keep track of what happens.</h3>
+                        <ul>
+                            {supplierSteps.map((step) => <li key={step}>{step}</li>)}
                         </ul>
-                    </div>
-                    <div className="capability-visual">
-                        <div className="visual-card">
-                            <div className="visual-label">Bid Comparison</div>
-                            <div className="visual-stat">Supplier A — €124,500 (Score: 87)</div>
-                            <div className="visual-stat">Supplier B — €131,200 (Score: 82)</div>
-                            <div className="visual-stat">Supplier C — €119,800 (Score: 91)</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="capability-block reveal-left">
-                    <div className="capability-content">
-                        <div className="capability-label">Award & Execute</div>
-                        <h3>From decision to purchase order in one click</h3>
-                        <ul className="capability-list">
-                            <li><strong>Auto PO Generation —</strong> Award a bid and Metics generates a complete purchase order with agreed terms, quantities, pricing, and delivery schedules. Ready for PDF export.</li>
-                            <li><strong>Approval Workflows —</strong> Route POs through internal approval chains. Set thresholds, add reviewers, and maintain segregation of duties.</li>
-                            <li><strong>Full Audit Trail —</strong> Every action — creation, edit, bid, award, revision — is logged with timestamps and user attribution. Export governance summaries at any time.</li>
-                            <li><strong>Contract Repository —</strong> Store signed POs, amendments, and supplier contracts in a version-controlled document vault.</li>
-                        </ul>
-                    </div>
-                    <div className="capability-visual">
-                        <div className="visual-card">
-                            <div className="visual-label">Purchase Order</div>
-                            <div className="visual-stat">PO-2024-0847 — Steel Package</div>
-                            <div className="visual-stat">€124,500 — Partial award</div>
-                            <div className="visual-stat">Approved by: J. Murphy (PM)</div>
-                            <div className="visual-stat">Status: Confirmed</div>
-                        </div>
-                    </div>
+                    </article>
                 </div>
             </section>
 
-            {/* ── FOR SUPPLIERS ── */}
-            <section className="bento-section" style={{ background: 'var(--g05)' }}>
-                <SectionHeading
-                    eyebrow="For Suppliers"
-                    title="Win more work, with less friction"
-                    lede="Metics isn't just a buyer tool. Suppliers get a professional portal to discover opportunities, submit bids, and build lasting relationships."
-                />
-                <div className="bento-grid">
-                    <div className="bento-card reveal">
-                        <div className="bento-label">Discovery</div>
-                        <h3>Get matched to relevant RFQs</h3>
-                        <p>Register once with your trade categories, certifications, and delivery capabilities. Metics matches you to relevant opportunities from qualified buyers — no more cold outreach.</p>
-                    </div>
-                    <div className="bento-card reveal">
-                        <div className="bento-label">Bidding</div>
-                        <h3>Submit structured, competitive bids</h3>
-                        <p>Bid on full packages or individual line items. Attach terms & conditions templates, add remarks, and include supporting documents — all in a professional format that buyers can instantly compare.</p>
-                    </div>
-                    <div className="bento-card bento-lg reveal">
-                        <div className="bento-label">Visibility</div>
-                        <h3>Know exactly where you stand</h3>
-                        <p>Real-time bid status tracking. Know when your bid has been viewed, shortlisted, or when a decision is expected. Accept or reject POs directly from your dashboard. No more waiting in the dark.</p>
-                        <div className="bento-visual">
-                            <div className="speed-bar"><div className="speed-fill" style={{ width: '70%' }} /></div>
-                            <span className="speed-label">70% of bids reviewed within 48 hours</span>
-                        </div>
-                    </div>
-                    <div className="bento-card reveal">
-                        <div className="bento-label">Catalogue</div>
-                        <h3>Publish your product catalogue</h3>
-                        <p>Showcase your products and capabilities to qualified buyers. Manage enquiries from a single inbox and build a professional digital presence.</p>
-                    </div>
-                    <div className="bento-card reveal">
-                        <div className="bento-label">Compliance</div>
-                        <h3>Certifications always up-to-date</h3>
-                        <p>Store insurance docs, ISO certificates, and trade licences with version control and expiry alerts. Buyers see your verified credentials automatically.</p>
-                    </div>
+            <section className="platform-belief-section">
+                <div className="platform-belief-inner reveal">
+                    <p>
+                        You make better procurement decisions when you can see risk, cost, and compliance in the same place.
+                    </p>
+                    <span>That is the intelligence layer Metics adds.</span>
                 </div>
             </section>
 
-            {/* ── INTELLIGENCE & GOVERNANCE ── */}
-            <section className="capabilities-section">
-                <SectionHeading
-                    eyebrow="Intelligence & Governance"
-                    title="Visibility that leadership demands"
-                    lede="Procurement leaders need more than a tool — they need insight. Metics gives you real-time analytics and governance-ready documentation."
-                />
-                <div className="capability-block reveal">
-                    <div className="capability-content">
-                        <div className="capability-label">Analytics & Reporting</div>
-                        <h3>Data-driven procurement decisions</h3>
-                        <ul className="capability-list">
-                            <li><strong>Spend Analytics —</strong> Track spend by category, supplier, project, and time period. Identify cost trends and saving opportunities.</li>
-                            <li><strong>Cycle Time Tracking —</strong> Monitor how long each stage takes — from RFQ launch to PO generation. Find and fix bottlenecks.</li>
-                            <li><strong>Supplier Scorecards —</strong> Rate suppliers on custom criteria across projects. Build institutional knowledge that survives team turnover.</li>
-                            <li><strong>Exportable Reports —</strong> One-click PDF/CSV exports for board presentations, client reports, and internal reviews.</li>
-                            <li><strong>Governance Dashboard —</strong> See compliance status, approval bottlenecks, and audit trail completeness across all active projects.</li>
-                        </ul>
-                    </div>
-                    <div className="capability-visual">
-                        <div className="visual-card">
-                            <div className="visual-label">Analytics Summary</div>
-                            <div className="visual-stat">€2.4M managed spend this quarter</div>
-                            <div className="visual-stat">12 days avg. award cycle</div>
-                            <div className="visual-stat">98% on-time PO delivery</div>
-                            <div className="visual-stat">47 active suppliers scored</div>
-                        </div>
-                    </div>
+            <section className="platform-tools-section">
+                <div className="platform-tools-heading reveal">
+                    <p className="platform-kicker">Built-in tools</p>
+                    <h2>The useful parts are built in. The noisy parts are left out.</h2>
+                </div>
+
+                <div className="platform-tool-list">
+                    {toolSections.map((item, index) => (
+                        <article className="platform-tool-row reveal" key={item.heading}>
+                            <div className="platform-tool-number">{String(index + 1).padStart(2, '0')}</div>
+                            <div>
+                                <span>{item.kicker}</span>
+                                <h3>{item.heading}</h3>
+                            </div>
+                            <p>{item.body}</p>
+                        </article>
+                    ))}
                 </div>
             </section>
 
-            {/* ── Integrations ── */}
-            <section className="integrations-section">
-                <SectionHeading
-                    eyebrow="Integrations"
-                    title="Fits into your existing stack"
-                    lede="Metics doesn't replace your systems — it connects them. Import data, authenticate users, and export results to where they need to go."
-                />
-                <div className="integration-grid">
-                    <div className="integration-card reveal">
-                        <h4>CSV / API Import</h4>
-                        <p>Bulk-import RFQs, BOQs, and supplier lists from spreadsheets. Connect your ERP or project management tool via REST API for automated data flow.</p>
-                    </div>
-                    <div className="integration-card reveal">
-                        <h4>ERP-Ready Exports</h4>
-                        <p>Structured PO exports with mapping templates designed for SAP, Oracle, and Microsoft Dynamics. Your finance team gets clean, ingestible data.</p>
-                    </div>
-                    <div className="integration-card reveal">
-                        <h4>SSO & SAML</h4>
-                        <p>Enterprise single sign-on with Azure AD, Okta, Google Workspace, and any SAML 2.0 provider. One less password for your team to manage.</p>
-                    </div>
-                    <div className="integration-card reveal">
-                        <h4>Document Sync</h4>
-                        <p>Version-controlled file management with audit-ready storage. Attach drawings, specs, and contracts to any RFQ or PO with full revision history.</p>
-                    </div>
+            <section className="platform-analytics-hook">
+                <div className="platform-analytics-hook-inner reveal">
+                    <p>A procurement health score of 60 means something specific is wrong. Slow cycles, sole-source categories, awards above budget. Metics tells you which one.</p>
                 </div>
             </section>
 
-            {/* ── Security ── */}
-            <section className="stats-mega">
-                <div className="stats-bg-text">SECURE</div>
-                <div className="stats-mega-inner">
-                    <div className="stats-intro reveal">
-                        <p className="eyebrow">Enterprise Security</p>
-                        <h2>Built for teams that can't afford to compromise</h2>
-                    </div>
-                    <div className="stats-counter-grid">
-                        <div className="counter-card reveal">
-                            <h3>GDPR</h3>
-                            <p>Full GDPR compliance with data processing agreements and right-to-erasure support</p>
+            <section className="platform-analytics-section" ref={analyticsRef}>
+                <div className="platform-analytics-visuals reveal-left">
+                    <HealthScoreGraphic active={analyticsInView} />
+                    <TcoBarsGraphic />
+                </div>
+                <div className="platform-analytics-copy reveal-right">
+                    <p className="platform-kicker">Spend analytics</p>
+                    <h2>Numbers that matter once the tenders are running.</h2>
+                    <p>
+                        Metics tracks actual PO spend against the target prices you set at RFQ stage. The picture covers every package in a project: what was budgeted, what was awarded, how long each cycle took, and where supplier concentration creates risk.
+                    </p>
+                    <ul className="platform-analytics-list">
+                        {analyticsItems.map((item) => (
+                            <li key={item}>{item}</li>
+                        ))}
+                    </ul>
+                </div>
+            </section>
+
+            <section className="platform-governance-section">
+                <div className="platform-governance-copy reveal-left">
+                    <p className="platform-kicker">Control</p>
+                    <h2>Enough governance for serious projects. Simple enough for daily use.</h2>
+                    <p>
+                        Metics is built for teams that need decisions to move quickly and still stand up to scrutiny later. The record keeps itself without making people work around the system.
+                    </p>
+                </div>
+                <div className="platform-governance-list reveal-right">
+                    {governanceItems.map((item) => (
+                        <div key={item}>
+                            <span />
+                            <p>{item}</p>
                         </div>
-                        <div className="counter-card reveal">
-                            <h3>EU</h3>
-                            <p>EU-based data centers with guaranteed data residency and sovereignty</p>
-                        </div>
-                        <div className="counter-card reveal">
-                            <h3>ISO</h3>
-                            <p>ISO 27001-ready security controls with regular third-party audits</p>
-                        </div>
-                        <div className="counter-card reveal">
-                            <h3>SSO</h3>
-                            <p>Enterprise authentication with SAML 2.0, SCIM provisioning, and MFA support</p>
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </section>
 
             <CTABanner
-                heading="See the full platform in action"
-                body="Book a 20-minute walkthrough with our team. We'll show you exactly how Metics fits your procurement process — with real workflows, not slide decks."
+                heading="See how a package moves through Metics"
+                body="Bring one real procurement package to the call. We will show how the RFQ, supplier responses, approvals, and PO move through Metics."
                 primaryLabel="Book a Demo"
                 primaryTo="/contact"
                 secondaryLabel="View Pricing"
                 secondaryTo="/pricing"
             />
-        </>
+        </div>
     );
 }

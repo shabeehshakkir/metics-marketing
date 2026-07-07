@@ -4,15 +4,16 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import './style.css';
 
-// Lazy-loaded routes — each page becomes its own JS chunk
 const Home = React.lazy(() => import('./pages/Home'));
 const Platform = React.lazy(() => import('./pages/Platform'));
 const Solutions = React.lazy(() => import('./pages/Solutions'));
+const Industries = React.lazy(() => import('./pages/Industries'));
+const CaseStudies = React.lazy(() => import('./pages/CaseStudies'));
+const Insights = React.lazy(() => import('./pages/Insights'));
 const Pricing = React.lazy(() => import('./pages/Pricing'));
 const Contact = React.lazy(() => import('./pages/Contact'));
 const NotFound = React.lazy(() => import('./pages/NotFound'));
 
-// Minimal loading fallback
 function PageLoader() {
   return (
     <div className="page-loader" role="status" aria-label="Loading page">
@@ -30,6 +31,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <Route index element={<Home />} />
             <Route path="platform" element={<Platform />} />
             <Route path="solutions" element={<Solutions />} />
+            <Route path="industries" element={<Industries />} />
+            <Route path="case-studies" element={<CaseStudies />} />
+            <Route path="insights" element={<Insights />} />
             <Route path="pricing" element={<Pricing />} />
             <Route path="contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />

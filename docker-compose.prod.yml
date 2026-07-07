@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   web:
     image: ghcr.io/shabeehshakkir/metics-marketing-web:latest
@@ -13,6 +11,13 @@ services:
     image: ghcr.io/shabeehshakkir/metics-marketing-php:latest
     volumes:
       - ./api:/app/api
-    env_file:
-      - .env
+    environment:
+      SMTP_HOST: ${SMTP_HOST:-smtp.example.com}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_FROM: ${SMTP_FROM:-noreply@metics.io}
+      SMTP_AUTH: ${SMTP_AUTH:-on}
+      SMTP_TLS: ${SMTP_TLS:-off}
+      SMTP_STARTTLS: ${SMTP_STARTTLS:-on}
     restart: always
