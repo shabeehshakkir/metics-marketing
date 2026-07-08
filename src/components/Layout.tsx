@@ -76,11 +76,11 @@ export default function Layout() {
             <header className="site-nav fixed top-0 left-0 right-0 bg-[#FAF8F6] border-b border-black/10 transition-all duration-300">
                 <div className="site-nav-inner flex items-center justify-between">
                     <Link className="site-nav-logo z-50" to="/" aria-label="Metics home" onMouseEnter={() => prefetchRoute('/')}>
-                        <img src="/Metics-blue.png" alt="Metics Logo" height="32" className="h-8 w-auto" />
+                        <img src="/Metics-blue.png" alt="Metics Logo" height="22" className="h-[22px] w-auto" />
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <nav className="hidden lg:flex items-center gap-8">
+                    <nav className="hidden lg:flex items-center gap-6">
                         {[
                             { name: 'Platform', path: '/platform' },
                             { name: 'Solutions', path: '/solutions' },
@@ -92,7 +92,7 @@ export default function Layout() {
                             <Link
                                 key={link.path}
                                 to={link.path}
-                                className={`text-sm transition-colors hover:text-primary ${isActive(link.path) ? 'text-primary font-bold' : 'text-primary/60 font-medium'}`}
+                                className={`text-[13px] transition-colors hover:text-primary ${isActive(link.path) ? 'text-primary font-bold' : 'text-primary/60 font-medium'}`}
                                 onMouseEnter={() => prefetchRoute(link.path)}
                             >
                                 {link.name}
@@ -102,13 +102,13 @@ export default function Layout() {
 
                     <div className="hidden lg:flex items-center gap-4">
                         <Link
-                            className="text-sm font-bold text-primary/60 hover:text-primary transition-colors"
+                            className="text-[13px] font-bold text-primary/60 hover:text-primary transition-colors"
                             to="/contact"
                         >
                             Log in
                         </Link>
                         <Link
-                            className="px-5 py-2.5 bg-primary text-white text-sm font-bold rounded hover:bg-accent transition-colors"
+                            className="site-nav-cta-btn"
                             to="/contact"
                             onMouseEnter={() => prefetchRoute('/contact')}
                         >
