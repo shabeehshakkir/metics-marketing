@@ -1,6 +1,56 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+/* ── Folio label — small-caps metadata line, like a folio line in a printed journal ── */
+export function Folio({
+    label,
+    light = false,
+    className = '',
+}: {
+    label: string;
+    light?: boolean;
+    className?: string;
+}) {
+    return (
+        <p
+            className={`text-[11px] font-semibold uppercase tracking-[0.25em] ${
+                light ? 'text-white/40' : 'text-primary/40'
+            } ${className}`}
+        >
+            {label}
+        </p>
+    );
+}
+
+/* ── Rule label — full-width hairline with a small-caps label sitting on it ── */
+export function RuleLabel({
+    label,
+    light = false,
+    className = '',
+}: {
+    label: string;
+    light?: boolean;
+    className?: string;
+}) {
+    return (
+        <div className={`flex items-baseline gap-5 ${className}`}>
+            <span
+                className={`shrink-0 text-[11px] font-semibold uppercase tracking-[0.25em] ${
+                    light ? 'text-white/40' : 'text-primary/40'
+                }`}
+            >
+                {label}
+            </span>
+            <span
+                aria-hidden="true"
+                className={`h-px flex-1 translate-y-[-0.2em] ${light ? 'bg-white/10' : 'bg-black/[0.08]'}`}
+            />
+        </div>
+    );
+}
+
 /* ── Section Heading ── */
 export function SectionHeading({
     eyebrow,
@@ -8,25 +58,60 @@ export function SectionHeading({
     lede,
     light = false,
     centered = false,
+    layout = 'default',
 }: {
     eyebrow: string;
     title: string;
     lede?: string;
     light?: boolean;
     centered?: boolean;
+    layout?: 'default' | 'split';
 }) {
+    if (layout === 'split') {
+        return (
+            <div className="mb-14 md:mb-20">
+                <RuleLabel label={eyebrow} light={light} />
+                <div className="mt-8 grid gap-6 md:mt-10 md:grid-cols-12 md:gap-10">
+                    <h2
+                        className={`font-serif text-3xl md:text-[2.75rem] leading-[1.08] tracking-tight md:col-span-7 ${
+                            light ? 'text-white' : 'text-primary'
+                        }`}
+                    >
+                        {title}
+                    </h2>
+                    {lede && (
+                        <p
+                            className={`self-end text-lg leading-relaxed md:col-span-4 md:col-start-9 ${
+                                light ? 'text-white/65' : 'text-primary/65'
+                            }`}
+                        >
+                            {lede}
+                        </p>
+                    )}
+                </div>
+            </div>
+        );
+    }
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className={`mb-12 ${centered ? 'text-center' : ''} ${light ? 'text-white' : 'text-primary'}`}
-        >
-            <p className="text-accent font-bold uppercase tracking-widest text-xs mb-3">{eyebrow}</p>
-            <h2 className="text-3xl md:text-4xl font-serif mb-4">{title}</h2>
-            {lede && <p className={`text-lg max-w-2xl ${centered ? 'mx-auto' : ''} ${light ? 'opacity-80' : 'text-primary/70'}`}>{lede}</p>}
-        </motion.div>
+        <div className={`mb-14 md:mb-16 max-w-2xl ${centered ? 'mx-auto text-center' : ''}`}>
+            <Folio label={eyebrow} light={light} className="mb-5" />
+            <h2
+                className={`font-serif text-3xl md:text-[2.75rem] leading-[1.1] tracking-tight ${
+                    light ? 'text-white' : 'text-primary'
+                }`}
+            >
+                {title}
+            </h2>
+            {lede && (
+                <p
+                    className={`mt-5 text-lg leading-relaxed ${
+                        light ? 'text-white/65' : 'text-primary/65'
+                    }`}
+                >
+                    {lede}
+                </p>
+            )}
+        </div>
     );
 }
 
@@ -41,18 +126,18 @@ export function FeatureCard({
     body: string;
 }) {
     return (
-        <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            whileHover={{ y: -8, transition: { duration: 0.3 } }}
-            className="group p-10 bg-white border border-black/[0.03] rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 relative overflow-hidden"
-        >
-            <div className="absolute top-0 left-0 w-2 h-full bg-accent opacity-0 group-hover:opacity-100 transition-opacity" />
-            <span className="inline-flex items-center justify-center w-16 h-16 bg-accent/5 rounded-2xl text-3xl mb-8 group-hover:scale-110 group-hover:bg-accent/10 transition-all duration-500" role="img" aria-hidden="true">{icon}</span>
-            <h3 className="text-2xl font-bold mb-4 group-hover:text-accent transition-colors">{title}</h3>
-            <p className="text-primary/60 leading-relaxed text-lg">{body}</p>
-        </motion.div>
+        <div className="group h-full rounded-2xl border border-black/[0.08] bg-white p-8 shadow-card">
+            <span
+                aria-hidden="true"
+                className="mb-6 inline-flex h-11 w-11 items-center justify-center rounded-xl border border-black/[0.08] bg-paper text-lg leading-none text-primary/80 [filter:grayscale(1)]"
+            >
+                {icon}
+            </span>
+            <h3 className="mb-2.5 text-lg font-semibold tracking-tight text-primary">
+                {title}
+            </h3>
+            <p className="text-[15px] leading-relaxed text-primary/60">{body}</p>
+        </div>
     );
 }
 
@@ -65,20 +150,16 @@ export function StatCard({
     body: string;
 }) {
     return (
-        <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            whileHover={{ scale: 1.02 }}
-            className="p-12 bg-[#FAF8F6] border border-black/[0.03] rounded-3xl shadow-sm hover:shadow-lg transition-all duration-300"
-        >
-            <h3 className="text-5xl font-serif text-accent mb-6 leading-none">{metric}</h3>
-            <p className="text-xl font-medium text-primary/60 leading-snug">{body}</p>
-        </motion.div>
+        <div className="h-full border-t border-black/[0.15] pt-6">
+            <p className="font-serif text-4xl md:text-5xl leading-none tracking-tight text-primary">
+                {metric}
+            </p>
+            <p className="mt-5 text-[15px] leading-relaxed text-primary/60">{body}</p>
+        </div>
     );
 }
 
-/* ── CTA Banner ── */
+/* ── CTA Banner — editorial colophon-style closing section ── */
 export function CTABanner({
     heading = 'Ready to transform procurement?',
     body = 'See how Metics gives your team complete visibility and control over every RFQ, bid, and purchase order.',
@@ -95,36 +176,53 @@ export function CTABanner({
     secondaryTo?: string;
 }) {
     return (
-        <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="relative overflow-hidden rounded bg-primary text-white py-20 px-8 text-center"
-        >
-            {/* Clean Grid Background pattern */}
-            <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.03]">
-                <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
-            </div>
-
-            <div className="relative z-10 max-w-4xl mx-auto">
-                <h2 className="text-3xl md:text-5xl font-serif mb-6 leading-tight">{heading}</h2>
-                <p className="text-lg md:text-xl text-white/70 mb-10 max-w-2xl mx-auto leading-relaxed">{body}</p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <Link className="w-full sm:w-auto px-6 py-3 bg-accent text-white rounded font-bold hover:bg-accent/90 transition-colors text-base" to={primaryTo}>
-                        {primaryLabel}
-                    </Link>
-                    {secondaryLabel && secondaryTo && (
-                        <Link className="w-full sm:w-auto px-6 py-3 border border-white/20 rounded font-bold hover:bg-white/10 hover:border-white/40 transition-colors text-base" to={secondaryTo}>
-                            {secondaryLabel}
-                        </Link>
-                    )}
+        <section className="border-t border-black/[0.08]">
+            <div className="mx-auto max-w-[1180px] px-6 py-20 md:px-8 md:py-32">
+                <RuleLabel label="Next step" />
+                <div className="mt-10 grid gap-10 md:mt-14 lg:grid-cols-12 lg:gap-12">
+                    <div className="lg:col-span-7">
+                        <h2 className="font-serif text-4xl leading-[1.05] tracking-tight text-primary md:text-6xl">
+                            {heading}
+                        </h2>
+                    </div>
+                    <div className="lg:col-span-4 lg:col-start-9">
+                        <p className="text-lg leading-relaxed text-primary/65">{body}</p>
+                        <div className="mt-8 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
+                            <Link
+                                to={primaryTo}
+                                className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-accent"
+                            >
+                                {primaryLabel}
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth={1.5}
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="h-3.5 w-3.5 transition-transform duration-300 ease-editorial group-hover:translate-x-1"
+                                    aria-hidden="true"
+                                >
+                                    <path d="M5 12h14m-6-6l6 6-6 6" />
+                                </svg>
+                            </Link>
+                            {secondaryLabel && secondaryTo && (
+                                <Link
+                                    to={secondaryTo}
+                                    className="inline-flex items-center justify-center rounded-full border border-black/15 px-7 py-3 text-sm font-semibold text-primary transition-colors duration-200 hover:border-primary"
+                                >
+                                    {secondaryLabel}
+                                </Link>
+                            )}
+                        </div>
+                    </div>
                 </div>
             </div>
-        </motion.section>
+        </section>
     );
 }
 
-/* ── Page Hero ── */
+/* ── Page Hero — left-set, magazine style: folio rule on top, oversized serif, offset lede ── */
 export function PageHero({
     eyebrow,
     title,
@@ -137,12 +235,34 @@ export function PageHero({
     children?: React.ReactNode;
 }) {
     return (
-        <section className="page-hero">
-            <div className="page-hero-inner">
-                <p className="eyebrow">{eyebrow}</p>
-                <h1>{title}</h1>
-                <p className="page-hero-sub">{subtitle}</p>
-                {children}
+        <section className="pb-16 pt-16 md:pb-24 md:pt-24">
+            <div className="mx-auto max-w-[1180px] px-6 md:px-8">
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5, ease: EASE }}
+                >
+                    <RuleLabel label={`Metics / ${eyebrow}`} />
+                </motion.div>
+                <div className="mt-10 grid gap-8 md:mt-14 lg:grid-cols-12 lg:gap-12">
+                    <motion.h1
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7, delay: 0.08, ease: EASE }}
+                        className="font-serif text-[2.75rem] leading-[1.02] tracking-tight text-primary md:text-6xl lg:col-span-8 xl:text-7xl"
+                    >
+                        {title}
+                    </motion.h1>
+                    <motion.div
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
+                        className="self-end lg:col-span-4 lg:col-start-9"
+                    >
+                        <p className="text-lg leading-relaxed text-primary/65">{subtitle}</p>
+                        {children}
+                    </motion.div>
+                </div>
             </div>
         </section>
     );

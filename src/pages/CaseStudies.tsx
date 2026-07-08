@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CTABanner } from '../components/shared';
+import { AnimatePresence, motion } from 'framer-motion';
+import { CTABanner, Folio, PageHero, RuleLabel } from '../components/shared';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 const allStudies = [
     {
@@ -72,106 +74,210 @@ const allStudies = [
 
 const filters = ['All', 'Construction', 'Manufacturing', 'Energy', 'Government'];
 
-function useReveal() {
-    useEffect(() => {
-        const els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach((e) => {
-                if (e.isIntersecting) { e.target.classList.add('revealed'); obs.unobserve(e.target); }
-            });
-        }, { threshold: 0.08 });
-        els.forEach((el) => obs.observe(el));
-        return () => obs.disconnect();
-    }, []);
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const VIEWPORT = { once: true, margin: '-80px' } as const;
+
+type Study = (typeof allStudies)[number];
+
+function ArrowIcon() {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true" className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0-6-6m6 6-6 6" />
+        </svg>
+    );
+}
+
+function ReadLink() {
+    return (
+        <span className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold text-primary transition-colors group-hover:text-accent">
+            Read full case study <ArrowIcon />
+        </span>
+    );
+}
+
+function QuoteBlock({ text }: { text: string }) {
+    return (
+        <div className="relative pl-8">
+            <span aria-hidden="true" className="absolute -top-2 left-0 font-serif text-5xl leading-none text-accent/40 select-none">“</span>
+            <p className="text-primary/70 leading-relaxed">{text}</p>
+        </div>
+    );
+}
+
+function StatsRow({ stats, large = false }: { stats: Study['stats']; large?: boolean }) {
+    return (
+        <div className={`flex flex-wrap ${large ? 'gap-x-10 gap-y-6' : 'gap-x-8 gap-y-4'}`}>
+            {stats.map((s) => (
+                <div key={s.label}>
+                    <span className={`block font-serif text-accent leading-none ${large ? 'text-4xl md:text-5xl' : 'text-3xl'}`}>{s.value}</span>
+                    <span className="mt-2 block text-xs font-semibold uppercase tracking-[0.15em] text-primary/50">{s.label}</span>
+                </div>
+            ))}
+        </div>
+    );
 }
 
 export default function CaseStudies() {
-    useReveal();
+    usePageMeta(
+        'Case Studies',
+        'How procurement teams use Metics: shorter award cycles, complete audit records, and supplier concentration under control.'
+    );
     const [filter, setFilter] = useState('All');
-    const [selectedStudy, setSelectedStudy] = useState<typeof allStudies[0] | null>(null);
+    const [selectedStudy, setSelectedStudy] = useState<Study | null>(null);
 
     const visible = filter === 'All'
         ? allStudies
         : allStudies.filter((s) => s.industry === filter);
 
+    const featured = visible[0];
+    const rest = visible.slice(1);
+
     return (
-        <div className="platform-editorial editorial-page">
-            <section className="editorial-hero">
-                <div className="editorial-hero-inner">
-                    <p className="platform-kicker">How teams use Metics</p>
-                    <h1>Procurement that moved differently.</h1>
-                    <p>
-                        Patterns from teams that changed how they run tenders, compare bids, and keep award records. The details vary by sector. The underlying problem is usually the same.
-                    </p>
-                    <div className="platform-hero-actions">
-                        <Link className="platform-primary-link" to="/contact">Book a walkthrough</Link>
-                        <Link className="platform-secondary-link" to="/platform">See the platform</Link>
-                    </div>
+        <div className="bg-paper">
+            <PageHero
+                eyebrow="How teams use Metics"
+                title="Procurement that moved differently."
+                subtitle="Patterns from teams that changed how they run tenders, compare bids, and keep award records. The details vary by sector. The underlying problem is usually the same."
+            >
+                <div className="mt-8 flex flex-wrap items-center gap-4">
+                    <Link to="/contact" className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent">
+                        Book a walkthrough
+                    </Link>
+                    <Link to="/platform" className="inline-flex items-center justify-center rounded-full border border-black/15 px-6 py-3 text-sm font-semibold text-primary transition-colors hover:border-primary">
+                        See the platform
+                    </Link>
                 </div>
-            </section>
+            </PageHero>
 
-            <section className="editorial-index-section">
-                <div className="tab-nav" role="tablist" aria-label="Filter by industry">
-                    {filters.map((f) => (
-                        <button
-                            key={f}
-                            role="tab"
-                            aria-selected={filter === f}
-                            className={`tab-btn${filter === f ? ' active' : ''}`}
-                            onClick={() => setFilter(f)}
-                        >
-                            {f}
-                        </button>
-                    ))}
-                </div>
-
-                {visible.length > 0 ? (
-                    <div className="editorial-role-list">
-                        {visible.map((study, i) => (
-                            <article 
-                                className="editorial-role-row reveal" 
-                                key={study.heading}
-                                onClick={() => setSelectedStudy(study)}
-                                style={{ cursor: 'pointer' }}
+            <section className="border-t border-black/[0.08] py-16 md:py-24">
+                <div className="mx-auto max-w-[1180px] px-6 md:px-8">
+                    <div
+                        className="mb-14 flex flex-wrap items-baseline gap-x-8 gap-y-3 border-b border-black/[0.08] pb-5"
+                        role="tablist"
+                        aria-label="Filter by industry"
+                    >
+                        <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-primary/40">Filter</span>
+                        {filters.map((f) => (
+                            <button
+                                key={f}
+                                role="tab"
+                                aria-selected={filter === f}
+                                onClick={() => setFilter(f)}
+                                className={`relative pb-1 text-sm font-semibold transition-colors ${
+                                    filter === f
+                                        ? 'text-primary'
+                                        : 'text-primary/40 hover:text-primary/70'
+                                }`}
                             >
-                                <div className="editorial-row-number">{String(i + 1).padStart(2, '0')}</div>
-                                <div>
-                                    <span>{study.industry}</span>
-                                    <h3>{study.heading}</h3>
-                                    <p className="case-team-tag">{study.team}</p>
-                                </div>
-                                <div>
-                                    <span>The problem</span>
-                                    <p>{study.problem}</p>
-                                    <span className="case-what-changed">What changed</span>
-                                    <p>{study.outcome}</p>
-                                    {study.stats.length > 0 && (
-                                        <div className="case-stats-row">
-                                            {study.stats.map((s) => (
-                                                <div key={s.label} className="case-stat">
-                                                    <span className="case-stat-value">{s.value}</span>
-                                                    <span className="case-stat-label">{s.label}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
-                                    <span className="insights-read-link" style={{ marginTop: '16px', display: 'inline-flex' }}>
-                                        Read full case study <span aria-hidden="true">→</span>
-                                    </span>
-                                </div>
-                            </article>
+                                {f}
+                                {filter === f && (
+                                    <motion.span
+                                        layoutId="case-filter-underline"
+                                        transition={{ duration: 0.4, ease: EASE }}
+                                        className="absolute -bottom-[21px] left-0 right-0 h-[2px] bg-accent"
+                                        aria-hidden="true"
+                                    />
+                                )}
+                            </button>
                         ))}
                     </div>
-                ) : (
-                    <p className="case-empty">No case studies in this category yet.</p>
-                )}
+
+                    {visible.length > 0 ? (
+                        <>
+                            {featured && (
+                                <motion.article
+                                    key={featured.heading}
+                                    initial={{ opacity: 0, y: 16 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={VIEWPORT}
+                                    transition={{ duration: 0.6, ease: EASE }}
+                                    onClick={() => setSelectedStudy(featured)}
+                                    className="group cursor-pointer"
+                                >
+                                    <RuleLabel label={`Featured — ${featured.industry}`} />
+                                    <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:gap-12">
+                                        <div className="lg:col-span-7">
+                                            <h2 className="font-serif text-3xl leading-[1.05] tracking-tight text-primary transition-colors group-hover:text-accent md:text-6xl">
+                                                {featured.heading}
+                                            </h2>
+                                            <p className="mt-5 text-[11px] font-semibold uppercase tracking-[0.25em] text-primary/50">{featured.team}</p>
+                                            <div className="mt-10 border-t border-black/[0.15] pt-8">
+                                                <StatsRow stats={featured.stats} large />
+                                            </div>
+                                        </div>
+                                        <div className="self-end lg:col-span-4 lg:col-start-9">
+                                            <Folio label="The problem" className="mb-4" />
+                                            <QuoteBlock text={featured.problem} />
+                                            <Folio label="What changed" className="mb-4 mt-8 !text-secondary/80" />
+                                            <p className="text-primary/70 leading-relaxed">{featured.outcome}</p>
+                                            <ReadLink />
+                                        </div>
+                                    </div>
+                                </motion.article>
+                            )}
+
+                            {rest.length > 0 && (
+                                <div className="mt-24 border-t border-black/[0.08]">
+                                    {rest.map((study, i) => (
+                                        <article
+                                            key={study.heading}
+                                            onClick={() => setSelectedStudy(study)}
+                                            className="group grid cursor-pointer gap-8 border-b border-black/[0.08] py-12 md:py-16 lg:grid-cols-12 lg:gap-10"
+                                        >
+                                            <div className="lg:col-span-3">
+                                                <span className="font-serif text-4xl leading-none text-black/[0.08]">{String(i + 2).padStart(2, '0')}</span>
+                                                <Folio label={study.industry} className="mt-4 !text-accent" />
+                                                <p className="mt-3 text-xs font-semibold uppercase tracking-[0.15em] text-primary/50">{study.team}</p>
+                                                {study.stats.length > 0 && (
+                                                    <div className="mt-8 hidden lg:block">
+                                                        <StatsRow stats={study.stats} />
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div className="lg:col-span-8 lg:col-start-5">
+                                                <h3 className="max-w-2xl font-serif text-2xl leading-[1.12] tracking-tight text-primary transition-colors group-hover:text-accent md:text-4xl">
+                                                    {study.heading}
+                                                </h3>
+                                                <div className="mt-8 grid gap-8 md:grid-cols-2">
+                                                    <div>
+                                                        <Folio label="The problem" className="mb-4" />
+                                                        <p className="text-[15px] leading-relaxed text-primary/60">{study.problem}</p>
+                                                    </div>
+                                                    <div>
+                                                        <Folio label="What changed" className="mb-4 !text-secondary/80" />
+                                                        <p className="text-[15px] leading-relaxed text-primary/70">{study.outcome}</p>
+                                                    </div>
+                                                </div>
+                                                {study.stats.length > 0 && (
+                                                    <div className="mt-8 lg:hidden">
+                                                        <StatsRow stats={study.stats} />
+                                                    </div>
+                                                )}
+                                                <ReadLink />
+                                            </div>
+                                        </article>
+                                    ))}
+                                </div>
+                            )}
+                        </>
+                    ) : (
+                        <p className="py-16 text-center text-primary/50">No case studies in this category yet.</p>
+                    )}
+                </div>
             </section>
 
-            <section className="editorial-dark-statement">
-                <div className="editorial-dark-inner reveal">
-                    <p>
+            <section className="bg-[#141414] py-24 md:py-32">
+                <div className="mx-auto max-w-[1180px] px-6 md:px-8">
+                    <RuleLabel label="On records" light />
+                    <motion.p
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={VIEWPORT}
+                        transition={{ duration: 0.8, ease: EASE }}
+                        className="mt-12 max-w-4xl font-serif text-3xl leading-[1.15] tracking-tight text-white md:mt-16 md:text-5xl"
+                    >
                         The award decision is made once. The record of it should last for the life of the project.
-                    </p>
+                    </motion.p>
                 </div>
             </section>
 
@@ -184,46 +290,65 @@ export default function CaseStudies() {
                 secondaryTo="/platform"
             />
 
-            {/* Reading Modal Detail View */}
-            {selectedStudy && (
-                <div className="reading-modal-backdrop" onClick={() => setSelectedStudy(null)}>
-                    <div className="reading-modal-content" onClick={(e) => e.stopPropagation()}>
-                        <button className="reading-modal-close" onClick={() => setSelectedStudy(null)} aria-label="Close reader">×</button>
-                        <div className="reading-modal-body">
-                            <span className="reading-modal-kicker">{selectedStudy.industry}</span>
-                            <h1>{selectedStudy.heading}</h1>
-                            <p className="reading-modal-sub">{selectedStudy.team}</p>
-                            
-                            <div className="reading-modal-section">
-                                <h3>The Problem</h3>
-                                <p>{selectedStudy.problem}</p>
+            <AnimatePresence>
+                {selectedStudy && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-primary/50 px-4 py-8 backdrop-blur-sm"
+                        onClick={() => setSelectedStudy(null)}
+                    >
+                        <motion.div
+                            initial={{ opacity: 0, y: 24 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 24 }}
+                            transition={{ duration: 0.35, ease: EASE }}
+                            className="relative max-h-[85vh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-white p-8 shadow-[0_24px_80px_-16px_rgba(26,26,26,0.35)] md:p-12"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <button
+                                onClick={() => setSelectedStudy(null)}
+                                aria-label="Close reader"
+                                className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/[0.08] bg-white text-primary/60 transition-colors hover:border-primary hover:text-primary"
+                            >
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true" className="h-4 w-4">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M18 6L6 18" />
+                                </svg>
+                            </button>
+
+                            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent">{selectedStudy.industry}</p>
+                            <h1 className="font-serif text-3xl leading-[1.1] tracking-tight text-primary md:text-4xl">{selectedStudy.heading}</h1>
+                            <p className="mt-3 text-xs font-semibold uppercase tracking-[0.15em] text-primary/50">{selectedStudy.team}</p>
+
+                            <div className="mt-10">
+                                <h3 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-primary/50">The Problem</h3>
+                                <p className="text-primary/70 leading-relaxed">{selectedStudy.problem}</p>
                             </div>
 
-                            <div className="reading-modal-section">
-                                <h3>The Execution</h3>
-                                {selectedStudy.body.map((p, index) => (
-                                    <p key={index}>{p}</p>
-                                ))}
+                            <div className="mt-10">
+                                <h3 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-primary/50">The Execution</h3>
+                                <div className="space-y-4">
+                                    {selectedStudy.body.map((p, index) => (
+                                        <p key={index} className="text-primary/70 leading-relaxed">{p}</p>
+                                    ))}
+                                </div>
                             </div>
 
-                            <div className="reading-modal-section">
-                                <h3>Outcome & Impact</h3>
-                                <p>{selectedStudy.outcome}</p>
+                            <div className="mt-10">
+                                <h3 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-primary/50">Outcome &amp; Impact</h3>
+                                <p className="text-primary/70 leading-relaxed">{selectedStudy.outcome}</p>
                                 {selectedStudy.stats.length > 0 && (
-                                    <div className="case-stats-row" style={{ marginTop: '24px' }}>
-                                        {selectedStudy.stats.map((s) => (
-                                            <div key={s.label} className="case-stat">
-                                                <span className="case-stat-value">{s.value}</span>
-                                                <span className="case-stat-label">{s.label}</span>
-                                            </div>
-                                        ))}
+                                    <div className="mt-8 border-t border-black/[0.08] pt-6">
+                                        <StatsRow stats={selectedStudy.stats} />
                                     </div>
                                 )}
                             </div>
-                        </div>
-                    </div>
-                </div>
-            )}
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }

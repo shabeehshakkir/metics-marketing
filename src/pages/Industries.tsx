@@ -1,8 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CTABanner } from '../components/shared';
+import { motion, AnimatePresence } from 'framer-motion';
+import { CTABanner, Folio, PageHero, RuleLabel } from '../components/shared';
+import { usePageMeta } from '../hooks/usePageMeta';
 
-const industries = [
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+const industries: {
+    id: string;
+    label: string;
+    heading: string;
+    intro: string;
+    snapshot: string[];
+    problems: string[];
+    capabilities: string[];
+    stat: { value: string; label: string };
+}[] = [
     {
         id: 'construction',
         label: 'Construction',
@@ -13,7 +26,7 @@ const industries = [
             'Tender packages sent over email, tracked in separate spreadsheets per project.',
             'Bids arrive in different formats and need manual cleaning before any comparison can start.',
             'Award decisions live in emails rather than the package record.',
-            'Long-lead items have no central visibility separate from a project manager\'s own sheet.',
+            "Long-lead items have no central visibility separate from a project manager's own sheet.",
         ],
         capabilities: [
             'Build RFQs from BOQs with line items, quantities, and units already in place.',
@@ -85,99 +98,151 @@ const industries = [
     },
 ];
 
-function useReveal() {
-    useEffect(() => {
-        const els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach((e) => {
-                if (e.isIntersecting) { e.target.classList.add('revealed'); obs.unobserve(e.target); }
-            });
-        }, { threshold: 0.08 });
-        els.forEach((el) => obs.observe(el));
-        return () => obs.disconnect();
-    }, []);
-}
-
 export default function Industries() {
-    useReveal();
+    usePageMeta(
+        'Industries',
+        'Metics runs procurement for construction, manufacturing, energy, and public sector teams — structured RFQs, comparable bids, and auditable awards.'
+    );
     const [activeIdx, setActiveIdx] = useState(0);
     const active = industries[activeIdx];
 
     return (
-        <div className="platform-editorial editorial-page">
-            <section className="editorial-hero">
-                <div className="editorial-hero-inner">
-                    <p className="platform-kicker">Industries</p>
-                    <h1>Built for teams that buy at scale.</h1>
-                    <p>
-                        Procurement looks different depending on the sector. Metics adapts to the specifics without needing a custom implementation.
-                    </p>
-                    <div className="platform-hero-actions">
-                        <Link className="platform-primary-link" to="/contact">Talk through your workflow</Link>
-                        <Link className="platform-secondary-link" to="/platform">See the platform</Link>
-                    </div>
+        <div className="bg-paper">
+            <PageHero
+                eyebrow="Industries"
+                title="Built for teams that buy at scale."
+                subtitle="Procurement looks different depending on the sector. Metics adapts to the specifics without needing a custom implementation."
+            >
+                <div className="mt-8 flex flex-wrap gap-3">
+                    <Link
+                        to="/contact"
+                        className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent"
+                    >
+                        Talk through your workflow
+                    </Link>
+                    <Link
+                        to="/platform"
+                        className="inline-flex items-center justify-center rounded-full border border-black/15 px-6 py-3 text-sm font-semibold text-primary transition-colors hover:border-primary"
+                    >
+                        See the platform
+                    </Link>
                 </div>
-            </section>
+            </PageHero>
 
-            {/* Sector tab selector */}
-            <section className="editorial-index-section">
-                <div className="tab-nav" role="tablist">
-                    {industries.map((ind, i) => (
-                        <button
-                            key={ind.id}
-                            role="tab"
-                            aria-selected={activeIdx === i}
-                            className={`tab-btn${activeIdx === i ? ' active' : ''}`}
-                            onClick={() => setActiveIdx(i)}
+            {/* Sector selector + detail panel */}
+            <section className="border-t border-black/[0.08] bg-white">
+                <div className="mx-auto max-w-[1180px] px-6 py-24 md:px-8 md:py-32">
+                    <RuleLabel label="01 — Choose a sector" />
+                    <div
+                        className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-b border-black/[0.08] pb-6"
+                        role="tablist"
+                        aria-label="Select an industry"
+                    >
+                        {industries.map((ind, i) => {
+                            const isActive = activeIdx === i;
+                            return (
+                                <button
+                                    key={ind.id}
+                                    role="tab"
+                                    aria-selected={isActive}
+                                    onClick={() => setActiveIdx(i)}
+                                    className={`group relative pb-1 font-serif text-xl tracking-tight transition-colors duration-200 md:text-2xl ${
+                                        isActive ? 'text-primary' : 'text-primary/35 hover:text-primary/70'
+                                    }`}
+                                >
+                                    {ind.label}
+                                    {isActive && (
+                                        <motion.span
+                                            layoutId="industry-underline"
+                                            transition={{ duration: 0.4, ease: EASE }}
+                                            className="absolute -bottom-[25px] left-0 right-0 h-[2px] bg-accent"
+                                            aria-hidden="true"
+                                        />
+                                    )}
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={active.id}
+                            initial={{ opacity: 0, y: 16 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -8 }}
+                            transition={{ duration: 0.4, ease: EASE }}
+                            className="mt-14"
                         >
-                            {ind.label}
-                        </button>
-                    ))}
-                </div>
-
-                <div key={active.id} className="industry-panel">
-                    <div className="editorial-section-heading reveal">
-                        <div className="industry-snapshot-chips">
-                            {active.snapshot.map((s) => (
-                                <span key={s} className="industry-snapshot-chip">{s}</span>
-                            ))}
-                        </div>
-                        <h2>{active.heading}</h2>
-                        <p className="industry-intro">{active.intro}</p>
-                    </div>
-
-                    <div className="editorial-role-list">
-                        <div className="editorial-role-row reveal">
-                            <div className="editorial-row-number">01</div>
-                            <div>
-                                <span>Common friction</span>
-                                <ul className="industry-problem-list">
-                                    {active.problems.map((p) => <li key={p}>{p}</li>)}
-                                </ul>
+                            <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+                                <div className="lg:col-span-7">
+                                    <h2 className="font-serif text-3xl leading-[1.08] tracking-tight text-primary md:text-5xl">
+                                        {active.heading}
+                                    </h2>
+                                    <p className="mt-5 max-w-2xl text-lg text-primary/65">{active.intro}</p>
+                                </div>
+                                <div className="self-end lg:col-span-4 lg:col-start-9">
+                                    <Folio label="Snapshot" />
+                                    <ul className="mt-4 border-t border-black/[0.15]">
+                                        {active.snapshot.map((chip) => (
+                                            <li key={chip} className="border-b border-black/[0.08] py-2.5 text-sm font-medium text-primary/70">
+                                                {chip}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
                             </div>
-                            <div>
-                                <span>What Metics changes</span>
-                                <ul className="industry-capability-list">
-                                    {active.capabilities.map((c) => (
-                                        <li key={c}><i aria-hidden="true" />{c}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div className="industry-stat reveal">
-                        <span className="industry-stat-value">{active.stat.value}</span>
-                        <span className="industry-stat-label">{active.stat.label}</span>
-                    </div>
+                            <div className="mt-16 grid gap-12 lg:grid-cols-12 lg:gap-10">
+                                <div className="lg:col-span-5">
+                                    <Folio label="Common friction" />
+                                    <ul className="mt-6 space-y-5">
+                                        {active.problems.map((p) => (
+                                            <li key={p} className="flex gap-4 font-serif text-lg italic leading-relaxed text-primary/60">
+                                                <span className="mt-3.5 h-px w-5 shrink-0 bg-primary/30" aria-hidden="true" />
+                                                {p}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                <div className="rounded-2xl bg-ink p-8 text-white md:p-10 lg:col-span-6 lg:col-start-7">
+                                    <Folio label="What Metics changes" light />
+                                    <ul className="mt-6 divide-y divide-white/10">
+                                        {active.capabilities.map((c) => (
+                                            <li key={c} className="flex gap-3 py-4 text-[15px] leading-relaxed text-white/75">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true">
+                                                    <path d="M5 12.5l4.5 4.5L19 7.5" />
+                                                </svg>
+                                                {c}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div className="mt-16 flex flex-col gap-4 border-t border-black/[0.15] pt-8 sm:flex-row sm:items-baseline sm:gap-10">
+                                <span className="font-serif text-6xl leading-none tracking-tight text-primary md:text-7xl">{active.stat.value}</span>
+                                <span className="max-w-md text-[15px] leading-relaxed text-primary/65">
+                                    {active.stat.label}
+                                </span>
+                            </div>
+                        </motion.div>
+                    </AnimatePresence>
                 </div>
             </section>
 
-            <section className="editorial-dark-statement">
-                <div className="editorial-dark-inner reveal">
-                    <p>
+            {/* Dark statement */}
+            <section className="bg-[#141414]">
+                <div className="mx-auto max-w-[1180px] px-6 py-24 md:px-8 md:py-32">
+                    <RuleLabel label="02 — One record" light />
+                    <motion.p
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-80px' }}
+                        transition={{ duration: 0.8, ease: EASE }}
+                        className="mt-12 max-w-4xl font-serif text-3xl leading-[1.15] tracking-tight text-white md:mt-16 md:text-5xl"
+                    >
                         The RFQ, the bids, the approval, and the purchase order belong in the same place. That is true in construction, manufacturing, energy, and government alike.
-                    </p>
+                    </motion.p>
                 </div>
             </section>
 

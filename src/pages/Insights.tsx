@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { CTABanner } from '../components/shared';
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { CTABanner, PageHero, RuleLabel } from '../components/shared';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 const articles = [
     {
@@ -79,23 +80,31 @@ const articles = [
 
 const categories = ['All', 'Analysis', 'Risk', 'Governance', 'Compliance', 'Strategy', 'Analytics'];
 
-function useReveal() {
-    useEffect(() => {
-        const els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach((e) => {
-                if (e.isIntersecting) { e.target.classList.add('revealed'); obs.unobserve(e.target); }
-            });
-        }, { threshold: 0.08 });
-        els.forEach((el) => obs.observe(el));
-        return () => obs.disconnect();
-    }, []);
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const VIEWPORT = { once: true, margin: '-80px' } as const;
+
+type Article = (typeof articles)[number];
+
+function readingTime(article: Article) {
+    const words = article.body.join(' ').split(/\s+/).length;
+    return `${Math.max(1, Math.round(words / 220))} min read`;
+}
+
+function ArrowIcon() {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true" className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0-6-6m6 6-6 6" />
+        </svg>
+    );
 }
 
 export default function Insights() {
-    useReveal();
+    usePageMeta(
+        'Insights',
+        'Writing on procurement practice: total cost of ownership, supplier concentration risk, audit-ready award records, and spend analytics.'
+    );
     const [filter, setFilter] = useState('All');
-    const [selectedArticle, setSelectedArticle] = useState<typeof articles[0] | null>(null);
+    const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
 
     const featured = articles[0];
     const visible = filter === 'All'
@@ -103,77 +112,108 @@ export default function Insights() {
         : articles.filter((a) => a.category === filter);
 
     return (
-        <div className="platform-editorial editorial-page">
-            <section className="editorial-hero">
-                <div className="editorial-hero-inner">
-                    <p className="platform-kicker">Insights</p>
-                    <h1>Procurement thinking.</h1>
-                    <p>
-                        Short reads on how procurement decisions are made well, what data matters before the award, and where the process breaks down when it does.
-                    </p>
-                </div>
-            </section>
+        <div className="bg-paper">
+            <PageHero
+                eyebrow="Insights"
+                title="Procurement thinking."
+                subtitle="Short reads on how procurement decisions are made well, what data matters before the award, and where the process breaks down when it does."
+            />
 
-            <section className="editorial-index-section">
-                {filter === 'All' && (
-                    <article 
-                        className="insights-featured reveal"
-                        onClick={() => setSelectedArticle(featured)}
-                        style={{ cursor: 'pointer' }}
-                    >
-                        <div className="insights-featured-meta">
-                            <span className="insights-tag">{featured.category}</span>
-                            <span className="insights-date">{featured.date}</span>
-                        </div>
-                        <h2>{featured.heading}</h2>
-                        <p>{featured.summary}</p>
-                        <span className="insights-read-link">
-                            Read full article <span aria-hidden="true">→</span>
-                        </span>
-                    </article>
-                )}
-
-                <div className="tab-nav" role="tablist" aria-label="Filter by category">
-                    {categories.map((c) => (
-                        <button
-                            key={c}
-                            role="tab"
-                            aria-selected={filter === c}
-                            className={`tab-btn${filter === c ? ' active' : ''}`}
-                            onClick={() => setFilter(c)}
+            <section className="border-t border-black/[0.08] py-16 md:py-24">
+                <div className="mx-auto max-w-[1180px] px-6 md:px-8">
+                    {filter === 'All' && (
+                        <motion.article
+                            initial={{ opacity: 0, y: 16 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={VIEWPORT}
+                            transition={{ duration: 0.6, ease: EASE }}
+                            onClick={() => setSelectedArticle(featured)}
+                            className="group mb-24 cursor-pointer"
                         >
-                            {c}
-                        </button>
-                    ))}
-                </div>
-
-                {visible.length > 0 ? (
-                    <div className="editorial-role-list">
-                        {visible.map((article, i) => (
-                            <article 
-                                className="editorial-role-row reveal" 
-                                key={article.heading}
-                                onClick={() => setSelectedArticle(article)}
-                                style={{ cursor: 'pointer' }}
-                            >
-                                <div className="editorial-row-number">{String(i + 1).padStart(2, '0')}</div>
-                                <div>
-                                    <span>{article.category}</span>
-                                    <h3>{article.heading}</h3>
-                                </div>
-                                <div>
-                                    <p>{article.summary}</p>
-                                    <p className="insights-date">{article.date}</p>
-                                    <span className="insights-read-link">
-                                        Read full article <span aria-hidden="true">→</span>
+                            <RuleLabel label={`Featured — ${featured.category}`} />
+                            <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:gap-12">
+                                <h2 className="font-serif text-3xl leading-[1.05] tracking-tight text-primary transition-colors group-hover:text-accent md:text-6xl lg:col-span-8">
+                                    {featured.heading}
+                                </h2>
+                                <div className="self-end lg:col-span-4 lg:col-start-9">
+                                    <p className="text-lg leading-relaxed text-primary/65">{featured.summary}</p>
+                                    <div className="mt-6 flex items-center gap-4 text-[11px] font-semibold uppercase tracking-[0.25em] text-primary/50">
+                                        <span>{featured.date}</span>
+                                        <span>{readingTime(featured)}</span>
+                                    </div>
+                                    <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors group-hover:text-accent">
+                                        Read full article <ArrowIcon />
                                     </span>
                                 </div>
-                            </article>
+                            </div>
+                        </motion.article>
+                    )}
+
+                    <div
+                        className="mb-0 flex flex-wrap items-baseline gap-x-7 gap-y-3 border-b border-black/[0.08] pb-5"
+                        role="tablist"
+                        aria-label="Filter by category"
+                    >
+                        <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-primary/40">Filter</span>
+                        {categories.map((c) => (
+                            <button
+                                key={c}
+                                role="tab"
+                                aria-selected={filter === c}
+                                onClick={() => setFilter(c)}
+                                className={`relative pb-1 text-sm font-semibold transition-colors ${
+                                    filter === c ? 'text-primary' : 'text-primary/40 hover:text-primary/70'
+                                }`}
+                            >
+                                {c}
+                                {filter === c && (
+                                    <motion.span
+                                        layoutId="insights-filter-underline"
+                                        transition={{ duration: 0.4, ease: EASE }}
+                                        className="absolute -bottom-[21px] left-0 right-0 h-[2px] bg-accent"
+                                        aria-hidden="true"
+                                    />
+                                )}
+                            </button>
                         ))}
                     </div>
-                ) : (
-                    <p className="insights-empty">No articles in this category yet.</p>
-                )}
+
+                    {visible.length > 0 ? (
+                        <div className="divide-y divide-black/[0.08]">
+                            {visible.map((article, i) => (
+                                <article
+                                    key={article.heading}
+                                    onClick={() => setSelectedArticle(article)}
+                                    className="group grid cursor-pointer gap-4 py-12 md:py-14 lg:grid-cols-12 lg:gap-10"
+                                >
+                                    <div className="lg:col-span-7">
+                                        <div className="flex items-baseline gap-5">
+                                            <span className="font-serif text-2xl leading-none text-black/[0.12]">{String(i + 1).padStart(2, '0')}</span>
+                                            <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-accent">
+                                                {article.category}
+                                            </span>
+                                        </div>
+                                        <h3 className="mt-4 max-w-xl font-serif text-2xl leading-[1.15] tracking-tight text-primary transition-colors group-hover:text-accent md:text-[2rem]">
+                                            {article.heading}
+                                        </h3>
+                                    </div>
+                                    <div className="flex flex-col lg:col-span-4 lg:col-start-9">
+                                        <p className="text-[15px] leading-relaxed text-primary/65">{article.summary}</p>
+                                        <div className="mt-5 flex items-center gap-4 text-[11px] font-semibold uppercase tracking-[0.25em] text-primary/50">
+                                            <span>{article.date}</span>
+                                            <span>{readingTime(article)}</span>
+                                        </div>
+                                        <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors group-hover:text-accent">
+                                            Read full article <ArrowIcon />
+                                        </span>
+                                    </div>
+                                </article>
+                            ))}
+                        </div>
+                    ) : (
+                        <p className="py-16 text-center text-primary/50">No articles in this category yet.</p>
+                    )}
+                </div>
             </section>
 
             <CTABanner
@@ -185,25 +225,47 @@ export default function Insights() {
                 secondaryTo="/platform"
             />
 
-            {/* Reading Modal Detail View */}
-            {selectedArticle && (
-                <div className="reading-modal-backdrop" onClick={() => setSelectedArticle(null)}>
-                    <div className="reading-modal-content" onClick={(e) => e.stopPropagation()}>
-                        <button className="reading-modal-close" onClick={() => setSelectedArticle(null)} aria-label="Close reader">×</button>
-                        <div className="reading-modal-body">
-                            <span className="reading-modal-kicker">{selectedArticle.category}</span>
-                            <h1>{selectedArticle.heading}</h1>
-                            <p className="reading-modal-sub">Published: {selectedArticle.date}</p>
-                            
-                            <div className="reading-modal-section">
+            <AnimatePresence>
+                {selectedArticle && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-primary/50 px-4 py-8 backdrop-blur-sm"
+                        onClick={() => setSelectedArticle(null)}
+                    >
+                        <motion.div
+                            initial={{ opacity: 0, y: 24 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 24 }}
+                            transition={{ duration: 0.35, ease: EASE }}
+                            className="relative max-h-[85vh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-white p-8 shadow-[0_24px_80px_-16px_rgba(26,26,26,0.35)] md:p-12"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <button
+                                onClick={() => setSelectedArticle(null)}
+                                aria-label="Close reader"
+                                className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/[0.08] bg-white text-primary/60 transition-colors hover:border-primary hover:text-primary"
+                            >
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true" className="h-4 w-4">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M18 6L6 18" />
+                                </svg>
+                            </button>
+
+                            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent">{selectedArticle.category}</p>
+                            <h1 className="font-serif text-3xl leading-[1.1] tracking-tight text-primary md:text-4xl">{selectedArticle.heading}</h1>
+                            <p className="mt-3 text-xs font-semibold uppercase tracking-[0.15em] text-primary/50">Published: {selectedArticle.date}</p>
+
+                            <div className="mt-10 space-y-4 border-t border-black/[0.08] pt-8">
                                 {selectedArticle.body.map((p, index) => (
-                                    <p key={index}>{p}</p>
+                                    <p key={index} className="text-primary/70 leading-relaxed">{p}</p>
                                 ))}
                             </div>
-                        </div>
-                    </div>
-                </div>
-            )}
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }

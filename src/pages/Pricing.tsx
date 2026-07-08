@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CTABanner } from '../components/shared';
+import { AnimatePresence, motion } from 'framer-motion';
+import { CTABanner, Folio, PageHero, RuleLabel } from '../components/shared';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 const plans = [
     {
@@ -43,96 +45,159 @@ const pricingNotes = [
     ['Start small', 'A team can test Metics on one project before rolling it out more widely.']
 ];
 
-function useReveal() {
-    useEffect(() => {
-        const elements = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('revealed');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.08 });
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-        elements.forEach((element) => observer.observe(element));
-        return () => observer.disconnect();
-    }, []);
+function CheckIcon() {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-accent">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l5.25 5.25 9.75-11.25" />
+        </svg>
+    );
 }
 
 export default function Pricing() {
+    usePageMeta(
+        'Pricing',
+        'Metics pricing: free Starter plan, Professional at EUR 49 per user per month, and custom Enterprise plans. Suppliers are always free.'
+    );
     const [openFaq, setOpenFaq] = useState(0);
-    useReveal();
 
     return (
-        <div className="platform-editorial editorial-page">
-            <section className="editorial-hero">
-                <div className="editorial-hero-inner">
-                    <p className="platform-kicker">Pricing</p>
-                    <h1>Pricing that matches how procurement teams roll out software.</h1>
-                    <p>
-                        Start with a small team, prove the workflow, then scale across projects. Suppliers are free, because bid coverage matters more than charging both sides.
-                    </p>
+        <div className="bg-paper">
+            <PageHero
+                eyebrow="Pricing"
+                title="Pricing that matches how procurement teams roll out software."
+                subtitle="Start with a small team, prove the workflow, then scale across projects. Suppliers are free, because bid coverage matters more than charging both sides."
+            />
+
+            <section className="border-t border-black/[0.08] py-16 md:py-24">
+                <div className="mx-auto max-w-[1180px] px-6 md:px-8">
+                    <RuleLabel label="01 — Plans" />
+                    <div className="mt-12 grid items-stretch gap-6 md:mt-16 lg:grid-cols-3 lg:gap-8">
+                        {plans.map((plan) => (
+                            <article
+                                key={plan.name}
+                                className={`relative flex h-full flex-col rounded-2xl p-8 md:p-10 ${
+                                    plan.featured
+                                        ? 'bg-ink text-white'
+                                        : 'border border-black/[0.08] bg-white text-primary shadow-[0_1px_2px_rgba(0,0,0,0.04)] lg:translate-y-8'
+                                }`}
+                            >
+                                <div className="flex items-baseline justify-between gap-4">
+                                    <p className={`text-[11px] font-semibold uppercase tracking-[0.25em] ${plan.featured ? 'text-white/50' : 'text-primary/50'}`}>{plan.name}</p>
+                                    {plan.featured && (
+                                        <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-accent">
+                                            Recommended
+                                        </span>
+                                    )}
+                                </div>
+                                <div className="mt-6 flex items-baseline gap-2">
+                                    <strong className={`font-serif text-5xl font-medium leading-none tracking-tight md:text-6xl ${plan.featured ? 'text-white' : 'text-primary'}`}>{plan.price}</strong>
+                                    {plan.period && <span className={`text-sm ${plan.featured ? 'text-white/50' : 'text-primary/50'}`}>{plan.period}</span>}
+                                </div>
+                                {plan.featured && (
+                                    <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-white/40">Most teams start here</p>
+                                )}
+                                <p className={`mt-4 leading-relaxed ${plan.featured ? 'text-white/65' : 'text-primary/65'}`}>{plan.note}</p>
+                                <ul className={`mt-8 flex-1 space-y-3 border-t pt-8 ${plan.featured ? 'border-white/10' : 'border-black/[0.08]'}`}>
+                                    {plan.features.map((feature) => (
+                                        <li key={feature} className={`flex items-start gap-3 text-sm ${plan.featured ? 'text-white/80' : 'text-primary/75'}`}>
+                                            <CheckIcon />
+                                            {feature}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <Link
+                                    to="/contact"
+                                    className={`mt-10 inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-colors ${
+                                        plan.featured
+                                            ? 'bg-white text-ink hover:bg-accent hover:text-white'
+                                            : 'border border-black/15 text-primary hover:border-primary'
+                                    }`}
+                                >
+                                    {plan.cta}
+                                </Link>
+                            </article>
+                        ))}
+                    </div>
                 </div>
             </section>
 
-            <section className="editorial-pricing-section">
-                <div className="editorial-pricing-grid">
-                    {plans.map((plan) => (
-                        <article className={`editorial-price-card reveal${plan.featured ? ' featured' : ''}`} key={plan.name}>
-                            {plan.featured && <span className="editorial-plan-badge">Most teams start here</span>}
-                            <h2>{plan.name}</h2>
-                            <div className="editorial-price">
-                                <strong>{plan.price}</strong>
-                                {plan.period && <span>{plan.period}</span>}
+            <section className="pb-20 pt-16 md:pb-28 md:pt-20">
+                <div className="mx-auto max-w-[1180px] px-6 md:px-8">
+                    <div className="grid gap-10 border-t border-black/[0.15] pt-10 md:grid-cols-3 md:gap-8">
+                        {pricingNotes.map(([title, body], i) => (
+                            <div key={title} className="md:pr-8">
+                                <Folio label={String(i + 1).padStart(2, '0')} />
+                                <h3 className="mt-4 font-serif text-xl tracking-tight text-primary">{title}</h3>
+                                <p className="mt-2 leading-relaxed text-primary/65">{body}</p>
                             </div>
-                            <p>{plan.note}</p>
-                            <ul className="price-card-features">
-                                {plan.features.map((feature) => (
-                                    <li key={feature} className="flex items-start gap-3">
-                                        <span className="text-accent mt-1">✓</span>
-                                        {feature}
-                                    </li>
-                                ))}
-                            </ul>
-                            <Link className={plan.featured ? 'platform-primary-link' : 'platform-secondary-link'} to="/contact">
-                                {plan.cta}
-                            </Link>
-                        </article>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </section>
 
-            <section className="editorial-grid-section compact">
-                <div className="editorial-card-grid three">
-                    {pricingNotes.map(([title, body]) => (
-                        <article className="editorial-simple-card reveal" key={title}>
-                            <h3>{title}</h3>
-                            <p>{body}</p>
-                        </article>
-                    ))}
-                </div>
-            </section>
-
-            <section className="editorial-faq-section">
-                <div className="editorial-section-heading reveal">
-                    <p className="platform-kicker">Questions</p>
-                    <h2>Clear answers before you book a call.</h2>
-                </div>
-                <div className="editorial-faq-list">
-                    {faqs.map(([question, answer], index) => (
-                        <details
-                            key={question}
-                            open={index === openFaq}
-                            onClick={(event) => {
-                                event.preventDefault();
-                                setOpenFaq(index === openFaq ? -1 : index);
-                            }}
-                        >
-                            <summary>{question}</summary>
-                            <p>{answer}</p>
-                        </details>
-                    ))}
+            <section className="pb-24 md:pb-32">
+                <div className="mx-auto max-w-[1180px] px-6 md:px-8">
+                    <RuleLabel label="02 — Questions" />
+                    <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-12">
+                        <h2 className="font-serif text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem] lg:col-span-4">
+                            Clear answers before you book a call.
+                        </h2>
+                        <div className="lg:col-span-7 lg:col-start-6">
+                            <div className="divide-y divide-black/[0.08] border-y border-black/[0.08]">
+                                {faqs.map(([question, answer], index) => {
+                                    const open = index === openFaq;
+                                    return (
+                                        <div key={question} className="py-2">
+                                            <button
+                                                onClick={() => setOpenFaq(open ? -1 : index)}
+                                                aria-expanded={open}
+                                                className="flex w-full items-center justify-between gap-6 py-4 text-left"
+                                            >
+                                                <span className={`text-base font-semibold transition-colors md:text-lg ${open ? 'text-accent' : 'text-primary'}`}>
+                                                    {question}
+                                                </span>
+                                                <svg
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    strokeWidth={1.5}
+                                                    aria-hidden="true"
+                                                    className={`h-5 w-5 shrink-0 text-primary/50 transition-transform duration-300 ${open ? 'rotate-45 text-accent' : ''}`}
+                                                >
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                                </svg>
+                                            </button>
+                                            <AnimatePresence initial={false}>
+                                                {open && (
+                                                    <motion.div
+                                                        initial={{ height: 0, opacity: 0 }}
+                                                        animate={{ height: 'auto', opacity: 1 }}
+                                                        exit={{ height: 0, opacity: 0 }}
+                                                        transition={{ duration: 0.35, ease: EASE }}
+                                                        className="overflow-hidden"
+                                                    >
+                                                        <p className="max-w-3xl pb-5 leading-relaxed text-primary/65">{answer}</p>
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                            <p className="mt-8 text-[15px] text-primary/55">
+                                More questions about RFQs, suppliers, or integrations?{' '}
+                                <Link
+                                    to="/faq"
+                                    className="font-semibold text-primary underline decoration-black/20 underline-offset-4 transition-colors hover:text-accent"
+                                >
+                                    Browse the full FAQ
+                                </Link>
+                                .
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </section>
 

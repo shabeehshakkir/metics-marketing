@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { MotionConfig } from 'framer-motion';
 import Layout from './components/Layout';
 import './style.css';
 
@@ -12,6 +13,11 @@ const CaseStudies = React.lazy(() => import('./pages/CaseStudies'));
 const Insights = React.lazy(() => import('./pages/Insights'));
 const Pricing = React.lazy(() => import('./pages/Pricing'));
 const Contact = React.lazy(() => import('./pages/Contact'));
+const About = React.lazy(() => import('./pages/About'));
+const Faq = React.lazy(() => import('./pages/Faq'));
+const Security = React.lazy(() => import('./pages/Security'));
+const Privacy = React.lazy(() => import('./pages/Privacy'));
+const Terms = React.lazy(() => import('./pages/Terms'));
 const NotFound = React.lazy(() => import('./pages/NotFound'));
 
 function PageLoader() {
@@ -25,6 +31,7 @@ function PageLoader() {
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
+      <MotionConfig reducedMotion="user">
       <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route element={<Layout />}>
@@ -36,10 +43,16 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <Route path="insights" element={<Insights />} />
             <Route path="pricing" element={<Pricing />} />
             <Route path="contact" element={<Contact />} />
+            <Route path="about" element={<About />} />
+            <Route path="faq" element={<Faq />} />
+            <Route path="security" element={<Security />} />
+            <Route path="privacy" element={<Privacy />} />
+            <Route path="terms" element={<Terms />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </Suspense>
+      </MotionConfig>
     </BrowserRouter>
   </React.StrictMode>
 );
