@@ -134,12 +134,12 @@ export default function Layout() {
                     </nav>
 
                     <div className="hidden items-center gap-2 lg:flex">
-                        <Link
+                        <a
                             className="inline-flex h-8 items-center px-4 text-sm text-muted hover:bg-layer hover:text-primary"
-                            to="/contact"
+                            href="https://app.metics.net/"
                         >
                             Log in
-                        </Link>
+                        </a>
                         <Link
                             className="btn-masthead"
                             to="/contact"
@@ -190,13 +190,12 @@ export default function Layout() {
                             </nav>
 
                             <motion.div variants={mobileLinkVariants} className="mt-auto flex flex-col gap-1 pt-10">
-                                <Link
+                                <a
                                     className="btn-tertiary w-full"
-                                    to="/contact"
-                                    onClick={() => setNavOpen(false)}
+                                    href="https://app.metics.net/"
                                 >
                                     Log in
-                                </Link>
+                                </a>
                                 <Link
                                     className="btn-primary w-full"
                                     to="/contact"
