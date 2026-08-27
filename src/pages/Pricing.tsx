@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { CTABanner, Folio, PageHero, RuleLabel } from '../components/shared';
+import { CTABanner, PageHero, RuleLabel } from '../components/shared';
 import { usePageMeta } from '../hooks/usePageMeta';
 
 const plans = [
@@ -72,7 +72,7 @@ export default function Pricing() {
 
             <section className="border-t border-subtle py-16 md:py-24">
                 <div className="site-wrap">
-                    <RuleLabel label="01. Plans" />
+                    <RuleLabel label="Plans" />
                     <div className="mt-12 grid items-stretch gap-6 md:mt-16 lg:grid-cols-3 lg:gap-8">
                         {plans.map((plan) => (
                             <article
@@ -122,10 +122,9 @@ export default function Pricing() {
             <section className="pb-20 pt-16 md:pb-28 md:pt-20">
                 <div className="site-wrap">
                     <div className="grid gap-10 border-t border-subtle pt-10 md:grid-cols-3 md:gap-8">
-                        {pricingNotes.map(([title, body], i) => (
+                        {pricingNotes.map(([title, body]) => (
                             <div key={title} className="md:pr-8">
-                                <Folio label={String(i + 1).padStart(2, '0')} />
-                                <h3 className="mt-4 text-xl font-light tracking-tight text-primary">{title}</h3>
+                                <h3 className="text-xl font-light tracking-tight text-primary">{title}</h3>
                                 <p className="mt-2 leading-relaxed text-muted">{body}</p>
                             </div>
                         ))}
@@ -135,7 +134,7 @@ export default function Pricing() {
 
             <section className="pb-24 md:pb-32">
                 <div className="site-wrap">
-                    <RuleLabel label="02. Questions" />
+                    <RuleLabel label="Questions" />
                     <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-12">
                         <h2 className="text-3xl font-light leading-[1.19] tracking-tight text-primary md:text-[2.625rem] md:leading-[50px] lg:col-span-4">
                             Clear answers before you book a call.

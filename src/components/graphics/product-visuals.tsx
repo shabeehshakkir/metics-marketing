@@ -202,17 +202,13 @@ export function WorkflowVisual({ animated = true, className }: VisualProps) {
                                 stroke={last ? '#ff6719' : 'rgba(22,22,22,0.18)'}
                                 strokeWidth={1.5}
                             />
-                            <text
-                                x={step.x}
-                                y={48}
-                                textAnchor="middle"
-                                dominantBaseline="central"
-                                fontFamily={METICS_SANS}
-                                fontSize={14}
-                                fill={last ? '#FFFFFF' : '#161616'}
-                            >
-                                {i + 1}
-                            </text>
+                            <rect
+                                x={step.x - 5}
+                                y={43}
+                                width={10}
+                                height={10}
+                                fill={last ? '#FFFFFF' : '#ff6719'}
+                            />
                             <text
                                 x={step.x}
                                 y={92}

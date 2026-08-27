@@ -180,19 +180,16 @@ export default function Insights() {
 
                     {visible.length > 0 ? (
                         <div className="divide-y divide-subtle">
-                            {visible.map((article, i) => (
+                            {visible.map((article) => (
                                 <article
                                     key={article.heading}
                                     onClick={() => setSelectedArticle(article)}
                                     className="group grid cursor-pointer gap-4 py-12 md:py-14 lg:grid-cols-12 lg:gap-10"
                                 >
                                     <div className="lg:col-span-7">
-                                        <div className="flex items-baseline gap-5">
-                                            <span className="font-mono text-2xl leading-none text-subtle">{String(i + 1).padStart(2, '0')}</span>
-                                            <span className="font-mono text-xs uppercase tracking-[0.08em] text-accent">
-                                                {article.category}
-                                            </span>
-                                        </div>
+                                        <span className="font-mono text-xs uppercase tracking-[0.08em] text-accent">
+                                            {article.category}
+                                        </span>
                                         <h3 className="mt-4 max-w-xl text-2xl font-light leading-[1.15] tracking-tight text-primary transition-colors group-hover:text-accent md:text-[2rem]">
                                             {article.heading}
                                         </h3>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { CTABanner, Folio, RuleLabel } from '../components/shared';
+import { CTABanner, RuleLabel } from '../components/shared';
 import { WorkflowVisual } from '../components/graphics';
 import { usePageMeta } from '../hooks/usePageMeta';
 
@@ -246,13 +246,12 @@ export default function Home() {
             <section className="border-b border-subtle bg-layer">
                 <div className="site-wrap">
                     <div className="grid grid-cols-1 divide-y divide-subtle md:grid-cols-3 md:divide-x md:divide-y-0">
-                        {strip.map((item, i) => (
+                        {strip.map((item) => (
                             <div
                                 key={item.title}
                                 className="px-0 py-8 md:px-8 md:py-12 md:first:pl-0 md:last:pr-0"
                             >
-                                <Folio label={String(i + 1).padStart(2, '0')} />
-                                <h4 className="mt-4 text-base font-semibold text-primary">{item.title}</h4>
+                                <h4 className="text-base font-semibold text-primary">{item.title}</h4>
                                 <p className="mt-2 text-sm leading-[18px] text-muted">{item.body}</p>
                             </div>
                         ))}
@@ -262,24 +261,19 @@ export default function Home() {
 
             <section className="bg-paper py-16 md:py-24" aria-label="How the workflow runs">
                 <div className="site-wrap">
-                    <RuleLabel label="01. How the workflow runs" />
+                    <RuleLabel label="How the workflow runs" />
                     <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-8">
                         <div className="hidden lg:col-span-5 lg:block lg:self-center">
                             <WorkflowVisual />
                         </div>
                         <div className="lg:col-span-7">
-                            {proofPoints.map((item, i) => (
+                            {proofPoints.map((item) => (
                                 <article
                                     key={item.title}
-                                    className="grid grid-cols-[3rem_1fr] gap-4 border-b border-subtle py-6 first:border-t md:grid-cols-[5rem_1fr] md:gap-8"
+                                    className="border-b border-subtle py-6 first:border-t"
                                 >
-                                    <span className="font-mono text-2xl tabular-nums leading-none text-strong md:text-3xl">
-                                        {String(i + 1).padStart(2, '0')}
-                                    </span>
-                                    <div>
-                                        <h2 className="text-xl font-normal text-primary md:text-2xl">{item.title}</h2>
-                                        <p className="mt-2 max-w-lg text-base leading-6 text-muted">{item.body}</p>
-                                    </div>
+                                    <h2 className="text-xl font-normal text-primary md:text-2xl">{item.title}</h2>
+                                    <p className="mt-2 max-w-lg text-base leading-6 text-muted">{item.body}</p>
                                 </article>
                             ))}
                         </div>
@@ -289,7 +283,7 @@ export default function Home() {
 
             <section className="bg-ink py-16 md:py-24">
                 <div className="site-wrap">
-                    <RuleLabel label="02. The point" light />
+                    <RuleLabel label="The point" light />
                     <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
@@ -312,7 +306,7 @@ export default function Home() {
 
             <section className="bg-paper py-16 md:py-24">
                 <div className="site-wrap">
-                    <RuleLabel label="03. Who it's for" />
+                    <RuleLabel label="Who it's for" />
                     <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-8">
                         <div className="lg:col-span-4">
                             <h2 className="text-3xl leading-[1.19] text-primary md:text-[2.625rem] md:leading-[50px]">
@@ -371,20 +365,17 @@ export default function Home() {
 
             <section className="border-t border-subtle bg-layer py-16 md:py-24">
                 <div className="site-wrap">
-                    <RuleLabel label="04. What's inside" />
+                    <RuleLabel label="What's inside" />
                     <h2 className="mt-12 max-w-3xl text-3xl leading-[1.19] text-primary md:text-[2.625rem] md:leading-[50px]">
                         RFQ builder, bid room, award record, and spend analytics. That is the product.
                     </h2>
 
                     <div className="mt-12 border-t border-subtle">
-                        {tools.map((item, index) => (
+                        {tools.map((item) => (
                             <article
                                 key={item.heading}
-                                className="group grid grid-cols-1 gap-4 border-b border-subtle py-8 md:grid-cols-[120px_1fr_1fr] md:gap-8 md:py-10"
+                                className="group grid grid-cols-1 gap-4 border-b border-subtle py-8 md:grid-cols-2 md:gap-8 md:py-10"
                             >
-                                <div className="font-mono text-5xl leading-none text-subtle md:text-7xl">
-                                    {String(index + 1).padStart(2, '0')}
-                                </div>
                                 <div>
                                     <span className="font-mono text-xs uppercase tracking-[0.08em] text-accent">{item.kicker}</span>
                                     <h3 className="mt-2 text-xl font-normal leading-snug text-primary md:text-2xl">{item.heading}</h3>
@@ -404,7 +395,7 @@ export default function Home() {
 
             <section className="bg-paper py-16 md:py-24">
                 <div className="site-wrap">
-                    <RuleLabel label="05. What teams say" />
+                    <RuleLabel label="What teams say" />
 
                     <figure className="mt-12 max-w-4xl md:mt-16">
                         <blockquote className="text-3xl font-light leading-[1.19] text-primary md:text-[2.625rem] md:leading-[50px]">

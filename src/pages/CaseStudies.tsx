@@ -218,15 +218,14 @@ export default function CaseStudies() {
 
                             {rest.length > 0 && (
                                 <div className="mt-24 border-t border-subtle">
-                                    {rest.map((study, i) => (
+                                    {rest.map((study) => (
                                         <article
                                             key={study.heading}
                                             onClick={() => setSelectedStudy(study)}
                                             className="group grid cursor-pointer gap-8 border-b border-subtle py-12 md:py-16 lg:grid-cols-12 lg:gap-10"
                                         >
                                             <div className="lg:col-span-3">
-                                                <span className="font-mono text-4xl leading-none text-subtle">{String(i + 2).padStart(2, '0')}</span>
-                                                <Folio label={study.industry} className="mt-4 !text-accent" />
+                                                <Folio label={study.industry} className="!text-accent" />
                                                 <p className="mt-3 font-mono text-xs uppercase tracking-[0.08em] text-muted">{study.team}</p>
                                                 {study.stats.length > 0 && (
                                                     <div className="mt-8 hidden lg:block">

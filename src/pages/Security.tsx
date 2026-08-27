@@ -58,7 +58,7 @@ export default function Security() {
             {/* Trust pillars — hairline grid, no icon cards */}
             <section className="border-t border-subtle bg-white">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="01. Foundations" />
+                    <RuleLabel label="Foundations" />
                     <div className="mt-12 grid gap-8 md:mt-16 lg:grid-cols-12 lg:gap-12">
                         <h2 className="text-3xl leading-[1.08] tracking-tight text-primary md:text-[2.75rem] lg:col-span-7">
                             Six things you can hold us to.
@@ -68,10 +68,9 @@ export default function Security() {
                         </p>
                     </div>
                     <div className="mt-16 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-                        {pillars.map((pillar, i) => (
+                        {pillars.map((pillar) => (
                             <article key={pillar.title} className="border-t border-subtle pt-6">
-                                <Folio label={String(i + 1).padStart(2, '0')} />
-                                <h3 className="mt-4 text-xl leading-snug tracking-tight text-primary">{pillar.title}</h3>
+                                <h3 className="text-xl leading-snug tracking-tight text-primary">{pillar.title}</h3>
                                 <p className="mt-3 text-[15px] leading-relaxed text-muted">{pillar.body}</p>
                             </article>
                         ))}
@@ -84,7 +83,7 @@ export default function Security() {
                 <div className="site-wrap py-16 md:py-24">
                     <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
                         <div className="lg:col-span-6">
-                            <Folio label="02. Audit trail" className="mb-5" />
+                            <Folio label="Audit trail" className="mb-5" />
                             <h2 className="text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
                                 The audit trail writes itself as people use the product.
                             </h2>
@@ -108,7 +107,7 @@ export default function Security() {
             {/* Data practices */}
             <section className="border-t border-subtle bg-white">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="03. Data practices" />
+                    <RuleLabel label="Data practices" />
                     <div className="mt-12 grid items-start gap-12 md:mt-16 lg:grid-cols-12 lg:gap-16">
                         <div className="lg:col-span-5">
                             <h2 className="text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
@@ -148,7 +147,7 @@ export default function Security() {
             {/* Dark statement */}
             <section className="bg-ink">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="04. On trust" light />
+                    <RuleLabel label="On trust" light />
                     <motion.div
                         initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}

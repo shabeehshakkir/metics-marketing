@@ -129,18 +129,13 @@ export default function Contact() {
                             </h2>
 
                             <div className="mt-12 border-t border-subtle">
-                                {expectations.map(([title, body], index) => (
+                                {expectations.map(([title, body]) => (
                                     <article
                                         key={title}
-                                        className="grid grid-cols-[3rem_1fr] gap-4 border-b border-subtle py-6"
+                                        className="border-b border-subtle py-6"
                                     >
-                                        <span className="font-mono text-2xl font-light leading-none text-muted">
-                                            {String(index + 1).padStart(2, '0')}
-                                        </span>
-                                        <div>
-                                            <h3 className="font-semibold text-primary">{title}</h3>
-                                            <p className="mt-1.5 leading-relaxed text-muted">{body}</p>
-                                        </div>
+                                        <h3 className="font-semibold text-primary">{title}</h3>
+                                        <p className="mt-1.5 leading-relaxed text-muted">{body}</p>
                                     </article>
                                 ))}
                             </div>

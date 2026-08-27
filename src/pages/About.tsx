@@ -56,7 +56,7 @@ export default function About() {
             {/* Why Metics exists */}
             <section className="border-t border-subtle bg-white">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="01. Why we exist" />
+                    <RuleLabel label="Why we exist" />
                     <div className="mt-12 grid items-start gap-12 md:mt-16 lg:grid-cols-12 lg:gap-16">
                         <h2 className="text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem] lg:col-span-5">
                             Awards go wrong when the person deciding never sees the full picture.
@@ -85,7 +85,7 @@ export default function About() {
             {/* What we believe — hairline columns */}
             <section className="bg-paper">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="02. What we believe" />
+                    <RuleLabel label="What we believe" />
                     <div className="mt-12 grid gap-8 md:mt-16 lg:grid-cols-12 lg:gap-12">
                         <h2 className="text-3xl leading-[1.08] tracking-tight text-primary md:text-[2.75rem] lg:col-span-7">
                             Good procurement is boring in the right places.
@@ -95,13 +95,12 @@ export default function About() {
                         </p>
                     </div>
                     <div className="mt-16 grid gap-x-10 gap-y-10 md:grid-cols-3">
-                        {beliefs.map((belief, i) => (
+                        {beliefs.map((belief) => (
                             <article
                                 key={belief.title}
                                 className="border-t border-subtle pt-6"
                             >
-                                <Folio label={String(i + 1).padStart(2, '0')} />
-                                <h3 className="mt-4 text-2xl leading-snug tracking-tight text-primary">{belief.title}</h3>
+                                <h3 className="text-2xl leading-snug tracking-tight text-primary">{belief.title}</h3>
                                 <p className="mt-4 text-[15px] leading-relaxed text-muted">{belief.body}</p>
                             </article>
                         ))}
@@ -112,7 +111,7 @@ export default function About() {
             {/* Dark statement */}
             <section className="bg-ink">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="03. The measure" light />
+                    <RuleLabel label="The measure" light />
                     <motion.div
                         initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -134,24 +133,19 @@ export default function About() {
             {/* How we work — numbered hairline rows */}
             <section className="bg-white">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="04. How we work" />
+                    <RuleLabel label="How we work" />
                     <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-12">
                         <h2 className="text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem] lg:col-span-4">
                             A small set of rules we hold ourselves to.
                         </h2>
                         <div className="border-t border-subtle lg:col-span-7 lg:col-start-6">
-                            {workPrinciples.map((item, i) => (
+                            {workPrinciples.map((item) => (
                                 <article
                                     key={item.title}
-                                    className="grid grid-cols-[3rem_1fr] gap-4 border-b border-subtle py-7 md:grid-cols-[5rem_1fr] md:gap-8"
+                                    className="border-b border-subtle py-7"
                                 >
-                                    <span className="font-mono text-2xl tabular-nums leading-none text-subtle md:text-3xl">
-                                        {String(i + 1).padStart(2, '0')}
-                                    </span>
-                                    <div>
-                                        <h3 className="text-xl text-primary md:text-2xl">{item.title}</h3>
-                                        <p className="mt-2 text-[15px] leading-relaxed text-muted">{item.body}</p>
-                                    </div>
+                                    <h3 className="text-xl text-primary md:text-2xl">{item.title}</h3>
+                                    <p className="mt-2 text-[15px] leading-relaxed text-muted">{item.body}</p>
                                 </article>
                             ))}
                         </div>
@@ -164,7 +158,7 @@ export default function About() {
                 <div className="site-wrap py-16 md:py-24">
                     <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
                         <div className="lg:col-span-6">
-                            <Folio label="05. Who we build for" className="mb-5" />
+                            <Folio label="Who we build for" className="mb-5" />
                             <h2 className="text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
                                 Both sides of the tender, one shared record.
                             </h2>

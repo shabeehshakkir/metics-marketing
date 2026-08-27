@@ -374,21 +374,16 @@ export default function Platform() {
             {/* Workflow proof points + package card */}
             <section className="border-t border-subtle bg-white">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="01. The workflow" />
+                    <RuleLabel label="The workflow" />
                     <div className="mt-12 grid items-start gap-12 md:mt-16 lg:grid-cols-12 lg:gap-16">
                         <div className="lg:col-span-7" aria-label="Platform workflow">
-                            {proofPoints.map((item, i) => (
+                            {proofPoints.map((item) => (
                                 <article
                                     key={item.title}
-                                    className="grid grid-cols-[3rem_1fr] gap-4 border-b border-subtle py-7 first:border-t md:grid-cols-[5rem_1fr] md:gap-8"
+                                    className="border-b border-subtle py-7 first:border-t"
                                 >
-                                    <span className="font-mono text-2xl tabular-nums leading-none text-strong md:text-3xl">
-                                        {String(i + 1).padStart(2, '0')}
-                                    </span>
-                                    <div>
-                                        <h2 className="text-xl font-normal text-primary md:text-2xl">{item.title}</h2>
-                                        <p className="mt-2 max-w-lg text-[15px] leading-relaxed text-muted">{item.body}</p>
-                                    </div>
+                                    <h2 className="text-xl font-normal text-primary md:text-2xl">{item.title}</h2>
+                                    <p className="mt-2 max-w-lg text-[15px] leading-relaxed text-muted">{item.body}</p>
                                 </article>
                             ))}
                         </div>
@@ -416,14 +411,11 @@ export default function Platform() {
             {/* Procurement flow — set as a hairline table row, magazine style */}
             <section className="border-y border-subtle bg-white">
                 <div className="site-wrap py-16 md:py-20">
-                    <RuleLabel label="02. From RFQ to delivery" />
+                    <RuleLabel label="From RFQ to delivery" />
                     <ol className="mt-10 grid gap-y-8 sm:grid-cols-2 md:mt-12 lg:grid-cols-6 lg:gap-y-0" aria-label="Procurement workflow steps">
-                        {flowSteps.map((step, i) => (
+                        {flowSteps.map((step) => (
                             <li key={step.label} className="relative pr-8 lg:border-l lg:border-subtle lg:pl-6 lg:first:border-0 lg:first:pl-0">
-                                <span className="font-mono text-xs uppercase tracking-[0.08em] text-muted">
-                                    {String(i + 1).padStart(2, '0')}
-                                </span>
-                                <p className="mt-3 text-2xl font-light tracking-tight text-primary">{step.label}</p>
+                                <p className="text-2xl font-light tracking-tight text-primary">{step.label}</p>
                                 <p className="mt-1 text-sm text-muted">{step.sub}</p>
                             </li>
                         ))}
@@ -434,7 +426,7 @@ export default function Platform() {
             {/* Both sides of the tender — one ink card among white */}
             <section className="bg-paper">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="03. Both sides of the tender" />
+                    <RuleLabel label="Both sides of the tender" />
                     <div className="mt-12 grid gap-8 md:mt-16 lg:grid-cols-12">
                         <h2 className="text-3xl font-light leading-[1.08] tracking-tight text-primary md:text-[2.75rem] lg:col-span-7">
                             Buyers and suppliers work from the same package record.
@@ -476,7 +468,7 @@ export default function Platform() {
             {/* Dark belief statement */}
             <section className="bg-ink">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="04. The point" light />
+                    <RuleLabel label="The point" light />
                     <motion.div
                         initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -498,7 +490,7 @@ export default function Platform() {
             {/* Built-in tools */}
             <section className="bg-white">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="05. Built-in tools" />
+                    <RuleLabel label="Built-in tools" />
                     <h2 className="mt-12 max-w-3xl text-3xl font-light leading-[1.1] tracking-tight text-primary md:mt-16 md:text-[2.75rem]">
                         RFQ builder, bid room, award record, TCO, and carbon data. That is the product.
                     </h2>
@@ -510,11 +502,8 @@ export default function Platform() {
                             return (
                                 <div key={tool.heading} className="grid items-center gap-10 lg:grid-cols-12 lg:gap-0">
                                     <div className={flipped ? 'lg:order-2 lg:col-span-6 lg:col-start-7 lg:pl-16' : 'lg:col-span-6 lg:pr-16'}>
-                                        <div className="flex items-baseline gap-4">
-                                            <span className="font-mono text-5xl leading-none text-subtle">{String(index + 1).padStart(2, '0')}</span>
-                                            <span className="font-mono text-xs uppercase tracking-[0.08em] text-accent">{tool.kicker}</span>
-                                        </div>
-                                        <h3 className="mt-5 text-2xl font-normal leading-snug tracking-tight text-primary md:text-3xl">{tool.heading}</h3>
+                                        <span className="font-mono text-xs uppercase tracking-[0.08em] text-accent">{tool.kicker}</span>
+                                        <h3 className="mt-3 text-2xl font-normal leading-snug tracking-tight text-primary md:text-3xl">{tool.heading}</h3>
                                         <p className="mt-4 text-base leading-relaxed text-muted md:text-lg">{tool.body}</p>
                                     </div>
                                     <div className={flipped ? 'lg:order-1 lg:col-span-5' : 'lg:col-span-5 lg:col-start-8'}>
@@ -530,7 +519,7 @@ export default function Platform() {
             {/* Spend analytics */}
             <section className="bg-paper">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="06. Spend analytics" />
+                    <RuleLabel label="Spend analytics" />
                     <motion.blockquote
                         initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -571,7 +560,7 @@ export default function Platform() {
             {/* Governance */}
             <section className="border-t border-subtle bg-white">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="07. Control" />
+                    <RuleLabel label="Control" />
                     <div className="mt-12 grid items-start gap-12 md:mt-16 lg:grid-cols-12 lg:gap-16">
                         <div className="lg:col-span-5">
                             <h2 className="text-3xl font-light leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">

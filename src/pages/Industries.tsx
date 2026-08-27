@@ -126,7 +126,7 @@ export default function Industries() {
             {/* Sector selector + detail panel */}
             <section className="border-t border-subtle bg-white">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="01. Choose a sector" />
+                    <RuleLabel label="Choose a sector" />
                     <div
                         className="mt-10 flex flex-wrap border-b border-subtle"
                         role="tablist"
@@ -220,7 +220,7 @@ export default function Industries() {
             {/* Dark statement */}
             <section className="bg-ink">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="02. One record" light />
+                    <RuleLabel label="One record" light />
                     <motion.p
                         initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}

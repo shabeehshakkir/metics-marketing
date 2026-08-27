@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { CTABanner, Folio, PageHero } from '../components/shared';
+import { CTABanner, PageHero } from '../components/shared';
 import { usePageMeta } from '../hooks/usePageMeta';
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -157,10 +157,9 @@ export default function Faq() {
 
                     {/* Accordion groups — category heading left, questions right */}
                     <div className="space-y-20 md:space-y-24">
-                        {visibleGroups.map((group, groupIdx) => (
+                        {visibleGroups.map((group) => (
                             <div key={group.category} className="grid gap-8 lg:grid-cols-12 lg:gap-10">
                                 <div className="lg:col-span-4">
-                                    <Folio label={String(groupIdx + 1).padStart(2, '0')} className="mb-4" />
                                     <h2 className="text-2xl tracking-tight text-primary md:text-3xl">{group.category}</h2>
                                     <p className="mt-2 max-w-sm text-[15px] text-muted">{group.description}</p>
                                 </div>
