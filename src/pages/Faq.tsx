@@ -129,36 +129,28 @@ export default function Faq() {
                 subtitle="How RFQs, bids, purchase orders, and supplier access work in Metics. If your question is not here, we answer directly — no ticket queue."
             />
 
-            <section className="border-t border-black/[0.08] pb-24 pt-16 md:pb-32 md:pt-20">
-                <div className="mx-auto max-w-[1180px] px-6 md:px-8">
-                    {/* Category filter — text on a hairline */}
+            <section className="border-t border-subtle py-16 md:py-24">
+                <div className="site-wrap">
+                    {/* Category filter — Carbon selected state */}
                     <div
-                        className="mb-16 flex flex-wrap items-baseline gap-x-8 gap-y-3 border-b border-black/[0.08] pb-5"
+                        className="mb-16 flex flex-wrap items-end border-b border-subtle"
                         role="tablist"
                         aria-label="FAQ categories"
                     >
-                        <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-primary/40">Browse</span>
+                        <span className="mr-4 self-center font-mono text-xs uppercase tracking-[0.08em] text-muted">Browse</span>
                         {CATEGORIES.map((category) => (
                             <button
                                 key={category}
                                 role="tab"
                                 aria-selected={activeCategory === category}
                                 onClick={() => setActiveCategory(category)}
-                                className={`relative pb-1 text-sm font-semibold transition-colors duration-200 ${
+                                className={`px-4 py-3 text-sm font-semibold transition-colors duration-150 ${
                                     activeCategory === category
-                                        ? 'text-primary'
-                                        : 'text-primary/40 hover:text-primary/70'
+                                        ? 'border-b-2 border-accent bg-highlight text-primary'
+                                        : 'text-muted hover:bg-layer hover:text-primary'
                                 }`}
                             >
                                 {category}
-                                {activeCategory === category && (
-                                    <motion.span
-                                        layoutId="faq-filter-underline"
-                                        transition={{ duration: 0.4, ease: EASE }}
-                                        className="absolute -bottom-[21px] left-0 right-0 h-[2px] bg-accent"
-                                        aria-hidden="true"
-                                    />
-                                )}
                             </button>
                         ))}
                     </div>
@@ -169,10 +161,10 @@ export default function Faq() {
                             <div key={group.category} className="grid gap-8 lg:grid-cols-12 lg:gap-10">
                                 <div className="lg:col-span-4">
                                     <Folio label={String(groupIdx + 1).padStart(2, '0')} className="mb-4" />
-                                    <h2 className="font-serif text-2xl tracking-tight text-primary md:text-3xl">{group.category}</h2>
-                                    <p className="mt-2 max-w-sm text-[15px] text-primary/55">{group.description}</p>
+                                    <h2 className="text-2xl tracking-tight text-primary md:text-3xl">{group.category}</h2>
+                                    <p className="mt-2 max-w-sm text-[15px] text-muted">{group.description}</p>
                                 </div>
-                                <div className="divide-y divide-black/[0.08] border-y border-black/[0.08] lg:col-span-7 lg:col-start-6">
+                                <div className="divide-y divide-subtle border-y border-subtle lg:col-span-7 lg:col-start-6">
                                     {group.entries.map((entry) => {
                                         const open = openQuestion === entry.q;
                                         return (
@@ -195,7 +187,7 @@ export default function Faq() {
                                                         stroke="currentColor"
                                                         strokeWidth={1.5}
                                                         aria-hidden="true"
-                                                        className={`h-5 w-5 shrink-0 text-primary/50 transition-transform duration-300 ${
+                                                        className={`h-5 w-5 shrink-0 text-muted transition-transform duration-300 ${
                                                             open ? 'rotate-45 text-accent' : ''
                                                         }`}
                                                     >
@@ -211,7 +203,7 @@ export default function Faq() {
                                                             transition={{ duration: 0.35, ease: EASE }}
                                                             className="overflow-hidden"
                                                         >
-                                                            <p className="max-w-3xl pb-5 leading-relaxed text-primary/65">{entry.a}</p>
+                                                            <p className="max-w-3xl pb-5 leading-relaxed text-muted">{entry.a}</p>
                                                         </motion.div>
                                                     )}
                                                 </AnimatePresence>
@@ -224,13 +216,13 @@ export default function Faq() {
                     </div>
 
                     {/* Still stuck */}
-                    <p className="mt-20 border-t border-black/[0.08] pt-8 text-[15px] text-primary/55">
+                    <p className="mt-20 border-t border-subtle pt-8 text-[15px] text-muted">
                         Looking for plan details? See{' '}
-                        <Link to="/pricing" className="font-semibold text-primary underline decoration-black/20 underline-offset-4 transition-colors hover:text-accent">
+                        <Link to="/pricing" className="font-semibold text-primary underline decoration-subtle underline-offset-4 transition-colors hover:text-accent">
                             pricing
                         </Link>
                         , or read how we handle data on the{' '}
-                        <Link to="/security" className="font-semibold text-primary underline decoration-black/20 underline-offset-4 transition-colors hover:text-accent">
+                        <Link to="/security" className="font-semibold text-primary underline decoration-subtle underline-offset-4 transition-colors hover:text-accent">
                             security page
                         </Link>
                         .

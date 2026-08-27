@@ -70,38 +70,38 @@ export default function Pricing() {
                 subtitle="Start with a small team, prove the workflow, then scale across projects. Suppliers are free, because bid coverage matters more than charging both sides."
             />
 
-            <section className="border-t border-black/[0.08] py-16 md:py-24">
-                <div className="mx-auto max-w-[1180px] px-6 md:px-8">
+            <section className="border-t border-subtle py-16 md:py-24">
+                <div className="site-wrap">
                     <RuleLabel label="01 — Plans" />
                     <div className="mt-12 grid items-stretch gap-6 md:mt-16 lg:grid-cols-3 lg:gap-8">
                         {plans.map((plan) => (
                             <article
                                 key={plan.name}
-                                className={`relative flex h-full flex-col rounded-2xl p-8 md:p-10 ${
+                                className={`relative flex h-full flex-col p-8 md:p-10 ${
                                     plan.featured
                                         ? 'bg-ink text-white'
-                                        : 'border border-black/[0.08] bg-white text-primary shadow-[0_1px_2px_rgba(0,0,0,0.04)] lg:translate-y-8'
+                                        : 'border border-subtle bg-paper text-primary'
                                 }`}
                             >
                                 <div className="flex items-baseline justify-between gap-4">
-                                    <p className={`text-[11px] font-semibold uppercase tracking-[0.25em] ${plan.featured ? 'text-white/50' : 'text-primary/50'}`}>{plan.name}</p>
+                                    <p className={`font-mono text-xs uppercase tracking-[0.08em] ${plan.featured ? 'text-white/50' : 'text-muted'}`}>{plan.name}</p>
                                     {plan.featured && (
-                                        <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-accent">
+                                        <span className="border border-white/20 px-2 py-0.5 font-mono text-xs uppercase tracking-[0.08em] text-accent">
                                             Recommended
                                         </span>
                                     )}
                                 </div>
                                 <div className="mt-6 flex items-baseline gap-2">
-                                    <strong className={`font-serif text-5xl font-medium leading-none tracking-tight md:text-6xl ${plan.featured ? 'text-white' : 'text-primary'}`}>{plan.price}</strong>
-                                    {plan.period && <span className={`text-sm ${plan.featured ? 'text-white/50' : 'text-primary/50'}`}>{plan.period}</span>}
+                                    <strong className={`text-5xl font-light leading-none tracking-tight md:text-6xl ${plan.featured ? 'text-white' : 'text-primary'}`}>{plan.price}</strong>
+                                    {plan.period && <span className={`font-mono text-xs uppercase tracking-[0.08em] ${plan.featured ? 'text-white/50' : 'text-muted'}`}>{plan.period}</span>}
                                 </div>
                                 {plan.featured && (
-                                    <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-white/40">Most teams start here</p>
+                                    <p className="mt-3 font-mono text-xs uppercase tracking-[0.08em] text-white/40">Most teams start here</p>
                                 )}
-                                <p className={`mt-4 leading-relaxed ${plan.featured ? 'text-white/65' : 'text-primary/65'}`}>{plan.note}</p>
-                                <ul className={`mt-8 flex-1 space-y-3 border-t pt-8 ${plan.featured ? 'border-white/10' : 'border-black/[0.08]'}`}>
+                                <p className={`mt-4 leading-relaxed ${plan.featured ? 'text-white/65' : 'text-muted'}`}>{plan.note}</p>
+                                <ul className={`mt-8 flex-1 space-y-3 border-t pt-8 ${plan.featured ? 'border-white/10' : 'border-subtle'}`}>
                                     {plan.features.map((feature) => (
-                                        <li key={feature} className={`flex items-start gap-3 text-sm ${plan.featured ? 'text-white/80' : 'text-primary/75'}`}>
+                                        <li key={feature} className={`flex items-start gap-3 text-sm ${plan.featured ? 'text-white/80' : 'text-primary'}`}>
                                             <CheckIcon />
                                             {feature}
                                         </li>
@@ -109,11 +109,7 @@ export default function Pricing() {
                                 </ul>
                                 <Link
                                     to="/contact"
-                                    className={`mt-10 inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-colors ${
-                                        plan.featured
-                                            ? 'bg-white text-ink hover:bg-accent hover:text-white'
-                                            : 'border border-black/15 text-primary hover:border-primary'
-                                    }`}
+                                    className={`mt-10 ${plan.featured ? 'btn-primary' : 'btn-tertiary'}`}
                                 >
                                     {plan.cta}
                                 </Link>
@@ -124,13 +120,13 @@ export default function Pricing() {
             </section>
 
             <section className="pb-20 pt-16 md:pb-28 md:pt-20">
-                <div className="mx-auto max-w-[1180px] px-6 md:px-8">
-                    <div className="grid gap-10 border-t border-black/[0.15] pt-10 md:grid-cols-3 md:gap-8">
+                <div className="site-wrap">
+                    <div className="grid gap-10 border-t border-subtle pt-10 md:grid-cols-3 md:gap-8">
                         {pricingNotes.map(([title, body], i) => (
                             <div key={title} className="md:pr-8">
                                 <Folio label={String(i + 1).padStart(2, '0')} />
-                                <h3 className="mt-4 font-serif text-xl tracking-tight text-primary">{title}</h3>
-                                <p className="mt-2 leading-relaxed text-primary/65">{body}</p>
+                                <h3 className="mt-4 text-xl font-light tracking-tight text-primary">{title}</h3>
+                                <p className="mt-2 leading-relaxed text-muted">{body}</p>
                             </div>
                         ))}
                     </div>
@@ -138,14 +134,14 @@ export default function Pricing() {
             </section>
 
             <section className="pb-24 md:pb-32">
-                <div className="mx-auto max-w-[1180px] px-6 md:px-8">
+                <div className="site-wrap">
                     <RuleLabel label="02 — Questions" />
                     <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-12">
-                        <h2 className="font-serif text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem] lg:col-span-4">
+                        <h2 className="text-3xl font-light leading-[1.19] tracking-tight text-primary md:text-[2.625rem] md:leading-[50px] lg:col-span-4">
                             Clear answers before you book a call.
                         </h2>
                         <div className="lg:col-span-7 lg:col-start-6">
-                            <div className="divide-y divide-black/[0.08] border-y border-black/[0.08]">
+                            <div className="divide-y divide-subtle border-y border-subtle">
                                 {faqs.map(([question, answer], index) => {
                                     const open = index === openFaq;
                                     return (
@@ -164,7 +160,7 @@ export default function Pricing() {
                                                     stroke="currentColor"
                                                     strokeWidth={1.5}
                                                     aria-hidden="true"
-                                                    className={`h-5 w-5 shrink-0 text-primary/50 transition-transform duration-300 ${open ? 'rotate-45 text-accent' : ''}`}
+                                                    className={`h-5 w-5 shrink-0 text-muted transition-transform duration-300 ${open ? 'rotate-45 text-accent' : ''}`}
                                                 >
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                                 </svg>
@@ -178,7 +174,7 @@ export default function Pricing() {
                                                         transition={{ duration: 0.35, ease: EASE }}
                                                         className="overflow-hidden"
                                                     >
-                                                        <p className="max-w-3xl pb-5 leading-relaxed text-primary/65">{answer}</p>
+                                                        <p className="max-w-3xl pb-5 leading-relaxed text-muted">{answer}</p>
                                                     </motion.div>
                                                 )}
                                             </AnimatePresence>
@@ -186,7 +182,7 @@ export default function Pricing() {
                                     );
                                 })}
                             </div>
-                            <p className="mt-8 text-[15px] text-primary/55">
+                            <p className="mt-8 text-[15px] text-muted">
                                 More questions about RFQs, suppliers, or integrations?{' '}
                                 <Link
                                     to="/faq"

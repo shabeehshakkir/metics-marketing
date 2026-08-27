@@ -114,27 +114,21 @@ export default function Industries() {
                 subtitle="Procurement looks different depending on the sector. Metics adapts to the specifics without needing a custom implementation."
             >
                 <div className="mt-8 flex flex-wrap gap-3">
-                    <Link
-                        to="/contact"
-                        className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent"
-                    >
+                    <Link to="/contact" className="btn-primary">
                         Talk through your workflow
                     </Link>
-                    <Link
-                        to="/platform"
-                        className="inline-flex items-center justify-center rounded-full border border-black/15 px-6 py-3 text-sm font-semibold text-primary transition-colors hover:border-primary"
-                    >
+                    <Link to="/platform" className="btn-tertiary">
                         See the platform
                     </Link>
                 </div>
             </PageHero>
 
             {/* Sector selector + detail panel */}
-            <section className="border-t border-black/[0.08] bg-white">
-                <div className="mx-auto max-w-[1180px] px-6 py-24 md:px-8 md:py-32">
+            <section className="border-t border-subtle bg-white">
+                <div className="site-wrap py-16 md:py-24">
                     <RuleLabel label="01 — Choose a sector" />
                     <div
-                        className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-b border-black/[0.08] pb-6"
+                        className="mt-10 flex flex-wrap border-b border-subtle"
                         role="tablist"
                         aria-label="Select an industry"
                     >
@@ -146,19 +140,13 @@ export default function Industries() {
                                     role="tab"
                                     aria-selected={isActive}
                                     onClick={() => setActiveIdx(i)}
-                                    className={`group relative pb-1 font-serif text-xl tracking-tight transition-colors duration-200 md:text-2xl ${
-                                        isActive ? 'text-primary' : 'text-primary/35 hover:text-primary/70'
+                                    className={`px-4 py-3 text-left text-sm font-semibold transition-colors duration-150 ${
+                                        isActive
+                                            ? 'border-b-2 border-accent bg-highlight text-primary'
+                                            : 'text-muted hover:bg-layer hover:text-primary'
                                     }`}
                                 >
                                     {ind.label}
-                                    {isActive && (
-                                        <motion.span
-                                            layoutId="industry-underline"
-                                            transition={{ duration: 0.4, ease: EASE }}
-                                            className="absolute -bottom-[25px] left-0 right-0 h-[2px] bg-accent"
-                                            aria-hidden="true"
-                                        />
-                                    )}
                                 </button>
                             );
                         })}
@@ -175,16 +163,16 @@ export default function Industries() {
                         >
                             <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
                                 <div className="lg:col-span-7">
-                                    <h2 className="font-serif text-3xl leading-[1.08] tracking-tight text-primary md:text-5xl">
+                                    <h2 className="text-3xl leading-[1.08] tracking-tight text-primary md:text-5xl">
                                         {active.heading}
                                     </h2>
-                                    <p className="mt-5 max-w-2xl text-lg text-primary/65">{active.intro}</p>
+                                    <p className="mt-5 max-w-2xl text-lg text-muted">{active.intro}</p>
                                 </div>
                                 <div className="self-end lg:col-span-4 lg:col-start-9">
                                     <Folio label="Snapshot" />
-                                    <ul className="mt-4 border-t border-black/[0.15]">
+                                    <ul className="mt-4 border-t border-subtle">
                                         {active.snapshot.map((chip) => (
-                                            <li key={chip} className="border-b border-black/[0.08] py-2.5 text-sm font-medium text-primary/70">
+                                            <li key={chip} className="border-b border-subtle py-2.5 text-sm font-medium text-muted">
                                                 {chip}
                                             </li>
                                         ))}
@@ -197,14 +185,13 @@ export default function Industries() {
                                     <Folio label="Common friction" />
                                     <ul className="mt-6 space-y-5">
                                         {active.problems.map((p) => (
-                                            <li key={p} className="flex gap-4 font-serif text-lg italic leading-relaxed text-primary/60">
-                                                <span className="mt-3.5 h-px w-5 shrink-0 bg-primary/30" aria-hidden="true" />
+                                            <li key={p} className="border-l-2 border-accent pl-4 text-lg font-light leading-relaxed text-muted">
                                                 {p}
                                             </li>
                                         ))}
                                     </ul>
                                 </div>
-                                <div className="rounded-2xl bg-ink p-8 text-white md:p-10 lg:col-span-6 lg:col-start-7">
+                                <div className="border border-subtle bg-ink p-8 text-white md:p-10 lg:col-span-6 lg:col-start-7">
                                     <Folio label="What Metics changes" light />
                                     <ul className="mt-6 divide-y divide-white/10">
                                         {active.capabilities.map((c) => (
@@ -219,9 +206,9 @@ export default function Industries() {
                                 </div>
                             </div>
 
-                            <div className="mt-16 flex flex-col gap-4 border-t border-black/[0.15] pt-8 sm:flex-row sm:items-baseline sm:gap-10">
-                                <span className="font-serif text-6xl leading-none tracking-tight text-primary md:text-7xl">{active.stat.value}</span>
-                                <span className="max-w-md text-[15px] leading-relaxed text-primary/65">
+                            <div className="mt-16 flex flex-col gap-4 border-t border-subtle pt-8 sm:flex-row sm:items-baseline sm:gap-10">
+                                <span className="text-6xl font-light leading-none tracking-tight text-primary md:text-7xl">{active.stat.value}</span>
+                                <span className="max-w-md text-[15px] leading-relaxed text-muted">
                                     {active.stat.label}
                                 </span>
                             </div>
@@ -231,15 +218,15 @@ export default function Industries() {
             </section>
 
             {/* Dark statement */}
-            <section className="bg-[#141414]">
-                <div className="mx-auto max-w-[1180px] px-6 py-24 md:px-8 md:py-32">
+            <section className="bg-ink">
+                <div className="site-wrap py-16 md:py-24">
                     <RuleLabel label="02 — One record" light />
                     <motion.p
                         initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: '-80px' }}
                         transition={{ duration: 0.8, ease: EASE }}
-                        className="mt-12 max-w-4xl font-serif text-3xl leading-[1.15] tracking-tight text-white md:mt-16 md:text-5xl"
+                        className="mt-12 max-w-4xl text-3xl font-light leading-[1.15] tracking-tight text-white md:mt-16 md:text-5xl"
                     >
                         The RFQ, the bids, the approval, and the purchase order belong in the same place. That is true in construction, manufacturing, energy, and government alike.
                     </motion.p>

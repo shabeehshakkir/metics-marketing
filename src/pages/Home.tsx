@@ -5,7 +5,7 @@ import { CTABanner, Folio, RuleLabel } from '../components/shared';
 import { WorkflowVisual } from '../components/graphics';
 import { usePageMeta } from '../hooks/usePageMeta';
 
-const easeOut: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const easeOut: [number, number, number, number] = [0.2, 0, 0.38, 0.9];
 
 const proofPoints = [
     {
@@ -118,53 +118,49 @@ const heroBids = [
 function HeroRecordCard() {
     return (
         <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.45, ease: easeOut }}
-            className="relative"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 0.2, ease: easeOut }}
+            className="border border-subtle bg-layer p-6 md:p-8"
         >
-            {/* Layered backdrop card for depth */}
-            <div className="absolute -bottom-3 left-6 right-6 top-6 rounded-2xl border border-black/[0.06] bg-white/60" aria-hidden="true" />
-            <div className="relative rounded-2xl border border-black/[0.08] bg-white p-6 text-left shadow-[0_24px_60px_-24px_rgba(26,26,26,0.18)] md:p-8">
-                <div className="flex items-start justify-between gap-4">
-                    <div>
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-primary/40">RFQ package</p>
-                        <p className="mt-1 font-serif text-xl text-primary">Structural Steel — Block C</p>
-                    </div>
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold text-secondary">
-                        <span className="h-1.5 w-1.5 rounded-full bg-secondary" aria-hidden="true" />
-                        Bids closed
-                    </span>
+            <div className="flex items-start justify-between gap-4">
+                <div>
+                    <p className="font-mono text-xs uppercase tracking-[0.08em] text-muted">RFQ package</p>
+                    <p className="mt-1 text-xl font-normal text-primary">Structural Steel — Block C</p>
                 </div>
+                <span className="inline-flex items-center gap-2 border border-subtle bg-paper px-3 py-1 text-xs font-semibold text-support">
+                    <span className="h-1.5 w-1.5 bg-support" aria-hidden="true" />
+                    Bids closed
+                </span>
+            </div>
 
-                <div className="mt-6 space-y-3">
-                    {heroBids.map((bid) => (
-                        <div key={bid.supplier} className="flex items-center gap-4">
-                            <span className="w-32 shrink-0 truncate text-xs font-medium text-primary/70">{bid.supplier}</span>
-                            <div className="h-2 flex-1 overflow-hidden rounded-full bg-black/[0.05]">
-                                <motion.div
-                                    initial={{ width: 0 }}
-                                    animate={{ width: bid.width }}
-                                    transition={{ duration: 0.9, delay: 0.85, ease: easeOut }}
-                                    className={`h-full rounded-full ${bid.accent ? 'bg-accent' : 'bg-primary/25'}`}
-                                />
-                            </div>
-                            <span className={`w-20 shrink-0 text-right text-xs tabular-nums ${bid.accent ? 'font-semibold text-primary' : 'text-primary/50'}`}>
-                                {bid.amount}
-                            </span>
+            <div className="mt-6 space-y-3">
+                {heroBids.map((bid) => (
+                    <div key={bid.supplier} className="flex items-center gap-4">
+                        <span className="w-32 shrink-0 truncate text-xs font-medium text-muted">{bid.supplier}</span>
+                        <div className="h-2 flex-1 overflow-hidden bg-subtle">
+                            <motion.div
+                                initial={{ width: 0 }}
+                                animate={{ width: bid.width }}
+                                transition={{ duration: 0.7, delay: 0.35, ease: easeOut }}
+                                className={`h-full ${bid.accent ? 'bg-accent' : 'bg-strong'}`}
+                            />
                         </div>
-                    ))}
-                </div>
+                        <span className={`w-20 shrink-0 text-right font-mono text-xs tabular-nums ${bid.accent ? 'font-semibold text-primary' : 'text-muted'}`}>
+                            {bid.amount}
+                        </span>
+                    </div>
+                ))}
+            </div>
 
-                <div className="mt-6 flex items-center justify-between border-t border-black/[0.08] pt-4">
-                    <span className="text-xs text-primary/50">3 bids · 2 clarifications · TCO comparison ready</span>
-                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-accent">
-                        Review award
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5" aria-hidden="true">
-                            <path d="M5 12h14m-6-6l6 6-6 6" />
-                        </svg>
-                    </span>
-                </div>
+            <div className="mt-6 flex items-center justify-between border-t border-subtle pt-4">
+                <span className="text-xs text-muted">3 bids · 2 clarifications · TCO comparison ready</span>
+                <span className="inline-flex items-center gap-2 text-xs font-semibold text-accent">
+                    Review award
+                    <svg viewBox="0 0 20 20" fill="none" className="h-4 w-4" aria-hidden="true">
+                        <path d="M11.8 4.4 17.4 10l-5.6 5.6M17.4 10H2.6" stroke="currentColor" strokeWidth="1.5" />
+                    </svg>
+                </span>
             </div>
         </motion.div>
     );
@@ -179,100 +175,90 @@ export default function Home() {
 
     return (
         <div className="page">
-            {/* ------------------------------------------------ Hero */}
-            <section className="overflow-hidden pb-20 pt-14 md:pb-28 md:pt-20">
-                <div className="mx-auto max-w-[1180px] px-6 md:px-8">
+            <section className="leadspace border-b border-subtle bg-paper pb-16 pt-12 md:min-h-[640px] md:pb-24 md:pt-16">
+                <div className="site-wrap">
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ duration: 0.5, ease: easeOut }}
+                        transition={{ duration: 0.24, ease: easeOut }}
                     >
                         <RuleLabel label="Metics Platform" />
                     </motion.div>
 
-                    <div className="mt-10 grid gap-10 md:mt-14 lg:grid-cols-12 lg:gap-12">
+                    <div className="mt-8 grid gap-8 md:mt-12 lg:grid-cols-12 lg:gap-8">
                         <motion.h1
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.7, delay: 0.08, ease: easeOut }}
-                            className="font-serif text-[2.9rem] leading-[1.0] tracking-tight text-primary md:text-7xl lg:col-span-8"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.4, delay: 0.06, ease: easeOut }}
+                            className="title-rail text-4xl leading-[1.18] text-primary md:text-5xl lg:col-span-10 lg:text-[3.375rem] lg:leading-[64px]"
                         >
-                            The procurement workspace your projects can <em className="italic text-accent">live in</em>.
+                            The procurement workspace your projects can <span className="text-accent">live in</span>.
                         </motion.h1>
 
                         <motion.div
-                            initial={{ opacity: 0, y: 16 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.7, delay: 0.2, ease: easeOut }}
-                            className="self-end lg:col-span-4 lg:col-start-9"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.4, delay: 0.12, ease: easeOut }}
+                            className="lg:col-span-8"
                         >
-                            <p className="text-lg leading-relaxed text-primary/65">
+                            <p className="text-base leading-6 text-muted md:text-lg md:leading-7">
                                 Procurement goes wrong when the cost picture, the supplier risk, and the approval trail live in different places. Metics puts the tender, the bids, the decision, and the purchase order in one record.
                             </p>
                             <div className="mt-8 flex flex-wrap gap-3">
-                                <Link
-                                    to="/contact"
-                                    className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent"
-                                >
+                                <Link to="/contact" className="btn-primary">
                                     Book a walkthrough
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5 transition-transform duration-300 ease-editorial group-hover:translate-x-1" aria-hidden="true">
-                                        <path d="M5 12h14m-6-6l6 6-6 6" />
+                                    <svg viewBox="0 0 20 20" fill="none" className="h-5 w-5" aria-hidden="true">
+                                        <path d="M11.8 4.4 17.4 10l-5.6 5.6M17.4 10H2.6" stroke="currentColor" strokeWidth="1.5" />
                                     </svg>
                                 </Link>
-                                <Link
-                                    to="/platform"
-                                    className="inline-flex items-center justify-center rounded-full border border-black/15 bg-transparent px-6 py-3 text-sm font-semibold text-primary transition-colors hover:border-primary"
-                                >
+                                <Link to="/platform" className="btn-tertiary">
                                     See how it works
                                 </Link>
                             </div>
                         </motion.div>
                     </div>
 
-                    {/* Record card anchored right; aside sits left on the same baseline */}
-                    <div className="mt-16 grid items-end gap-10 md:mt-20 lg:grid-cols-12 lg:gap-12">
+                    <div className="mt-16 grid items-end gap-8 md:mt-20 lg:grid-cols-12">
                         <motion.aside
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ duration: 0.8, delay: 0.35, ease: easeOut }}
+                            transition={{ duration: 0.4, delay: 0.18, ease: easeOut }}
                             className="lg:col-span-4"
                         >
-                            <div className="border-t border-black/[0.15] pt-6">
-                                <p className="font-serif text-xl italic leading-snug text-primary/75 md:text-2xl">
+                            <div className="border-t border-strong pt-6">
+                                <p className="text-xl font-light leading-snug text-muted md:text-2xl">
                                     Most teams find out the real cost of a supplier relationship after the award. Metics shows it before.
                                 </p>
                             </div>
                         </motion.aside>
-                        <div className="lg:col-span-8 xl:-mr-16">
+                        <div className="lg:col-span-8">
                             <HeroRecordCard />
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* ------------------------------------ Differentiator strip */}
-            <section className="border-y border-black/[0.08] bg-white/60">
-                <div className="mx-auto max-w-[1180px] px-6 md:px-8">
-                    <div className="grid grid-cols-1 divide-y divide-black/[0.08] md:grid-cols-3 md:divide-x md:divide-y-0">
+            <section className="border-b border-subtle bg-layer">
+                <div className="site-wrap">
+                    <div className="grid grid-cols-1 divide-y divide-subtle md:grid-cols-3 md:divide-x md:divide-y-0">
                         {strip.map((item, i) => (
                             <div
                                 key={item.title}
-                                className="px-0 py-8 md:px-10 md:py-12 md:first:pl-0 md:last:pr-0"
+                                className="px-0 py-8 md:px-8 md:py-12 md:first:pl-0 md:last:pr-0"
                             >
                                 <Folio label={String(i + 1).padStart(2, '0')} />
-                                <h4 className="mt-4 font-serif text-lg text-primary">{item.title}</h4>
-                                <p className="mt-1.5 text-sm leading-relaxed text-primary/60">{item.body}</p>
+                                <h4 className="mt-4 text-base font-semibold text-primary">{item.title}</h4>
+                                <p className="mt-2 text-sm leading-[18px] text-muted">{item.body}</p>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* --------------------------------------------- Proof steps */}
-            <section className="py-24 md:py-32" aria-label="How the workflow runs">
-                <div className="mx-auto max-w-[1180px] px-6 md:px-8">
+            <section className="bg-paper py-16 md:py-24" aria-label="How the workflow runs">
+                <div className="site-wrap">
                     <RuleLabel label="01 — How the workflow runs" />
-                    <div className="mt-12 grid gap-12 md:mt-16 lg:grid-cols-12 lg:gap-16">
+                    <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-8">
                         <div className="hidden lg:col-span-5 lg:block lg:self-center">
                             <WorkflowVisual />
                         </div>
@@ -280,14 +266,14 @@ export default function Home() {
                             {proofPoints.map((item, i) => (
                                 <article
                                     key={item.title}
-                                    className="grid grid-cols-[3rem_1fr] gap-4 border-b border-black/[0.08] py-7 first:border-t md:grid-cols-[5rem_1fr] md:gap-8"
+                                    className="grid grid-cols-[3rem_1fr] gap-4 border-b border-subtle py-6 first:border-t md:grid-cols-[5rem_1fr] md:gap-8"
                                 >
-                                    <span className="font-serif text-2xl tabular-nums leading-none text-primary/25 md:text-3xl">
+                                    <span className="font-mono text-2xl tabular-nums leading-none text-strong md:text-3xl">
                                         {String(i + 1).padStart(2, '0')}
                                     </span>
                                     <div>
-                                        <h2 className="font-serif text-xl text-primary md:text-2xl">{item.title}</h2>
-                                        <p className="mt-2 max-w-lg text-[15px] leading-relaxed text-primary/60">{item.body}</p>
+                                        <h2 className="text-xl font-normal text-primary md:text-2xl">{item.title}</h2>
+                                        <p className="mt-2 max-w-lg text-base leading-6 text-muted">{item.body}</p>
                                     </div>
                                 </article>
                             ))}
@@ -296,23 +282,22 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* --------------------------------------------- Belief quote */}
-            <section className="bg-[#141414] py-24 md:py-32">
-                <div className="mx-auto max-w-[1180px] px-6 md:px-8">
+            <section className="bg-ink py-16 md:py-24">
+                <div className="site-wrap">
                     <RuleLabel label="02 — The point" light />
                     <motion.div
-                        initial={{ opacity: 0, y: 16 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
                         viewport={{ once: true, margin: '-80px' }}
-                        transition={{ duration: 0.8, ease: easeOut }}
-                        className="mt-12 md:mt-16"
+                        transition={{ duration: 0.4, ease: easeOut }}
+                        className="mt-12"
                     >
-                        <p className="max-w-4xl font-serif text-3xl leading-[1.12] tracking-tight text-white md:text-6xl">
+                        <p className="max-w-4xl text-3xl font-light leading-[1.19] text-white md:text-[3.375rem] md:leading-[64px]">
                             The teams that award well are the ones who saw the full picture before the decision was made.
                         </p>
-                        <div className="mt-10 flex items-center gap-5">
-                            <span className="h-px w-12 bg-accent" aria-hidden="true" />
-                            <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/50">
+                        <div className="mt-10 flex items-center gap-4">
+                            <span className="h-px w-8 bg-accent" aria-hidden="true" />
+                            <span className="font-mono text-xs uppercase tracking-[0.08em] text-[#c6c6c6]">
                                 That is what Metics is built to give you.
                             </span>
                         </div>
@@ -320,26 +305,25 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* --------------------------------------------------- Roles */}
-            <section className="py-16 md:py-24">
-                <div className="mx-auto max-w-[1180px] px-6 md:px-8">
+            <section className="bg-paper py-16 md:py-24">
+                <div className="site-wrap">
                     <RuleLabel label="03 — Who it's for" />
-                    <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-12 lg:gap-12">
+                    <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-8">
                         <div className="lg:col-span-4">
-                            <h2 className="font-serif text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
+                            <h2 className="text-3xl leading-[1.19] text-primary md:text-[2.625rem] md:leading-[50px]">
                                 Different pressures. One procurement record.
                             </h2>
-                            <div className="mt-8 flex flex-wrap gap-2 lg:flex-col lg:items-start" role="tablist" aria-label="Roles">
+                            <div className="mt-8 flex flex-wrap border-b border-subtle lg:flex-col lg:items-stretch lg:border-b-0 lg:border-l" role="tablist" aria-label="Roles">
                                 {roles.map((role, i) => (
                                     <button
                                         key={role.tab}
                                         role="tab"
                                         aria-selected={activeRole === i}
                                         onClick={() => setActiveRole(i)}
-                                        className={`rounded-full border px-5 py-2 text-sm font-semibold transition-colors duration-200 ${
+                                        className={`px-4 py-3 text-left text-sm font-semibold transition-colors duration-150 ${
                                             activeRole === i
-                                                ? 'border-primary bg-primary text-white'
-                                                : 'border-black/[0.1] bg-white text-primary/60 hover:text-primary'
+                                                ? 'border-b-2 border-accent bg-highlight text-primary lg:border-b-0 lg:border-l-2 lg:border-accent'
+                                                : 'text-muted hover:bg-layer hover:text-primary'
                                         }`}
                                     >
                                         {role.tab}
@@ -353,24 +337,24 @@ export default function Home() {
                                 <motion.div
                                     key={activeRole}
                                     role="tabpanel"
-                                    initial={{ opacity: 0, y: 12 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -8 }}
-                                    transition={{ duration: 0.3, ease: easeOut }}
-                                    className="border-t border-black/[0.15] pt-8"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.15, ease: easeOut }}
+                                    className="border-t border-strong pt-8"
                                 >
-                                    <h3 className="font-serif text-2xl tracking-tight text-primary md:text-3xl">{roles[activeRole].title}</h3>
-                                    <p className="mt-5 text-lg leading-relaxed text-primary/65">{roles[activeRole].body}</p>
-                                    <p className="mt-8 border-l-2 border-accent pl-5 font-serif text-lg italic text-primary">
+                                    <h3 className="text-2xl font-normal tracking-tight text-primary md:text-3xl">{roles[activeRole].title}</h3>
+                                    <p className="mt-5 text-base leading-6 text-muted md:text-lg md:leading-7">{roles[activeRole].body}</p>
+                                    <p className="mt-8 border-l-2 border-accent pl-4 text-base text-primary">
                                         {roles[activeRole].outcome}
                                     </p>
                                     <Link
                                         to="/solutions"
-                                        className="group mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-accent"
+                                        className="btn-ghost mt-8 px-0"
                                     >
                                         See all roles
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 transition-transform duration-300 ease-editorial group-hover:translate-x-1" aria-hidden="true">
-                                            <path d="M5 12h14m-6-6l6 6-6 6" />
+                                        <svg viewBox="0 0 20 20" fill="none" className="h-5 w-5" aria-hidden="true">
+                                            <path d="M11.8 4.4 17.4 10l-5.6 5.6M17.4 10H2.6" stroke="currentColor" strokeWidth="1.5" />
                                         </svg>
                                     </Link>
                                 </motion.div>
@@ -380,67 +364,61 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* --------------------------------------------------- Tools */}
-            <section className="border-t border-black/[0.08] py-24 md:py-32">
-                <div className="mx-auto max-w-[1180px] px-6 md:px-8">
+            <section className="border-t border-subtle bg-layer py-16 md:py-24">
+                <div className="site-wrap">
                     <RuleLabel label="04 — What's inside" />
-                    <h2 className="mt-12 max-w-2xl font-serif text-3xl leading-[1.1] tracking-tight text-primary md:mt-16 md:text-[2.75rem]">
+                    <h2 className="mt-12 max-w-3xl text-3xl leading-[1.19] text-primary md:text-[2.625rem] md:leading-[50px]">
                         The useful parts are built in. The noisy parts are left out.
                     </h2>
 
-                    <div className="mt-14 border-t border-black/[0.08]">
+                    <div className="mt-12 border-t border-subtle">
                         {tools.map((item, index) => (
                             <article
                                 key={item.heading}
-                                className="group grid grid-cols-1 gap-4 border-b border-black/[0.08] py-10 md:grid-cols-[120px_1fr_1fr] md:gap-10 md:py-12"
+                                className="group grid grid-cols-1 gap-4 border-b border-subtle py-8 md:grid-cols-[120px_1fr_1fr] md:gap-8 md:py-10"
                             >
-                                <div className="font-serif text-7xl leading-none text-black/[0.06] transition-colors duration-300 group-hover:text-accent/[0.15]">
+                                <div className="font-mono text-5xl leading-none text-subtle md:text-7xl">
                                     {String(index + 1).padStart(2, '0')}
                                 </div>
                                 <div>
-                                    <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-accent">{item.kicker}</span>
-                                    <h3 className="mt-2 font-serif text-2xl leading-snug tracking-tight text-primary">{item.heading}</h3>
+                                    <span className="font-mono text-xs uppercase tracking-[0.08em] text-accent">{item.kicker}</span>
+                                    <h3 className="mt-2 text-xl font-normal leading-snug text-primary md:text-2xl">{item.heading}</h3>
                                 </div>
-                                <p className="leading-relaxed text-primary/60 md:pt-7">{item.body}</p>
+                                <p className="text-base leading-6 text-muted md:pt-6">{item.body}</p>
                             </article>
                         ))}
                     </div>
 
-                    <div className="mt-12">
-                        <Link
-                            to="/platform"
-                            className="inline-flex items-center justify-center rounded-full border border-black/15 bg-transparent px-6 py-3 text-sm font-semibold text-primary transition-colors hover:border-primary"
-                        >
+                    <div className="mt-10">
+                        <Link to="/platform" className="btn-tertiary">
                             Full platform overview
                         </Link>
                     </div>
                 </div>
             </section>
 
-            {/* -------------------------------------------- Testimonials */}
-            <section className="py-16 md:py-24">
-                <div className="mx-auto max-w-[1180px] px-6 md:px-8">
+            <section className="bg-paper py-16 md:py-24">
+                <div className="site-wrap">
                     <RuleLabel label="05 — What teams say" />
 
-                    {/* The one deliberately centered moment on the page */}
-                    <figure className="mx-auto mt-16 max-w-3xl text-center md:mt-24">
-                        <blockquote className="font-serif text-3xl leading-[1.18] tracking-tight text-primary md:text-5xl">
+                    <figure className="mt-12 max-w-4xl md:mt-16">
+                        <blockquote className="text-3xl font-light leading-[1.19] text-primary md:text-[2.625rem] md:leading-[50px]">
                             &ldquo;{testimonials[0].quote}&rdquo;
                         </blockquote>
-                        <figcaption className="mt-8 text-[11px] font-semibold uppercase tracking-[0.25em] text-primary/50">
-                            {testimonials[0].name} &middot; {testimonials[0].role}
+                        <figcaption className="mt-6 font-mono text-xs uppercase tracking-[0.08em] text-muted">
+                            {testimonials[0].name} · {testimonials[0].role}
                         </figcaption>
                     </figure>
 
-                    <div className="mt-20 grid gap-10 border-t border-black/[0.08] pt-10 md:mt-24 md:grid-cols-2 md:gap-16">
-                        {testimonials.slice(1).map((t, i) => (
-                            <figure key={t.name} className={i === 1 ? 'md:translate-y-10' : ''}>
-                                <blockquote className="font-serif text-xl leading-snug text-primary md:text-2xl">
+                    <div className="mt-16 grid gap-8 border-t border-subtle pt-10 md:grid-cols-2 md:gap-8">
+                        {testimonials.slice(1).map((t) => (
+                            <figure key={t.name}>
+                                <blockquote className="text-xl font-light leading-snug text-primary md:text-2xl">
                                     &ldquo;{t.quote}&rdquo;
                                 </blockquote>
                                 <figcaption className="mt-6">
-                                    <span className="block text-[11px] font-semibold uppercase tracking-[0.25em] text-primary">{t.name}</span>
-                                    <span className="mt-1 block text-[11px] uppercase tracking-[0.2em] text-primary/50">{t.role}</span>
+                                    <span className="block font-mono text-xs uppercase tracking-[0.08em] text-primary">{t.name}</span>
+                                    <span className="mt-1 block font-mono text-xs uppercase tracking-[0.08em] text-muted">{t.role}</span>
                                 </figcaption>
                             </figure>
                         ))}

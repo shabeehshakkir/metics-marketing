@@ -54,14 +54,14 @@ export default function About() {
             />
 
             {/* Why Metics exists */}
-            <section className="border-t border-black/[0.08] bg-white">
-                <div className="mx-auto max-w-[1180px] px-6 py-24 md:px-8 md:py-32">
+            <section className="border-t border-subtle bg-white">
+                <div className="site-wrap py-16 md:py-24">
                     <RuleLabel label="01 — Why we exist" />
                     <div className="mt-12 grid items-start gap-12 md:mt-16 lg:grid-cols-12 lg:gap-16">
-                        <h2 className="font-serif text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem] lg:col-span-5">
+                        <h2 className="text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem] lg:col-span-5">
                             The most expensive procurement mistakes are made with partial information.
                         </h2>
-                        <div className="space-y-5 text-lg leading-relaxed text-primary/65 lg:col-span-6 lg:col-start-7">
+                        <div className="space-y-5 text-lg leading-relaxed text-muted lg:col-span-6 lg:col-start-7">
                             <p>
                                 On most projects, the tender lives in a spreadsheet, the bids arrive by email, the clarifications
                                 happen on the phone, and the approval sits in someone&rsquo;s inbox. Each piece is fine on its own.
@@ -82,15 +82,15 @@ export default function About() {
                 </div>
             </section>
 
-            {/* What we believe — hairline columns with ragged offsets */}
+            {/* What we believe — hairline columns */}
             <section className="bg-paper">
-                <div className="mx-auto max-w-[1180px] px-6 py-16 md:px-8 md:py-24">
+                <div className="site-wrap py-16 md:py-24">
                     <RuleLabel label="02 — What we believe" />
                     <div className="mt-12 grid gap-8 md:mt-16 lg:grid-cols-12 lg:gap-12">
-                        <h2 className="font-serif text-3xl leading-[1.08] tracking-tight text-primary md:text-[2.75rem] lg:col-span-7">
+                        <h2 className="text-3xl leading-[1.08] tracking-tight text-primary md:text-[2.75rem] lg:col-span-7">
                             Good procurement is boring in the right places.
                         </h2>
-                        <p className="self-end text-lg leading-relaxed text-primary/65 lg:col-span-4 lg:col-start-9">
+                        <p className="self-end text-lg leading-relaxed text-muted lg:col-span-4 lg:col-start-9">
                             Clear scope, comparable bids, visible decisions, and a record nobody has to reconstruct. Three convictions shape everything we build.
                         </p>
                     </div>
@@ -98,11 +98,11 @@ export default function About() {
                         {beliefs.map((belief, i) => (
                             <article
                                 key={belief.title}
-                                className={`border-t border-black/[0.15] pt-6 ${i === 1 ? 'md:translate-y-10' : ''}`}
+                                className="border-t border-subtle pt-6"
                             >
                                 <Folio label={String(i + 1).padStart(2, '0')} />
-                                <h3 className="mt-4 font-serif text-2xl leading-snug tracking-tight text-primary">{belief.title}</h3>
-                                <p className="mt-4 text-[15px] leading-relaxed text-primary/65">{belief.body}</p>
+                                <h3 className="mt-4 text-2xl leading-snug tracking-tight text-primary">{belief.title}</h3>
+                                <p className="mt-4 text-[15px] leading-relaxed text-muted">{belief.body}</p>
                             </article>
                         ))}
                     </div>
@@ -110,8 +110,8 @@ export default function About() {
             </section>
 
             {/* Dark statement */}
-            <section className="bg-[#141414]">
-                <div className="mx-auto max-w-[1180px] px-6 py-24 md:px-8 md:py-32">
+            <section className="bg-ink">
+                <div className="site-wrap py-16 md:py-24">
                     <RuleLabel label="03 — The measure" light />
                     <motion.div
                         initial={{ opacity: 0, y: 16 }}
@@ -120,12 +120,12 @@ export default function About() {
                         transition={{ duration: 0.8, ease: EASE }}
                         className="mt-12 md:mt-16"
                     >
-                        <p className="max-w-4xl font-serif text-3xl leading-[1.15] tracking-tight text-white md:text-5xl">
+                        <p className="max-w-4xl text-3xl font-light leading-[1.15] tracking-tight text-white md:text-5xl">
                             We measure the product by one question: when the award is challenged, does the record answer for itself?
                         </p>
                         <div className="mt-10 flex items-center gap-5">
                             <span className="h-px w-12 bg-accent" aria-hidden="true" />
-                            <span className="text-base text-white/60">If the answer is yes, the software did its job.</span>
+                            <span className="font-mono text-xs uppercase tracking-[0.08em] text-[#c6c6c6]">If the answer is yes, the software did its job.</span>
                         </div>
                     </motion.div>
                 </div>
@@ -133,24 +133,24 @@ export default function About() {
 
             {/* How we work — numbered hairline rows */}
             <section className="bg-white">
-                <div className="mx-auto max-w-[1180px] px-6 py-24 md:px-8 md:py-32">
+                <div className="site-wrap py-16 md:py-24">
                     <RuleLabel label="04 — How we work" />
                     <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-12">
-                        <h2 className="font-serif text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem] lg:col-span-4">
+                        <h2 className="text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem] lg:col-span-4">
                             A small set of rules we hold ourselves to.
                         </h2>
-                        <div className="border-t border-black/[0.08] lg:col-span-7 lg:col-start-6">
+                        <div className="border-t border-subtle lg:col-span-7 lg:col-start-6">
                             {workPrinciples.map((item, i) => (
                                 <article
                                     key={item.title}
-                                    className="grid grid-cols-[3rem_1fr] gap-4 border-b border-black/[0.08] py-7 md:grid-cols-[5rem_1fr] md:gap-8"
+                                    className="grid grid-cols-[3rem_1fr] gap-4 border-b border-subtle py-7 md:grid-cols-[5rem_1fr] md:gap-8"
                                 >
-                                    <span className="font-serif text-2xl tabular-nums leading-none text-primary/25 md:text-3xl">
+                                    <span className="font-mono text-2xl tabular-nums leading-none text-subtle md:text-3xl">
                                         {String(i + 1).padStart(2, '0')}
                                     </span>
                                     <div>
-                                        <h3 className="font-serif text-xl text-primary md:text-2xl">{item.title}</h3>
-                                        <p className="mt-2 text-[15px] leading-relaxed text-primary/65">{item.body}</p>
+                                        <h3 className="text-xl text-primary md:text-2xl">{item.title}</h3>
+                                        <p className="mt-2 text-[15px] leading-relaxed text-muted">{item.body}</p>
                                     </div>
                                 </article>
                             ))}
@@ -160,35 +160,29 @@ export default function About() {
             </section>
 
             {/* Who we build for */}
-            <section className="border-t border-black/[0.08] bg-paper">
-                <div className="mx-auto max-w-[1180px] px-6 py-16 md:px-8 md:py-24">
+            <section className="border-t border-subtle bg-paper">
+                <div className="site-wrap py-16 md:py-24">
                     <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
                         <div className="lg:col-span-6">
                             <Folio label="05 — Who we build for" className="mb-5" />
-                            <h2 className="font-serif text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
+                            <h2 className="text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
                                 Both sides of the tender, one shared record.
                             </h2>
-                            <p className="mt-5 text-lg leading-relaxed text-primary/65">
+                            <p className="mt-5 text-lg leading-relaxed text-muted">
                                 General contractors, QS and commercial teams, developers and owners run the buying side. Suppliers
                                 price the work and track the outcome. Metics is designed so both sides work from the same package
                                 record — GDPR compliant, hosted with EU data residency, and free for suppliers.
                             </p>
                             <div className="mt-8 flex flex-wrap gap-3">
-                                <Link
-                                    to="/solutions"
-                                    className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent"
-                                >
+                                <Link to="/solutions" className="btn-primary">
                                     Explore solutions by role
                                 </Link>
-                                <Link
-                                    to="/security"
-                                    className="inline-flex items-center justify-center rounded-full border border-black/15 px-6 py-3 text-sm font-semibold text-primary transition-colors hover:border-primary"
-                                >
+                                <Link to="/security" className="btn-tertiary">
                                     Security &amp; trust
                                 </Link>
                             </div>
                         </div>
-                        <dl className="border-t border-black/[0.15] lg:col-span-5 lg:col-start-8">
+                        <dl className="border-t border-subtle lg:col-span-5 lg:col-start-8">
                             {[
                                 ['General contractors', 'One record per package, from RFQ to purchase order.'],
                                 ['QS & commercial teams', 'Bids arrive comparable; analysis starts the day they close.'],
@@ -197,10 +191,10 @@ export default function About() {
                             ].map(([who, what]) => (
                                 <div
                                     key={who}
-                                    className="grid gap-1 border-b border-black/[0.08] py-5 sm:grid-cols-[180px_1fr] sm:gap-6"
+                                    className="grid gap-1 border-b border-subtle py-5 sm:grid-cols-[180px_1fr] sm:gap-6"
                                 >
                                     <dt className="text-sm font-semibold text-primary">{who}</dt>
-                                    <dd className="text-sm leading-relaxed text-primary/55">{what}</dd>
+                                    <dd className="text-sm leading-relaxed text-muted">{what}</dd>
                                 </div>
                             ))}
                         </dl>

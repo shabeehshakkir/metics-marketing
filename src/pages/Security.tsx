@@ -56,23 +56,23 @@ export default function Security() {
             />
 
             {/* Trust pillars — hairline grid, no icon cards */}
-            <section className="border-t border-black/[0.08] bg-white">
-                <div className="mx-auto max-w-[1180px] px-6 py-24 md:px-8 md:py-32">
+            <section className="border-t border-subtle bg-white">
+                <div className="site-wrap py-16 md:py-24">
                     <RuleLabel label="01 — Foundations" />
                     <div className="mt-12 grid gap-8 md:mt-16 lg:grid-cols-12 lg:gap-12">
-                        <h2 className="font-serif text-3xl leading-[1.08] tracking-tight text-primary md:text-[2.75rem] lg:col-span-7">
+                        <h2 className="text-3xl leading-[1.08] tracking-tight text-primary md:text-[2.75rem] lg:col-span-7">
                             Six things you can hold us to.
                         </h2>
-                        <p className="self-end text-lg leading-relaxed text-primary/65 lg:col-span-4 lg:col-start-9">
+                        <p className="self-end text-lg leading-relaxed text-muted lg:col-span-4 lg:col-start-9">
                             We claim what the platform actually does — no more, no less.
                         </p>
                     </div>
                     <div className="mt-16 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
                         {pillars.map((pillar, i) => (
-                            <article key={pillar.title} className="border-t border-black/[0.15] pt-6">
+                            <article key={pillar.title} className="border-t border-subtle pt-6">
                                 <Folio label={String(i + 1).padStart(2, '0')} />
-                                <h3 className="mt-4 font-serif text-xl leading-snug tracking-tight text-primary">{pillar.title}</h3>
-                                <p className="mt-3 text-[15px] leading-relaxed text-primary/65">{pillar.body}</p>
+                                <h3 className="mt-4 text-xl leading-snug tracking-tight text-primary">{pillar.title}</h3>
+                                <p className="mt-3 text-[15px] leading-relaxed text-muted">{pillar.body}</p>
                             </article>
                         ))}
                     </div>
@@ -81,20 +81,20 @@ export default function Security() {
 
             {/* Audit trail — product tie-in */}
             <section className="bg-paper">
-                <div className="mx-auto max-w-[1180px] px-6 py-16 md:px-8 md:py-24">
+                <div className="site-wrap py-16 md:py-24">
                     <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
                         <div className="lg:col-span-6">
                             <Folio label="02 — Audit trail" className="mb-5" />
-                            <h2 className="font-serif text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
+                            <h2 className="text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
                                 The audit trail is not a feature we added. It is how the product works.
                             </h2>
-                            <p className="mt-5 text-lg leading-relaxed text-primary/65">
+                            <p className="mt-5 text-lg leading-relaxed text-muted">
                                 Because every RFQ, clarification, bid, approval, and purchase order lives in one shared record, the
                                 audit trail writes itself as the work happens. When a client, auditor, or board asks why a supplier
                                 won, the answer is already in the record — with names, timestamps, and the documents that were on
                                 the table at the time.
                             </p>
-                            <p className="mt-4 text-lg leading-relaxed text-primary/65">
+                            <p className="mt-4 text-lg leading-relaxed text-muted">
                                 Nothing needs reconstructing, and nothing depends on someone&rsquo;s inbox surviving the project.
                             </p>
                         </div>
@@ -106,28 +106,25 @@ export default function Security() {
             </section>
 
             {/* Data practices */}
-            <section className="border-t border-black/[0.08] bg-white">
-                <div className="mx-auto max-w-[1180px] px-6 py-24 md:px-8 md:py-32">
+            <section className="border-t border-subtle bg-white">
+                <div className="site-wrap py-16 md:py-24">
                     <RuleLabel label="03 — Data practices" />
                     <div className="mt-12 grid items-start gap-12 md:mt-16 lg:grid-cols-12 lg:gap-16">
                         <div className="lg:col-span-5">
-                            <h2 className="font-serif text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
+                            <h2 className="text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
                                 Straight answers for your security review.
                             </h2>
-                            <p className="mt-5 max-w-xl text-lg leading-relaxed text-primary/65">
+                            <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
                                 If your review needs more detail — data flows, sub-processors, retention terms — ask us directly and
                                 we will walk your team through it.
                             </p>
-                            <Link
-                                to="/contact"
-                                className="mt-8 inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent"
-                            >
+                            <Link to="/contact" className="btn-primary mt-8">
                                 Talk to us about security
                             </Link>
                         </div>
-                        <ul className="border-t border-black/[0.15] lg:col-span-6 lg:col-start-7">
+                        <ul className="border-t border-subtle lg:col-span-6 lg:col-start-7">
                             {practices.map((item) => (
-                                <li key={item} className="flex gap-4 border-b border-black/[0.08] py-5">
+                                <li key={item} className="flex gap-4 border-b border-subtle py-5">
                                     <svg
                                         viewBox="0 0 24 24"
                                         fill="none"
@@ -140,7 +137,7 @@ export default function Security() {
                                     >
                                         <path d="M5 12.5l4.5 4.5L19 7.5" />
                                     </svg>
-                                    <p className="text-[15px] leading-relaxed text-primary/70">{item}</p>
+                                    <p className="text-[15px] leading-relaxed text-muted">{item}</p>
                                 </li>
                             ))}
                         </ul>
@@ -149,8 +146,8 @@ export default function Security() {
             </section>
 
             {/* Dark statement */}
-            <section className="bg-[#141414]">
-                <div className="mx-auto max-w-[1180px] px-6 py-24 md:px-8 md:py-32">
+            <section className="bg-ink">
+                <div className="site-wrap py-16 md:py-24">
                     <RuleLabel label="04 — On trust" light />
                     <motion.div
                         initial={{ opacity: 0, y: 16 }}
@@ -159,15 +156,15 @@ export default function Security() {
                         transition={{ duration: 0.8, ease: EASE }}
                         className="mt-12 md:mt-16"
                     >
-                        <p className="max-w-4xl font-serif text-3xl leading-[1.15] tracking-tight text-white md:text-5xl">
+                        <p className="max-w-4xl text-3xl font-light leading-[1.15] tracking-tight text-white md:text-5xl">
                             Trust in a procurement platform is earned the same way trust in a procurement process is: by keeping
                             the record straight.
                         </p>
                         <div className="mt-10 flex items-center gap-5">
                             <span className="h-px w-12 bg-accent" aria-hidden="true" />
-                            <span className="text-base text-white/60">
+                            <span className="font-mono text-xs uppercase tracking-[0.08em] text-[#c6c6c6]">
                                 Read our{' '}
-                                <Link to="/privacy" className="text-white/80 underline decoration-white/30 underline-offset-4 transition-colors hover:text-white">
+                                <Link to="/privacy" className="text-[#c6c6c6] underline decoration-white/30 underline-offset-4 transition-colors hover:text-white">
                                     privacy policy
                                 </Link>{' '}
                                 for the full detail.

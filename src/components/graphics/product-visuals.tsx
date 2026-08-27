@@ -10,6 +10,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const VIEWPORT = { once: true, margin: '-60px' } as const;
+const METICS_SANS = '"Inter Tight", Inter, Helvetica Neue, Arial, sans-serif';
 
 export interface VisualProps {
     /** Play the entrance animation on scroll into view. Default true. */
@@ -48,19 +49,19 @@ export function BidComparisonVisual({ animated = true, className }: VisualProps)
     return (
         <motion.div
             {...fadeUp(anim, 0, 14)}
-            className={`w-full rounded-2xl border border-black/[0.08] bg-white p-6 shadow-card md:p-8 ${className ?? ''}`}
+            className={`w-full border border-subtle bg-white p-6 md:p-8 ${className ?? ''}`}
         >
             {/* Package header */}
-            <div className="flex items-start justify-between gap-4 border-b border-black/[0.08] pb-5">
+            <div className="flex items-start justify-between gap-4 border-b border-subtle pb-5">
                 <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary/45">
+                    <p className="font-mono text-xs uppercase tracking-[0.08em] text-muted">
                         RFQ-2041
                     </p>
-                    <p className="mt-1.5 font-serif text-lg leading-snug tracking-tight text-primary">
+                    <p className="mt-1.5 text-lg font-normal leading-snug tracking-tight text-primary">
                         Structural Steel Package
                     </p>
                 </div>
-                <span className="mt-0.5 shrink-0 rounded-full border border-black/[0.08] bg-paper px-3 py-1 text-xs font-medium text-primary/60">
+                <span className="mt-0.5 shrink-0 border border-subtle bg-layer px-3 py-1 text-xs font-medium text-muted">
                     4 bids received
                 </span>
             </div>
@@ -73,20 +74,20 @@ export function BidComparisonVisual({ animated = true, className }: VisualProps)
                             <span className="flex items-center gap-2 text-sm font-medium text-primary">
                                 {bid.supplier}
                                 {bid.leading && (
-                                    <span className="rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent">
+                                    <span className="border border-subtle bg-layer px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent">
                                         Leading
                                     </span>
                                 )}
                             </span>
                             <span
-                                className={`font-serif text-sm tabular-nums tracking-tight ${
-                                    bid.leading ? 'text-primary' : 'text-primary/55'
+                                className={`font-mono text-sm tabular-nums tracking-tight ${
+                                    bid.leading ? 'text-primary' : 'text-muted'
                                 }`}
                             >
                                 {bid.amount}
                             </span>
                         </div>
-                        <div className="h-2 w-full overflow-hidden rounded-full bg-black/[0.05]">
+                        <div className="h-2 w-full overflow-hidden bg-subtle">
                             <motion.div
                                 {...(anim
                                     ? {
@@ -101,7 +102,7 @@ export function BidComparisonVisual({ animated = true, className }: VisualProps)
                                       }
                                     : {})}
                                 style={{ width: `${bid.width}%` }}
-                                className={`h-full origin-left rounded-full ${
+                                className={`h-full origin-left ${
                                     bid.leading ? 'bg-accent' : 'bg-primary/25'
                                 }`}
                             />
@@ -110,7 +111,7 @@ export function BidComparisonVisual({ animated = true, className }: VisualProps)
                 ))}
             </div>
 
-            <p className="mt-6 border-t border-black/[0.08] pt-4 text-xs leading-relaxed text-primary/45">
+            <p className="mt-6 border-t border-subtle pt-4 text-xs leading-relaxed text-muted">
                 Normalised for scope and delivery terms · Closes 21 Mar
             </p>
         </motion.div>
@@ -149,9 +150,8 @@ export function WorkflowVisual({ animated = true, className }: VisualProps) {
                         y1={48}
                         x2={STEPS[i + 1].x - 22}
                         y2={48}
-                        stroke="rgba(26,26,26,0.18)"
+                        stroke="rgba(22,22,22,0.18)"
                         strokeWidth={1.5}
-                        strokeLinecap="round"
                         {...(anim
                             ? {
                                   initial: { pathLength: 0, opacity: 0 },
@@ -187,12 +187,13 @@ export function WorkflowVisual({ animated = true, className }: VisualProps) {
                                 : {})}
                             style={{ transformOrigin: `${step.x}px 48px` }}
                         >
-                            <circle
-                                cx={step.x}
-                                cy={48}
-                                r={18}
+                            <rect
+                                x={step.x - 18}
+                                y={30}
+                                width={36}
+                                height={36}
                                 fill={last ? '#ff6719' : '#FFFFFF'}
-                                stroke={last ? '#ff6719' : 'rgba(26,26,26,0.18)'}
+                                stroke={last ? '#ff6719' : 'rgba(22,22,22,0.18)'}
                                 strokeWidth={1.5}
                             />
                             <text
@@ -200,9 +201,9 @@ export function WorkflowVisual({ animated = true, className }: VisualProps) {
                                 y={48}
                                 textAnchor="middle"
                                 dominantBaseline="central"
-                                fontFamily="Newsreader, Georgia, serif"
+                                fontFamily={METICS_SANS}
                                 fontSize={14}
-                                fill={last ? '#FFFFFF' : '#1A1A1A'}
+                                fill={last ? '#FFFFFF' : '#161616'}
                             >
                                 {i + 1}
                             </text>
@@ -210,10 +211,10 @@ export function WorkflowVisual({ animated = true, className }: VisualProps) {
                                 x={step.x}
                                 y={92}
                                 textAnchor="middle"
-                                fontFamily="'Schibsted Grotesk', system-ui, sans-serif"
+                                fontFamily={METICS_SANS}
                                 fontSize={13}
                                 fontWeight={600}
-                                fill="#1A1A1A"
+                                fill="#161616"
                             >
                                 {step.label}
                             </text>
@@ -221,9 +222,9 @@ export function WorkflowVisual({ animated = true, className }: VisualProps) {
                                 x={step.x}
                                 y={112}
                                 textAnchor="middle"
-                                fontFamily="'Schibsted Grotesk', system-ui, sans-serif"
+                                fontFamily={METICS_SANS}
                                 fontSize={11}
-                                fill="rgba(26,26,26,0.45)"
+                                fill="rgba(22,22,22,0.45)"
                             >
                                 {step.sub}
                             </text>
@@ -251,27 +252,27 @@ export function AnalyticsVisual({ animated = true, className }: VisualProps) {
     return (
         <motion.div
             {...fadeUp(anim, 0, 14)}
-            className={`w-full rounded-2xl border border-black/[0.08] bg-white p-6 shadow-card md:p-8 ${className ?? ''}`}
+            className={`w-full border border-subtle bg-white p-6 md:p-8 ${className ?? ''}`}
         >
             {/* Header with stat chips */}
             <div className="flex flex-wrap items-start justify-between gap-4">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary/45">
+                <p className="font-mono text-xs uppercase tracking-[0.08em] text-muted">
                     Spend Analytics
                 </p>
                 <div className="flex gap-3">
-                    <div className="rounded-xl border border-black/[0.08] bg-paper px-4 py-2.5">
-                        <p className="font-serif text-lg leading-none tracking-tight text-primary">
+                    <div className="border border-subtle bg-layer px-4 py-2.5">
+                        <p className="text-lg font-light leading-none tracking-tight text-primary">
                             €2.4M
                         </p>
-                        <p className="mt-1.5 text-[10px] font-medium uppercase tracking-wide text-primary/45">
+                        <p className="mt-1.5 font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-muted">
                             Managed spend
                         </p>
                     </div>
-                    <div className="rounded-xl border border-black/[0.08] bg-paper px-4 py-2.5">
-                        <p className="font-serif text-lg leading-none tracking-tight text-secondary">
+                    <div className="border border-subtle bg-layer px-4 py-2.5">
+                        <p className="text-lg font-light leading-none tracking-tight text-secondary">
                             11.2%
                         </p>
-                        <p className="mt-1.5 text-[10px] font-medium uppercase tracking-wide text-primary/45">
+                        <p className="mt-1.5 font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-muted">
                             Avg. savings
                         </p>
                     </div>
@@ -311,9 +312,9 @@ export function AnalyticsVisual({ animated = true, className }: VisualProps) {
                             <text
                                 x={0}
                                 y={tick.y + 3.5}
-                                fontFamily="'Schibsted Grotesk', system-ui, sans-serif"
+                                fontFamily={METICS_SANS}
                                 fontSize={10}
-                                fill="rgba(26,26,26,0.4)"
+                                fill="rgba(22,22,22,0.4)"
                             >
                                 {tick.label}
                             </text>
@@ -341,7 +342,6 @@ export function AnalyticsVisual({ animated = true, className }: VisualProps) {
                             fill="none"
                             stroke="#ff6719"
                             strokeWidth={2}
-                            strokeLinecap="round"
                             {...(anim
                                 ? {
                                       initial: { pathLength: 0 },
@@ -378,9 +378,9 @@ export function AnalyticsVisual({ animated = true, className }: VisualProps) {
                             x={40 + (i * 480) / (MONTHS.length - 1)}
                             y={186}
                             textAnchor={i === 0 ? 'start' : i === MONTHS.length - 1 ? 'end' : 'middle'}
-                            fontFamily="'Schibsted Grotesk', system-ui, sans-serif"
+                            fontFamily={METICS_SANS}
                             fontSize={10}
-                            fill="rgba(26,26,26,0.4)"
+                            fill="rgba(22,22,22,0.4)"
                         >
                             {month}
                         </text>
@@ -413,7 +413,7 @@ export function RecordTimelineVisual({ animated = true, className }: VisualProps
             {/* Hairline spine */}
             <div
                 aria-hidden="true"
-                className="absolute bottom-3 left-[7px] top-3 w-px bg-black/[0.08]"
+                className="absolute bottom-3 left-[7px] top-3 w-px bg-subtle"
             />
             <div className="space-y-4">
                 {EVENTS.map((event, i) => (
@@ -425,18 +425,18 @@ export function RecordTimelineVisual({ animated = true, className }: VisualProps
                         {/* Dot */}
                         <span
                             aria-hidden="true"
-                            className={`relative z-10 mt-4 block h-[15px] w-[15px] shrink-0 rounded-full border-[1.5px] ${
+                            className={`relative z-10 mt-4 block h-[15px] w-[15px] shrink-0 ${
                                 event.accent
-                                    ? 'border-accent bg-accent'
-                                    : 'border-black/[0.18] bg-white'
+                                    ? 'border-[1.5px] border-accent bg-accent'
+                                    : 'border-[1.5px] border-strong bg-white'
                             }`}
                         />
                         {/* Event card */}
-                        <div className="min-w-0 flex-1 rounded-xl border border-black/[0.08] bg-white px-4 py-3 shadow-card">
+                        <div className="min-w-0 flex-1 border border-subtle bg-white px-4 py-3">
                             <p className="text-sm font-medium leading-snug text-primary">
                                 {event.title}
                             </p>
-                            <p className="mt-0.5 truncate text-xs leading-relaxed text-primary/45">
+                            <p className="mt-0.5 truncate text-xs leading-relaxed text-muted">
                                 {event.meta}
                             </p>
                         </div>
@@ -491,13 +491,13 @@ export function TCOVisual({ animated = true, className }: VisualProps) {
     return (
         <motion.div
             {...fadeUp(anim, 0, 14)}
-            className={`w-full rounded-2xl border border-black/[0.08] bg-white p-6 shadow-card md:p-8 ${className ?? ''}`}
+            className={`w-full border border-subtle bg-white p-6 md:p-8 ${className ?? ''}`}
         >
             <div className="flex items-baseline justify-between gap-4">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary/45">
+                <p className="font-mono text-xs uppercase tracking-[0.08em] text-muted">
                     Total Cost of Ownership
                 </p>
-                <p className="text-xs text-primary/45">Structural steel · 24-week programme</p>
+                <p className="text-xs text-muted">Structural steel · 24-week programme</p>
             </div>
 
             <div className="mt-6 space-y-5">
@@ -507,20 +507,20 @@ export function TCOVisual({ animated = true, className }: VisualProps) {
                             <span className="flex items-center gap-2 text-sm font-medium text-primary">
                                 {row.supplier}
                                 {row.best && (
-                                    <span className="rounded-full bg-secondary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-secondary">
+                                    <span className="border border-subtle bg-layer px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-secondary">
                                         Best TCO
                                     </span>
                                 )}
                             </span>
                             <span
-                                className={`font-serif text-sm tabular-nums tracking-tight ${
-                                    row.best ? 'text-primary' : 'text-primary/55'
+                                className={`font-mono text-sm tabular-nums tracking-tight ${
+                                    row.best ? 'text-primary' : 'text-muted'
                                 }`}
                             >
                                 {row.total}
                             </span>
                         </div>
-                        <div className="flex h-3 w-full gap-px overflow-hidden rounded-full bg-black/[0.04]">
+                        <div className="flex h-2 w-full gap-px overflow-hidden bg-subtle">
                             {TCO_SEGMENTS.map((segment, j) => (
                                 <motion.div
                                     key={segment.key}
@@ -537,9 +537,7 @@ export function TCOVisual({ animated = true, className }: VisualProps) {
                                           }
                                         : {})}
                                     style={{ width: `${row.segments[segment.key]}%` }}
-                                    className={`h-full origin-left ${segment.className} ${
-                                        j === 0 ? 'rounded-l-full' : ''
-                                    } ${j === TCO_SEGMENTS.length - 1 ? 'rounded-r-full' : ''}`}
+                                    className={`h-full origin-left ${segment.className}`}
                                 />
                             ))}
                         </div>
@@ -548,15 +546,15 @@ export function TCOVisual({ animated = true, className }: VisualProps) {
             </div>
 
             {/* Legend */}
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 border-t border-black/[0.08] pt-4">
+            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 border-t border-subtle pt-4">
                 {TCO_SEGMENTS.map((segment) => (
                     <span
                         key={segment.key}
-                        className="flex items-center gap-2 text-xs text-primary/55"
+                        className="flex items-center gap-2 text-xs text-muted"
                     >
                         <span
                             aria-hidden="true"
-                            className={`h-2.5 w-2.5 rounded-[3px] ${segment.className}`}
+                            className={`h-2.5 w-2.5 ${segment.className}`}
                         />
                         {segment.label}
                     </span>

@@ -89,7 +89,7 @@ function ArrowIcon() {
 
 function ReadLink() {
     return (
-        <span className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold text-primary transition-colors group-hover:text-accent">
+        <span className="btn-ghost mt-auto px-0 pt-6">
             Read full case study <ArrowIcon />
         </span>
     );
@@ -97,9 +97,9 @@ function ReadLink() {
 
 function QuoteBlock({ text }: { text: string }) {
     return (
-        <div className="relative pl-8">
-            <span aria-hidden="true" className="absolute -top-2 left-0 font-serif text-5xl leading-none text-accent/40 select-none">“</span>
-            <p className="text-primary/70 leading-relaxed">{text}</p>
+        <div className="relative pl-6">
+            <span aria-hidden="true" className="absolute left-0 top-0 select-none text-2xl font-light leading-none text-accent">&ldquo;</span>
+            <p className="text-base font-light leading-relaxed text-muted md:text-lg">{text}</p>
         </div>
     );
 }
@@ -109,8 +109,8 @@ function StatsRow({ stats, large = false }: { stats: Study['stats']; large?: boo
         <div className={`flex flex-wrap ${large ? 'gap-x-10 gap-y-6' : 'gap-x-8 gap-y-4'}`}>
             {stats.map((s) => (
                 <div key={s.label}>
-                    <span className={`block font-serif text-accent leading-none ${large ? 'text-4xl md:text-5xl' : 'text-3xl'}`}>{s.value}</span>
-                    <span className="mt-2 block text-xs font-semibold uppercase tracking-[0.15em] text-primary/50">{s.label}</span>
+                    <span className={`block font-light leading-none text-accent ${large ? 'text-4xl md:text-5xl' : 'text-3xl'}`}>{s.value}</span>
+                    <span className="mt-2 block font-mono text-xs uppercase tracking-[0.08em] text-muted">{s.label}</span>
                 </div>
             ))}
         </div>
@@ -139,34 +139,34 @@ export default function CaseStudies() {
                 title="Procurement that moved differently."
                 subtitle="Patterns from teams that changed how they run tenders, compare bids, and keep award records. The details vary by sector. The underlying problem is usually the same."
             >
-                <div className="mt-8 flex flex-wrap items-center gap-4">
-                    <Link to="/contact" className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent">
+                <div className="mt-8 flex flex-wrap gap-1">
+                    <Link to="/contact" className="btn-primary">
                         Book a walkthrough
                     </Link>
-                    <Link to="/platform" className="inline-flex items-center justify-center rounded-full border border-black/15 px-6 py-3 text-sm font-semibold text-primary transition-colors hover:border-primary">
+                    <Link to="/platform" className="btn-tertiary">
                         See the platform
                     </Link>
                 </div>
             </PageHero>
 
-            <section className="border-t border-black/[0.08] py-16 md:py-24">
-                <div className="mx-auto max-w-[1180px] px-6 md:px-8">
+            <section className="border-t border-subtle py-16 md:py-24">
+                <div className="site-wrap">
                     <div
-                        className="mb-14 flex flex-wrap items-baseline gap-x-8 gap-y-3 border-b border-black/[0.08] pb-5"
+                        className="mb-14 flex flex-wrap items-baseline gap-x-8 gap-y-3 border-b border-subtle pb-5"
                         role="tablist"
                         aria-label="Filter by industry"
                     >
-                        <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-primary/40">Filter</span>
+                        <span className="font-mono text-xs uppercase tracking-[0.08em] text-muted">Filter</span>
                         {filters.map((f) => (
                             <button
                                 key={f}
                                 role="tab"
                                 aria-selected={filter === f}
                                 onClick={() => setFilter(f)}
-                                className={`relative pb-1 text-sm font-semibold transition-colors ${
+                                className={`relative pb-1 text-sm transition-colors ${
                                     filter === f
                                         ? 'text-primary'
-                                        : 'text-primary/40 hover:text-primary/70'
+                                        : 'text-muted hover:text-primary'
                                 }`}
                             >
                                 {f}
@@ -197,11 +197,11 @@ export default function CaseStudies() {
                                     <RuleLabel label={`Featured — ${featured.industry}`} />
                                     <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:gap-12">
                                         <div className="lg:col-span-7">
-                                            <h2 className="font-serif text-3xl leading-[1.05] tracking-tight text-primary transition-colors group-hover:text-accent md:text-6xl">
+                                            <h2 className="text-3xl font-light leading-[1.05] tracking-tight text-primary transition-colors group-hover:text-accent md:text-6xl">
                                                 {featured.heading}
                                             </h2>
-                                            <p className="mt-5 text-[11px] font-semibold uppercase tracking-[0.25em] text-primary/50">{featured.team}</p>
-                                            <div className="mt-10 border-t border-black/[0.15] pt-8">
+                                            <p className="mt-5 font-mono text-xs uppercase tracking-[0.08em] text-muted">{featured.team}</p>
+                                            <div className="mt-10 border-t border-subtle pt-8">
                                                 <StatsRow stats={featured.stats} large />
                                             </div>
                                         </div>
@@ -209,7 +209,7 @@ export default function CaseStudies() {
                                             <Folio label="The problem" className="mb-4" />
                                             <QuoteBlock text={featured.problem} />
                                             <Folio label="What changed" className="mb-4 mt-8 !text-secondary/80" />
-                                            <p className="text-primary/70 leading-relaxed">{featured.outcome}</p>
+                                            <p className="leading-relaxed text-muted">{featured.outcome}</p>
                                             <ReadLink />
                                         </div>
                                     </div>
@@ -217,17 +217,17 @@ export default function CaseStudies() {
                             )}
 
                             {rest.length > 0 && (
-                                <div className="mt-24 border-t border-black/[0.08]">
+                                <div className="mt-24 border-t border-subtle">
                                     {rest.map((study, i) => (
                                         <article
                                             key={study.heading}
                                             onClick={() => setSelectedStudy(study)}
-                                            className="group grid cursor-pointer gap-8 border-b border-black/[0.08] py-12 md:py-16 lg:grid-cols-12 lg:gap-10"
+                                            className="group grid cursor-pointer gap-8 border-b border-subtle py-12 md:py-16 lg:grid-cols-12 lg:gap-10"
                                         >
                                             <div className="lg:col-span-3">
-                                                <span className="font-serif text-4xl leading-none text-black/[0.08]">{String(i + 2).padStart(2, '0')}</span>
+                                                <span className="font-mono text-4xl leading-none text-subtle">{String(i + 2).padStart(2, '0')}</span>
                                                 <Folio label={study.industry} className="mt-4 !text-accent" />
-                                                <p className="mt-3 text-xs font-semibold uppercase tracking-[0.15em] text-primary/50">{study.team}</p>
+                                                <p className="mt-3 font-mono text-xs uppercase tracking-[0.08em] text-muted">{study.team}</p>
                                                 {study.stats.length > 0 && (
                                                     <div className="mt-8 hidden lg:block">
                                                         <StatsRow stats={study.stats} />
@@ -235,17 +235,17 @@ export default function CaseStudies() {
                                                 )}
                                             </div>
                                             <div className="lg:col-span-8 lg:col-start-5">
-                                                <h3 className="max-w-2xl font-serif text-2xl leading-[1.12] tracking-tight text-primary transition-colors group-hover:text-accent md:text-4xl">
+                                                <h3 className="max-w-2xl text-2xl font-light leading-[1.12] tracking-tight text-primary transition-colors group-hover:text-accent md:text-4xl">
                                                     {study.heading}
                                                 </h3>
                                                 <div className="mt-8 grid gap-8 md:grid-cols-2">
                                                     <div>
                                                         <Folio label="The problem" className="mb-4" />
-                                                        <p className="text-[15px] leading-relaxed text-primary/60">{study.problem}</p>
+                                                        <p className="text-[15px] leading-relaxed text-muted">{study.problem}</p>
                                                     </div>
                                                     <div>
                                                         <Folio label="What changed" className="mb-4 !text-secondary/80" />
-                                                        <p className="text-[15px] leading-relaxed text-primary/70">{study.outcome}</p>
+                                                        <p className="text-[15px] leading-relaxed text-muted">{study.outcome}</p>
                                                     </div>
                                                 </div>
                                                 {study.stats.length > 0 && (
@@ -261,20 +261,20 @@ export default function CaseStudies() {
                             )}
                         </>
                     ) : (
-                        <p className="py-16 text-center text-primary/50">No case studies in this category yet.</p>
+                        <p className="py-16 text-center text-muted">No case studies in this category yet.</p>
                     )}
                 </div>
             </section>
 
-            <section className="bg-[#141414] py-24 md:py-32">
-                <div className="mx-auto max-w-[1180px] px-6 md:px-8">
+            <section className="bg-ink py-16 md:py-24">
+                <div className="site-wrap">
                     <RuleLabel label="On records" light />
                     <motion.p
                         initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={VIEWPORT}
                         transition={{ duration: 0.8, ease: EASE }}
-                        className="mt-12 max-w-4xl font-serif text-3xl leading-[1.15] tracking-tight text-white md:mt-16 md:text-5xl"
+                        className="mt-12 max-w-4xl text-3xl font-light leading-[1.19] tracking-tight text-white md:mt-16 md:text-5xl"
                     >
                         The award decision is made once. The record of it should last for the life of the project.
                     </motion.p>
@@ -297,7 +297,7 @@ export default function CaseStudies() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.25 }}
-                        className="fixed inset-0 z-50 flex items-center justify-center bg-primary/50 px-4 py-8 backdrop-blur-sm"
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 py-8"
                         onClick={() => setSelectedStudy(null)}
                     >
                         <motion.div
@@ -305,42 +305,42 @@ export default function CaseStudies() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 24 }}
                             transition={{ duration: 0.35, ease: EASE }}
-                            className="relative max-h-[85vh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-white p-8 shadow-[0_24px_80px_-16px_rgba(26,26,26,0.35)] md:p-12"
+                            className="relative max-h-[85vh] w-full max-w-3xl overflow-y-auto border border-subtle bg-white p-8 md:p-12"
                             onClick={(e) => e.stopPropagation()}
                         >
                             <button
                                 onClick={() => setSelectedStudy(null)}
                                 aria-label="Close reader"
-                                className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/[0.08] bg-white text-primary/60 transition-colors hover:border-primary hover:text-primary"
+                                className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center border border-subtle bg-white text-muted transition-colors hover:border-primary hover:text-primary"
                             >
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true" className="h-4 w-4">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M18 6L6 18" />
                                 </svg>
                             </button>
 
-                            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent">{selectedStudy.industry}</p>
-                            <h1 className="font-serif text-3xl leading-[1.1] tracking-tight text-primary md:text-4xl">{selectedStudy.heading}</h1>
-                            <p className="mt-3 text-xs font-semibold uppercase tracking-[0.15em] text-primary/50">{selectedStudy.team}</p>
+                            <p className="mb-3 font-mono text-xs uppercase tracking-[0.08em] text-accent">{selectedStudy.industry}</p>
+                            <h1 className="text-3xl font-light leading-[1.1] tracking-tight text-primary md:text-4xl">{selectedStudy.heading}</h1>
+                            <p className="mt-3 font-mono text-xs uppercase tracking-[0.08em] text-muted">{selectedStudy.team}</p>
 
                             <div className="mt-10">
-                                <h3 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-primary/50">The Problem</h3>
-                                <p className="text-primary/70 leading-relaxed">{selectedStudy.problem}</p>
+                                <h3 className="mb-3 font-mono text-xs uppercase tracking-[0.08em] text-muted">The Problem</h3>
+                                <p className="leading-relaxed text-muted">{selectedStudy.problem}</p>
                             </div>
 
                             <div className="mt-10">
-                                <h3 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-primary/50">The Execution</h3>
+                                <h3 className="mb-3 font-mono text-xs uppercase tracking-[0.08em] text-muted">The Execution</h3>
                                 <div className="space-y-4">
                                     {selectedStudy.body.map((p, index) => (
-                                        <p key={index} className="text-primary/70 leading-relaxed">{p}</p>
+                                        <p key={index} className="leading-relaxed text-muted">{p}</p>
                                     ))}
                                 </div>
                             </div>
 
                             <div className="mt-10">
-                                <h3 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-primary/50">Outcome &amp; Impact</h3>
-                                <p className="text-primary/70 leading-relaxed">{selectedStudy.outcome}</p>
+                                <h3 className="mb-3 font-mono text-xs uppercase tracking-[0.08em] text-muted">Outcome &amp; Impact</h3>
+                                <p className="leading-relaxed text-muted">{selectedStudy.outcome}</p>
                                 {selectedStudy.stats.length > 0 && (
-                                    <div className="mt-8 border-t border-black/[0.08] pt-6">
+                                    <div className="mt-8 border-t border-subtle pt-6">
                                         <StatsRow stats={selectedStudy.stats} />
                                     </div>
                                 )}

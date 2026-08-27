@@ -1,9 +1,8 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
-const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const EASE: [number, number, number, number] = [0.2, 0, 0.38, 0.9];
 
-/* ── Folio label — small-caps metadata line, like a folio line in a printed journal ── */
 export function Folio({
     label,
     light = false,
@@ -15,16 +14,16 @@ export function Folio({
 }) {
     return (
         <p
-            className={`text-[11px] font-semibold uppercase tracking-[0.25em] ${
-                light ? 'text-white/40' : 'text-primary/40'
+            className={`flex items-center gap-2 font-mono text-xs font-normal uppercase tracking-[0.12em] ${
+                light ? 'text-white/60' : 'text-muted'
             } ${className}`}
         >
+            <span className="inline-block h-1.5 w-1.5 shrink-0 bg-accent" aria-hidden="true" />
             {label}
         </p>
     );
 }
 
-/* ── Rule label — full-width hairline with a small-caps label sitting on it ── */
 export function RuleLabel({
     label,
     light = false,
@@ -35,23 +34,23 @@ export function RuleLabel({
     className?: string;
 }) {
     return (
-        <div className={`flex items-baseline gap-5 ${className}`}>
+        <div className={`flex items-baseline gap-4 ${className}`}>
             <span
-                className={`shrink-0 text-[11px] font-semibold uppercase tracking-[0.25em] ${
-                    light ? 'text-white/40' : 'text-primary/40'
+                className={`inline-flex shrink-0 items-center gap-2 font-mono text-xs font-normal uppercase tracking-[0.12em] ${
+                    light ? 'text-white/60' : 'text-muted'
                 }`}
             >
+                <span className="inline-block h-1.5 w-1.5 bg-accent" aria-hidden="true" />
                 {label}
             </span>
             <span
                 aria-hidden="true"
-                className={`h-px flex-1 translate-y-[-0.2em] ${light ? 'bg-white/10' : 'bg-black/[0.08]'}`}
+                className={`h-px flex-1 translate-y-[-0.2em] ${light ? 'bg-white/20' : 'bg-subtle'}`}
             />
         </div>
     );
 }
 
-/* ── Section Heading ── */
 export function SectionHeading({
     eyebrow,
     title,
@@ -69,11 +68,11 @@ export function SectionHeading({
 }) {
     if (layout === 'split') {
         return (
-            <div className="mb-14 md:mb-20">
+            <div className="mb-12 md:mb-16">
                 <RuleLabel label={eyebrow} light={light} />
-                <div className="mt-8 grid gap-6 md:mt-10 md:grid-cols-12 md:gap-10">
+                <div className="mt-8 grid gap-6 md:grid-cols-12 md:gap-8">
                     <h2
-                        className={`font-serif text-3xl md:text-[2.75rem] leading-[1.08] tracking-tight md:col-span-7 ${
+                        className={`text-3xl leading-[1.19] md:col-span-7 md:text-[2.625rem] md:leading-[50px] ${
                             light ? 'text-white' : 'text-primary'
                         }`}
                     >
@@ -81,8 +80,8 @@ export function SectionHeading({
                     </h2>
                     {lede && (
                         <p
-                            className={`self-end text-lg leading-relaxed md:col-span-4 md:col-start-9 ${
-                                light ? 'text-white/65' : 'text-primary/65'
+                            className={`self-end text-base leading-6 md:col-span-4 md:col-start-9 ${
+                                light ? 'text-white/70' : 'text-muted'
                             }`}
                         >
                             {lede}
@@ -93,10 +92,10 @@ export function SectionHeading({
         );
     }
     return (
-        <div className={`mb-14 md:mb-16 max-w-2xl ${centered ? 'mx-auto text-center' : ''}`}>
-            <Folio label={eyebrow} light={light} className="mb-5" />
+        <div className={`mb-12 max-w-2xl md:mb-16 ${centered ? 'mx-auto text-center' : ''}`}>
+            <Folio label={eyebrow} light={light} className="mb-4" />
             <h2
-                className={`font-serif text-3xl md:text-[2.75rem] leading-[1.1] tracking-tight ${
+                className={`text-3xl leading-[1.19] md:text-[2.625rem] md:leading-[50px] ${
                     light ? 'text-white' : 'text-primary'
                 }`}
             >
@@ -104,8 +103,8 @@ export function SectionHeading({
             </h2>
             {lede && (
                 <p
-                    className={`mt-5 text-lg leading-relaxed ${
-                        light ? 'text-white/65' : 'text-primary/65'
+                    className={`mt-5 text-base leading-6 ${
+                        light ? 'text-white/70' : 'text-muted'
                     }`}
                 >
                     {lede}
@@ -115,7 +114,6 @@ export function SectionHeading({
     );
 }
 
-/* ── Feature Card ── */
 export function FeatureCard({
     icon,
     title,
@@ -126,22 +124,21 @@ export function FeatureCard({
     body: string;
 }) {
     return (
-        <div className="group h-full rounded-2xl border border-black/[0.08] bg-white p-8 shadow-card">
+        <div className="group h-full border border-subtle bg-layer p-4 hover:bg-[#e8e8e8]">
             <span
                 aria-hidden="true"
-                className="mb-6 inline-flex h-11 w-11 items-center justify-center rounded-xl border border-black/[0.08] bg-paper text-lg leading-none text-primary/80 [filter:grayscale(1)]"
+                className="mb-6 inline-flex h-8 w-8 items-center justify-center text-lg leading-none text-primary"
             >
                 {icon}
             </span>
-            <h3 className="mb-2.5 text-lg font-semibold tracking-tight text-primary">
+            <h3 className="mb-2 text-base font-semibold leading-[22px] text-primary">
                 {title}
             </h3>
-            <p className="text-[15px] leading-relaxed text-primary/60">{body}</p>
+            <p className="text-base leading-6 text-muted">{body}</p>
         </div>
     );
 }
 
-/* ── Stat Card ── */
 export function StatCard({
     metric,
     body,
@@ -150,16 +147,15 @@ export function StatCard({
     body: string;
 }) {
     return (
-        <div className="h-full border-t border-black/[0.15] pt-6">
-            <p className="font-serif text-4xl md:text-5xl leading-none tracking-tight text-primary">
+        <div className="h-full border-t border-subtle pt-6">
+            <p className="text-4xl font-light leading-none tracking-tight text-primary md:text-5xl">
                 {metric}
             </p>
-            <p className="mt-5 text-[15px] leading-relaxed text-primary/60">{body}</p>
+            <p className="mt-4 text-base leading-6 text-muted">{body}</p>
         </div>
     );
 }
 
-/* ── CTA Banner — editorial colophon-style closing section ── */
 export function CTABanner({
     heading = 'Ready to transform procurement?',
     body = 'See how Metics gives your team complete visibility and control over every RFQ, bid, and purchase order.',
@@ -176,41 +172,31 @@ export function CTABanner({
     secondaryTo?: string;
 }) {
     return (
-        <section className="border-t border-black/[0.08]">
-            <div className="mx-auto max-w-[1180px] px-6 py-20 md:px-8 md:py-32">
-                <RuleLabel label="Next step" />
-                <div className="mt-10 grid gap-10 md:mt-14 lg:grid-cols-12 lg:gap-12">
-                    <div className="lg:col-span-7">
-                        <h2 className="font-serif text-4xl leading-[1.05] tracking-tight text-primary md:text-6xl">
+        <section className="bg-ink">
+            <div className="site-wrap py-16 md:py-24">
+                <RuleLabel label="Next step" light />
+                <div className="mt-10 grid gap-8 md:mt-12 lg:grid-cols-12 lg:gap-8">
+                    <div className="lg:col-span-8">
+                        <h2 className="title-rail text-4xl leading-[1.18] text-white md:text-[3.375rem] md:leading-[64px]">
                             {heading}
                         </h2>
                     </div>
                     <div className="lg:col-span-4 lg:col-start-9">
-                        <p className="text-lg leading-relaxed text-primary/65">{body}</p>
-                        <div className="mt-8 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
-                            <Link
-                                to={primaryTo}
-                                className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-accent"
-                            >
+                        <p className="text-base leading-6 text-white/70">{body}</p>
+                        <div className="mt-8 flex flex-col gap-1 sm:flex-row lg:flex-col xl:flex-row">
+                            <Link to={primaryTo} className="btn-inverse">
                                 {primaryLabel}
                                 <svg
-                                    viewBox="0 0 24 24"
+                                    viewBox="0 0 20 20"
                                     fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth={1.5}
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    className="h-3.5 w-3.5 transition-transform duration-300 ease-editorial group-hover:translate-x-1"
+                                    className="h-5 w-5"
                                     aria-hidden="true"
                                 >
-                                    <path d="M5 12h14m-6-6l6 6-6 6" />
+                                    <path d="M11.8 4.4 17.4 10l-5.6 5.6M17.4 10H2.6" stroke="currentColor" strokeWidth="1.5" />
                                 </svg>
                             </Link>
                             {secondaryLabel && secondaryTo && (
-                                <Link
-                                    to={secondaryTo}
-                                    className="inline-flex items-center justify-center rounded-full border border-black/15 px-7 py-3 text-sm font-semibold text-primary transition-colors duration-200 hover:border-primary"
-                                >
+                                <Link to={secondaryTo} className="inline-flex h-12 items-center justify-center border border-white/40 px-5 text-sm font-semibold text-white hover:bg-white hover:text-primary">
                                     {secondaryLabel}
                                 </Link>
                             )}
@@ -222,7 +208,6 @@ export function CTABanner({
     );
 }
 
-/* ── Page Hero — left-set, magazine style: folio rule on top, oversized serif, offset lede ── */
 export function PageHero({
     eyebrow,
     title,
@@ -235,31 +220,31 @@ export function PageHero({
     children?: React.ReactNode;
 }) {
     return (
-        <section className="pb-16 pt-16 md:pb-24 md:pt-24">
-            <div className="mx-auto max-w-[1180px] px-6 md:px-8">
+        <section className="leadspace border-b border-subtle bg-paper pb-16 pt-12 md:min-h-[480px] md:pb-20 md:pt-16">
+            <div className="site-wrap">
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5, ease: EASE }}
+                    transition={{ duration: 0.24, ease: EASE }}
                 >
                     <RuleLabel label={`Metics / ${eyebrow}`} />
                 </motion.div>
-                <div className="mt-10 grid gap-8 md:mt-14 lg:grid-cols-12 lg:gap-12">
+                <div className="mt-8 grid gap-8 md:mt-12 lg:grid-cols-12 lg:gap-8">
                     <motion.h1
-                        initial={{ opacity: 0, y: 16 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.7, delay: 0.08, ease: EASE }}
-                        className="font-serif text-[2.75rem] leading-[1.02] tracking-tight text-primary md:text-6xl lg:col-span-8 xl:text-7xl"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.4, delay: 0.06, ease: EASE }}
+                        className="title-rail text-4xl leading-[1.18] text-primary md:text-5xl lg:col-span-10 lg:text-[3.375rem] lg:leading-[64px]"
                     >
                         {title}
                     </motion.h1>
                     <motion.div
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
-                        className="self-end lg:col-span-4 lg:col-start-9"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.4, delay: 0.12, ease: EASE }}
+                        className="lg:col-span-8"
                     >
-                        <p className="text-lg leading-relaxed text-primary/65">{subtitle}</p>
+                        <p className="text-base leading-6 text-muted md:text-lg md:leading-7">{subtitle}</p>
                         {children}
                     </motion.div>
                 </div>

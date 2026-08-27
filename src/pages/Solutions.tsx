@@ -88,45 +88,39 @@ export default function Solutions() {
                 subtitle="Most tools manage the process. Metics helps you make the call. Each team sees the TCO analysis, risk scores, and approval record they need without losing the full picture."
             >
                 <div className="mt-8 flex flex-wrap gap-3">
-                    <Link
-                        to="/contact"
-                        className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent"
-                    >
+                    <Link to="/contact" className="btn-primary">
                         Talk through your workflow
                     </Link>
-                    <Link
-                        to="/"
-                        className="inline-flex items-center justify-center rounded-full border border-black/15 px-6 py-3 text-sm font-semibold text-primary transition-colors hover:border-primary"
-                    >
+                    <Link to="/" className="btn-tertiary">
                         See the platform
                     </Link>
                 </div>
             </PageHero>
 
             {/* By role — full-width editorial entries, not cards */}
-            <section className="border-t border-black/[0.08] bg-white">
-                <div className="mx-auto max-w-[1180px] px-6 py-24 md:px-8 md:py-32">
+            <section className="border-t border-subtle bg-white">
+                <div className="site-wrap py-16 md:py-24">
                     <RuleLabel label="01 — By role" />
-                    <h2 className="mt-12 max-w-2xl font-serif text-3xl leading-[1.1] tracking-tight text-primary md:mt-16 md:text-[2.75rem]">
+                    <h2 className="mt-12 max-w-2xl text-3xl leading-[1.1] tracking-tight text-primary md:mt-16 md:text-[2.75rem]">
                         Different pressures. One procurement record.
                     </h2>
 
-                    <div className="mt-14 border-t border-black/[0.08]">
+                    <div className="mt-14 border-t border-subtle">
                         {roles.map((role, index) => (
                             <article
                                 key={role.title}
-                                className="grid gap-6 border-b border-black/[0.08] py-12 md:py-16 lg:grid-cols-12 lg:gap-10"
+                                className="grid gap-6 border-b border-subtle py-12 md:py-16 lg:grid-cols-12 lg:gap-10"
                             >
                                 <div className="lg:col-span-4">
-                                    <span className="font-serif text-4xl leading-none text-black/[0.08] md:text-5xl">
+                                    <span className="font-mono text-4xl leading-none text-subtle md:text-5xl">
                                         {String(index + 1).padStart(2, '0')}
                                     </span>
-                                    <h3 className="mt-4 font-serif text-2xl leading-snug tracking-tight text-primary md:text-3xl">{role.title}</h3>
-                                    <p className="mt-5 font-serif text-lg italic leading-relaxed text-primary/60">{role.problem}</p>
+                                    <h3 className="mt-4 text-2xl leading-snug tracking-tight text-primary md:text-3xl">{role.title}</h3>
+                                    <p className="mt-5 border-l-2 border-accent pl-5 text-lg font-light leading-relaxed text-muted">{role.problem}</p>
                                 </div>
                                 <div className="lg:col-span-7 lg:col-start-6">
                                     <Folio label="What changes" />
-                                    <p className="mt-4 text-lg leading-relaxed text-primary/70">{role.fit}</p>
+                                    <p className="mt-4 text-lg leading-relaxed text-muted">{role.fit}</p>
                                     <p className="mt-8 border-l-2 border-accent pl-5 text-[15px] font-semibold leading-relaxed text-primary">
                                         {role.result}
                                     </p>
@@ -139,14 +133,14 @@ export default function Solutions() {
 
             {/* Spend picture */}
             <section className="bg-paper">
-                <div className="mx-auto max-w-[1180px] px-6 py-16 md:px-8 md:py-24">
+                <div className="site-wrap py-16 md:py-24">
                     <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
                         <div className="lg:col-span-5">
                             <Folio label="02 — The spend picture" className="mb-5" />
-                            <h2 className="font-serif text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
+                            <h2 className="text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
                                 Every role reads the same live numbers.
                             </h2>
-                            <p className="mt-5 max-w-xl text-lg leading-relaxed text-primary/65">
+                            <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
                                 Actual PO values track against the target prices set at RFQ stage. Savings, cycle time, and
                                 supplier concentration stay visible across every active project — without anyone assembling a
                                 report first. Commercial teams analyse it, project teams act on it, and owners hold budgets
@@ -161,15 +155,15 @@ export default function Solutions() {
             </section>
 
             {/* Dark statement */}
-            <section className="bg-[#141414]">
-                <div className="mx-auto max-w-[1180px] px-6 py-24 md:px-8 md:py-32">
+            <section className="bg-ink">
+                <div className="site-wrap py-16 md:py-24">
                     <RuleLabel label="03 — A position" light />
                     <motion.p
                         initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: '-80px' }}
                         transition={{ duration: 0.8, ease: EASE }}
-                        className="mt-12 max-w-4xl font-serif text-3xl leading-[1.15] tracking-tight text-white md:mt-16 md:text-5xl"
+                        className="mt-12 max-w-4xl text-3xl font-light leading-[1.15] tracking-tight text-white md:mt-16 md:text-5xl"
                     >
                         The best procurement process is boring in the right places: clear scope, comparable bids, visible decisions, and a record nobody has to reconstruct later.
                     </motion.p>
@@ -178,40 +172,40 @@ export default function Solutions() {
 
             {/* By sector — hairline columns, no cards */}
             <section className="bg-paper">
-                <div className="mx-auto max-w-[1180px] px-6 py-16 md:px-8 md:py-24">
+                <div className="site-wrap py-16 md:py-24">
                     <RuleLabel label="04 — By sector" />
-                    <h2 className="mt-12 max-w-2xl font-serif text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
+                    <h2 className="mt-12 max-w-2xl text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
                         Across every sector that buys at scale.
                     </h2>
 
-                    <div className="mt-14 grid gap-y-10 border-t border-black/[0.15] pt-10 sm:grid-cols-2 lg:grid-cols-4">
+                    <div className="mt-14 grid gap-y-10 border-t border-subtle pt-10 sm:grid-cols-2 lg:grid-cols-4">
                         {sectors.map((item, i) => (
-                            <div key={item.title} className="pr-8 lg:border-l lg:border-black/[0.08] lg:pl-8 lg:first:border-0 lg:first:pl-0">
+                            <div key={item.title} className="pr-8 lg:border-l lg:border-subtle lg:pl-8 lg:first:border-0 lg:first:pl-0">
                                 <Folio label={String(i + 1).padStart(2, '0')} />
-                                <h3 className="mt-4 font-serif text-xl leading-snug text-primary">{item.title}</h3>
-                                <p className="mt-3 text-sm leading-relaxed text-primary/65">{item.body}</p>
+                                <h3 className="mt-4 text-xl leading-snug text-primary">{item.title}</h3>
+                                <p className="mt-3 text-sm leading-relaxed text-muted">{item.body}</p>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* What changes — ragged two-column list */}
-            <section className="border-t border-black/[0.08] bg-white">
-                <div className="mx-auto max-w-[1180px] px-6 py-24 md:px-8 md:py-32">
+            {/* What changes — two-column list */}
+            <section className="border-t border-subtle bg-white">
+                <div className="site-wrap py-16 md:py-24">
                     <RuleLabel label="05 — What changes" />
                     <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-12">
-                        <h2 className="font-serif text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem] lg:col-span-4">
+                        <h2 className="text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem] lg:col-span-4">
                             The work gets easier to follow.
                         </h2>
                         <div className="grid gap-x-16 gap-y-0 sm:grid-cols-2 lg:col-span-8">
-                            {outcomes.map((item, i) => (
+                            {outcomes.map((item) => (
                                 <article
                                     key={item.title}
-                                    className={`border-t border-black/[0.12] py-8 ${i % 2 === 1 ? 'sm:translate-y-12' : ''}`}
+                                    className="border-t border-subtle py-8"
                                 >
-                                    <h3 className="font-serif text-xl text-primary">{item.title}</h3>
-                                    <p className="mt-3 text-[15px] leading-relaxed text-primary/65">{item.body}</p>
+                                    <h3 className="text-xl text-primary">{item.title}</h3>
+                                    <p className="mt-3 text-[15px] leading-relaxed text-muted">{item.body}</p>
                                 </article>
                             ))}
                         </div>

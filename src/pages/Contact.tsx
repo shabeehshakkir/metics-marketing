@@ -14,7 +14,7 @@ const trustItems = ['GDPR-ready', 'EU data residency options', 'SSO and SAML pat
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const VIEWPORT = { once: true, margin: '-80px' } as const;
 
-const inputClass = 'w-full rounded-xl border border-black/[0.12] bg-white px-4 py-3 text-primary placeholder:text-primary/40 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition';
+const inputClass = 'w-full rounded-none border border-subtle bg-field px-4 py-3 text-primary placeholder:text-muted outline-none transition-colors focus:border-accent focus:ring-0';
 const labelClass = 'block text-sm font-medium text-primary mb-1.5';
 
 export default function Contact() {
@@ -121,27 +121,27 @@ export default function Contact() {
                 subtitle="A useful demo starts with your actual work: package volume, supplier lists, approvals, reporting, and the points where the process slows down."
             />
 
-            <section className="border-t border-black/[0.08] py-16 md:py-24">
-                <div className="mx-auto max-w-[1180px] px-6 md:px-8">
+            <section className="border-t border-subtle py-16 md:py-24">
+                <div className="site-wrap">
                     <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
                         <div className="lg:col-span-5">
                             <RuleLabel label="What happens next" />
-                            <h2 className="mt-8 font-serif text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
+                            <h2 className="mt-8 text-3xl font-light leading-[1.19] tracking-tight text-primary md:text-[2.625rem] md:leading-[50px]">
                                 A walkthrough built around your actual procurement process.
                             </h2>
 
-                            <div className="mt-12 border-t border-black/[0.08]">
+                            <div className="mt-12 border-t border-subtle">
                                 {expectations.map(([title, body], index) => (
                                     <article
                                         key={title}
-                                        className="grid grid-cols-[3rem_1fr] gap-4 border-b border-black/[0.08] py-6"
+                                        className="grid grid-cols-[3rem_1fr] gap-4 border-b border-subtle py-6"
                                     >
-                                        <span className="font-serif text-2xl leading-none text-black/[0.12]">
+                                        <span className="font-mono text-2xl font-light leading-none text-muted">
                                             {String(index + 1).padStart(2, '0')}
                                         </span>
                                         <div>
                                             <h3 className="font-semibold text-primary">{title}</h3>
-                                            <p className="mt-1.5 leading-relaxed text-primary/65">{body}</p>
+                                            <p className="mt-1.5 leading-relaxed text-muted">{body}</p>
                                         </div>
                                     </article>
                                 ))}
@@ -149,11 +149,11 @@ export default function Contact() {
 
                             <div className="mt-10">
                                 <Folio label="Trust" className="mb-4" />
-                                <ul className="flex flex-wrap gap-x-6 gap-y-2">
+                                <ul className="flex flex-wrap gap-2">
                                     {trustItems.map((item) => (
                                         <li
                                             key={item}
-                                            className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary/55"
+                                            className="border border-subtle bg-layer px-3 py-1.5 font-mono text-xs uppercase tracking-[0.08em] text-muted"
                                         >
                                             {item}
                                         </li>
@@ -169,10 +169,10 @@ export default function Contact() {
                             transition={{ duration: 0.6, ease: EASE, delay: 0.1 }}
                             onSubmit={handleSubmit}
                             noValidate
-                            className="relative h-fit rounded-2xl border border-black/[0.08] bg-white p-8 shadow-[0_16px_40px_-12px_rgba(26,26,26,0.12)] md:p-10 lg:col-span-7 lg:mt-16"
+                            className="relative h-fit border border-subtle bg-paper p-8 md:p-10 lg:col-span-7 lg:mt-16"
                         >
-                            <h2 className="font-serif text-2xl tracking-tight text-primary md:text-3xl">Request a walkthrough</h2>
-                            <p className="mt-2 text-primary/65">We usually reply within one business day.</p>
+                            <h2 className="text-2xl font-light tracking-tight text-primary md:text-3xl">Request a walkthrough</h2>
+                            <p className="mt-2 text-muted">We usually reply within one business day.</p>
 
                             <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
                                 <label htmlFor="website">Website</label>
@@ -253,7 +253,7 @@ export default function Contact() {
                             </div>
 
                             {error && (
-                                <p className="mt-5 rounded-xl border border-accent/30 bg-accent/[0.06] px-4 py-3 text-sm font-medium text-accent" role="alert">
+                                <p className="mt-5 border border-subtle bg-layer px-4 py-3 text-sm font-medium text-error" role="alert">
                                     {error}
                                 </p>
                             )}
@@ -261,13 +261,13 @@ export default function Contact() {
                             <button
                                 type="submit"
                                 disabled={submitting}
-                                className="mt-8 inline-flex w-full items-center justify-center rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60"
+                                className="btn-primary mt-8 w-full disabled:cursor-not-allowed disabled:opacity-60"
                             >
                                 {submitting ? 'Sending...' : 'Request a Demo'}
                             </button>
 
                             {submitted && (
-                                <p className="mt-5 rounded-xl border border-secondary/30 bg-secondary/[0.06] px-4 py-3 text-sm font-medium text-secondary" role="status">
+                                <p className="mt-5 border border-subtle bg-layer px-4 py-3 text-sm font-medium text-support" role="status">
                                     Thank you. We will be in touch within 24 hours.
                                 </p>
                             )}

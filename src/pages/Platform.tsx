@@ -115,20 +115,20 @@ function PackageCard() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.7, ease: EASE }}
-            className="rounded-2xl border border-black/[0.08] bg-white p-6 shadow-[0_16px_40px_-12px_rgba(26,26,26,0.12)]"
+            className="border border-subtle bg-white p-6"
             aria-label="Example procurement package"
         >
             <div className="flex items-baseline justify-between">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-primary/40">Package</p>
-                <p className="font-serif text-lg text-primary">Facade works</p>
+                <p className="font-mono text-xs uppercase tracking-[0.08em] text-muted">Package</p>
+                <p className="text-lg font-normal text-primary">Facade works</p>
             </div>
-            <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-black/[0.06]">
+            <div className="mt-4 h-2 overflow-hidden bg-subtle">
                 <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: '62%' }}
                     viewport={{ once: true }}
                     transition={{ duration: 1, ease: EASE, delay: 0.3 }}
-                    className="h-full rounded-full bg-accent"
+                    className="h-full bg-accent"
                 />
             </div>
             <dl className="mt-6 grid grid-cols-3 gap-4">
@@ -138,12 +138,12 @@ function PackageCard() {
                     { label: 'Clarifications', value: '12' },
                 ].map((item) => (
                     <div key={item.label}>
-                        <dd className="font-serif text-3xl leading-none text-primary">{item.value}</dd>
-                        <dt className="mt-2 text-xs leading-snug text-primary/50">{item.label}</dt>
+                        <dd className="text-3xl font-light leading-none text-primary">{item.value}</dd>
+                        <dt className="mt-2 text-xs leading-snug text-muted">{item.label}</dt>
                     </div>
                 ))}
             </dl>
-            <div className="mt-6 flex items-center gap-2 rounded-xl bg-paper px-4 py-3 text-sm text-primary/70">
+            <div className="mt-6 flex items-center gap-2 bg-layer px-4 py-3 text-sm text-muted">
                 <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-secondary" aria-hidden="true" />
                 Shortlist ready for commercial review
             </div>
@@ -152,7 +152,7 @@ function PackageCard() {
 }
 
 function SkeletonBar({ w }: { w: string }) {
-    return <div className={`h-2 rounded-full bg-black/[0.07] ${w}`} aria-hidden="true" />;
+    return <div className={`h-2 bg-subtle ${w}`} aria-hidden="true" />;
 }
 
 function RfqBuilderVisual() {
@@ -162,32 +162,32 @@ function RfqBuilderVisual() {
         { name: 'w-32', qty: '1,120', unit: 'lm' },
     ];
     return (
-        <div className="rounded-2xl border border-black/[0.08] bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-            <div className="flex items-center justify-between border-b border-black/[0.08] pb-4">
+        <div className="border border-subtle bg-white p-6">
+            <div className="flex items-center justify-between border-b border-subtle pb-4">
                 <div className="space-y-2">
                     <SkeletonBar w="w-32" />
                     <SkeletonBar w="w-20" />
                 </div>
-                <span className="rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">RFQ</span>
+                <span className="border border-subtle bg-layer px-3 py-1 text-xs font-semibold text-accent">RFQ</span>
             </div>
-            <div className="mt-4 grid grid-cols-[1fr_auto_auto] gap-x-6 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary/40">
+            <div className="mt-4 grid grid-cols-[1fr_auto_auto] gap-x-6 font-mono text-xs uppercase tracking-[0.08em] text-muted">
                 <span>Line item</span>
                 <span className="text-right">Qty</span>
                 <span className="w-8 text-right">Unit</span>
             </div>
-            <div className="mt-2 divide-y divide-black/[0.06]">
+            <div className="mt-2 divide-y divide-subtle">
                 {rows.map((row, i) => (
                     <div key={i} className="grid grid-cols-[1fr_auto_auto] items-center gap-x-6 py-3.5">
                         <SkeletonBar w={row.name} />
-                        <span className="text-right text-sm tabular-nums text-primary/70">{row.qty}</span>
-                        <span className="w-8 text-right text-sm text-primary/40">{row.unit}</span>
+                        <span className="text-right text-sm tabular-nums text-muted">{row.qty}</span>
+                        <span className="w-8 text-right text-sm text-muted">{row.unit}</span>
                     </div>
                 ))}
             </div>
             <div className="mt-3 flex gap-2">
-                <span className="rounded-full border border-black/[0.08] px-3 py-1 text-xs text-primary/50">Drawings</span>
-                <span className="rounded-full border border-black/[0.08] px-3 py-1 text-xs text-primary/50">Dates</span>
-                <span className="rounded-full border border-black/[0.08] px-3 py-1 text-xs text-primary/50">Bidding rules</span>
+                <span className="border border-subtle bg-layer px-3 py-1 text-xs text-muted">Drawings</span>
+                <span className="border border-subtle bg-layer px-3 py-1 text-xs text-muted">Dates</span>
+                <span className="border border-subtle bg-layer px-3 py-1 text-xs text-muted">Bidding rules</span>
             </div>
         </div>
     );
@@ -200,12 +200,12 @@ function BidRoomVisual() {
         { name: 'Supplier C', status: 'Bid received', tone: 'green' },
     ];
     return (
-        <div className="rounded-2xl border border-black/[0.08] bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-            <div className="divide-y divide-black/[0.06]">
+        <div className="border border-subtle bg-white p-6">
+            <div className="divide-y divide-subtle">
                 {bids.map((bid) => (
                     <div key={bid.name} className="flex items-center justify-between gap-4 py-4">
                         <div className="flex items-center gap-3">
-                            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/5 text-xs font-semibold text-primary/60">
+                            <span className="flex h-9 w-9 items-center justify-center bg-layer text-xs font-semibold text-muted">
                                 {bid.name.slice(-1)}
                             </span>
                             <div className="space-y-1.5">
@@ -214,8 +214,8 @@ function BidRoomVisual() {
                             </div>
                         </div>
                         <span
-                            className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                                bid.tone === 'green' ? 'bg-secondary/10 text-secondary' : 'bg-accent/10 text-accent'
+                            className={`border border-subtle bg-layer px-3 py-1 text-xs font-semibold ${
+                                bid.tone === 'green' ? 'text-secondary' : 'text-accent'
                             }`}
                         >
                             {bid.status}
@@ -223,7 +223,7 @@ function BidRoomVisual() {
                     </div>
                 ))}
             </div>
-            <div className="mt-2 rounded-xl bg-paper px-4 py-3">
+            <div className="mt-2 bg-layer px-4 py-3">
                 <div className="space-y-2">
                     <SkeletonBar w="w-full" />
                     <SkeletonBar w="w-2/3" />
@@ -241,13 +241,13 @@ function AwardRecordVisual() {
         { label: 'Purchase order', done: false },
     ];
     return (
-        <div className="rounded-2xl border border-black/[0.08] bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+        <div className="border border-subtle bg-white p-6">
             <div className="relative pl-2">
-                <div className="absolute bottom-4 left-[19px] top-4 w-px bg-black/[0.08]" aria-hidden="true" />
+                <div className="absolute bottom-4 left-[19px] top-4 w-px bg-subtle" aria-hidden="true" />
                 {steps.map((step) => (
                     <div key={step.label} className="relative flex items-center gap-4 py-3">
                         <span
-                            className={`relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border ${
+                            className={`relative z-10 flex h-7 w-7 shrink-0 items-center justify-center border ${
                                 step.done ? 'border-secondary/30 bg-secondary/10 text-secondary' : 'border-accent/40 bg-white text-accent'
                             }`}
                         >
@@ -277,25 +277,25 @@ function SustainabilityVisual() {
         { name: 'Supplier C', pct: 64 },
     ];
     return (
-        <div className="rounded-2xl border border-black/[0.08] bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+        <div className="border border-subtle bg-white p-6">
             <div className="flex items-center justify-between">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/40">Carbon estimate per bid</p>
-                <span className="rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold text-secondary">Emissions-weighted</span>
+                <p className="font-mono text-xs uppercase tracking-[0.08em] text-muted">Carbon estimate per bid</p>
+                <span className="border border-subtle bg-layer px-3 py-1 text-xs font-semibold text-secondary">Emissions-weighted</span>
             </div>
             <div className="mt-5 space-y-4">
                 {rows.map((row) => (
                     <div key={row.name} className="grid grid-cols-[88px_1fr] items-center gap-4">
-                        <span className="text-xs text-primary/50">{row.name}</span>
-                        <div className="h-2.5 rounded-full bg-black/[0.05]">
-                            <div style={{ width: `${row.pct}%` }} className="h-full rounded-full bg-secondary/70" />
+                        <span className="text-xs text-muted">{row.name}</span>
+                        <div className="h-2 bg-subtle">
+                            <div style={{ width: `${row.pct}%` }} className="h-full bg-accent" />
                         </div>
                     </div>
                 ))}
             </div>
-            <div className="mt-6 flex gap-2 border-t border-black/[0.06] pt-4">
-                <span className="rounded-full border border-black/[0.08] px-3 py-1 text-xs text-primary/50">Certifications</span>
-                <span className="rounded-full border border-black/[0.08] px-3 py-1 text-xs text-primary/50">CSRD data</span>
-                <span className="rounded-full border border-black/[0.08] px-3 py-1 text-xs text-primary/50">Compliance</span>
+            <div className="mt-6 flex gap-2 border-t border-subtle pt-4">
+                <span className="border border-subtle bg-layer px-3 py-1 text-xs text-muted">Certifications</span>
+                <span className="border border-subtle bg-layer px-3 py-1 text-xs text-muted">CSRD data</span>
+                <span className="border border-subtle bg-layer px-3 py-1 text-xs text-muted">Compliance</span>
             </div>
         </div>
     );
@@ -311,26 +311,26 @@ function HealthScorePanel() {
         { label: 'Supplier diversity', score: 76 },
     ];
     return (
-        <div className="rounded-2xl border border-black/[0.08] bg-white p-8 shadow-[0_1px_2px_rgba(0,0,0,0.04)]" aria-label="Procurement health score">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-primary/40">Health score</p>
+        <div className="border border-subtle bg-white p-8" aria-label="Procurement health score">
+            <p className="font-mono text-xs uppercase tracking-[0.08em] text-muted">Health score</p>
             <div className="mt-4 flex items-baseline gap-3">
-                <span className="font-serif text-6xl leading-none text-primary">74</span>
-                <span className="text-sm text-primary/40">out of 100</span>
+                <span className="text-6xl font-light leading-none text-primary">74</span>
+                <span className="text-sm text-muted">out of 100</span>
             </div>
             <div className="mt-8 space-y-5">
                 {bars.map((bar, i) => (
                     <div key={bar.label}>
                         <div className="mb-1.5 flex items-baseline justify-between">
-                            <span className="text-xs text-primary/60">{bar.label}</span>
+                            <span className="text-xs text-muted">{bar.label}</span>
                             <span className="text-xs font-semibold tabular-nums text-primary">{bar.score}</span>
                         </div>
-                        <div className="h-1.5 rounded-full bg-black/[0.06]">
+                        <div className="h-2 bg-subtle">
                             <motion.div
                                 initial={{ width: 0 }}
                                 whileInView={{ width: `${bar.score}%` }}
                                 viewport={{ once: true, margin: '-80px' }}
                                 transition={{ duration: 0.8, ease: EASE, delay: i * 0.08 }}
-                                className="h-full rounded-full bg-accent"
+                                className="h-full bg-accent"
                             />
                         </div>
                     </div>
@@ -352,42 +352,36 @@ export default function Platform() {
                 title="The procurement workspace your project can live in."
                 subtitle="Procurement decisions break when cost, risk, and compliance live in separate places. Metics keeps every RFQ, bid, approval, and purchase order in one shared record so the decision is visible when you need it."
             >
-                <div className="mt-8 flex flex-wrap gap-3">
-                    <Link
-                        to="/contact"
-                        className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent"
-                    >
+                <div className="mt-8 flex flex-wrap gap-1">
+                    <Link to="/contact" className="btn-primary">
                         Book a walkthrough
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5 transition-transform duration-300 ease-editorial group-hover:translate-x-1" aria-hidden="true">
-                            <path d="M5 12h14m-6-6l6 6-6 6" />
+                        <svg viewBox="0 0 20 20" fill="none" className="h-5 w-5" aria-hidden="true">
+                            <path d="M11.8 4.4 17.4 10l-5.6 5.6M17.4 10H2.6" stroke="currentColor" strokeWidth="1.5" />
                         </svg>
                     </Link>
-                    <Link
-                        to="/pricing"
-                        className="inline-flex items-center justify-center rounded-full border border-black/15 px-6 py-3 text-sm font-semibold text-primary transition-colors hover:border-primary"
-                    >
+                    <Link to="/pricing" className="btn-tertiary">
                         See pricing
                     </Link>
                 </div>
             </PageHero>
 
             {/* Workflow proof points + package card */}
-            <section className="border-t border-black/[0.08] bg-white">
-                <div className="mx-auto max-w-[1180px] px-6 py-24 md:px-8 md:py-32">
+            <section className="border-t border-subtle bg-white">
+                <div className="site-wrap py-16 md:py-24">
                     <RuleLabel label="01 — The workflow" />
                     <div className="mt-12 grid items-start gap-12 md:mt-16 lg:grid-cols-12 lg:gap-16">
                         <div className="lg:col-span-7" aria-label="Platform workflow">
                             {proofPoints.map((item, i) => (
                                 <article
                                     key={item.title}
-                                    className="grid grid-cols-[3rem_1fr] gap-4 border-b border-black/[0.08] py-7 first:border-t md:grid-cols-[5rem_1fr] md:gap-8"
+                                    className="grid grid-cols-[3rem_1fr] gap-4 border-b border-subtle py-7 first:border-t md:grid-cols-[5rem_1fr] md:gap-8"
                                 >
-                                    <span className="font-serif text-2xl tabular-nums leading-none text-primary/25 md:text-3xl">
+                                    <span className="font-mono text-2xl tabular-nums leading-none text-strong md:text-3xl">
                                         {String(i + 1).padStart(2, '0')}
                                     </span>
                                     <div>
-                                        <h2 className="font-serif text-xl text-primary md:text-2xl">{item.title}</h2>
-                                        <p className="mt-2 max-w-lg text-[15px] leading-relaxed text-primary/65">{item.body}</p>
+                                        <h2 className="text-xl font-normal text-primary md:text-2xl">{item.title}</h2>
+                                        <p className="mt-2 max-w-lg text-[15px] leading-relaxed text-muted">{item.body}</p>
                                     </div>
                                 </article>
                             ))}
@@ -401,12 +395,12 @@ export default function Platform() {
 
             {/* Stats strip — hairline rules, no cards */}
             <section className="bg-paper">
-                <div className="mx-auto max-w-[1180px] px-6 py-16 md:px-8 md:py-20">
+                <div className="site-wrap py-16 md:py-20">
                     <div className="grid gap-10 md:grid-cols-3 md:gap-8">
                         {platformStats.map((stat) => (
-                            <div key={stat.value} className="border-t border-black/[0.15] pt-6">
-                                <span className="font-serif text-5xl leading-none text-primary md:text-6xl">{stat.value}</span>
-                                <p className="mt-5 max-w-xs text-sm leading-relaxed text-primary/65">{stat.desc}</p>
+                            <div key={stat.value} className="border-t border-strong pt-6">
+                                <span className="text-5xl font-light leading-none text-primary md:text-6xl">{stat.value}</span>
+                                <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted">{stat.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -414,17 +408,17 @@ export default function Platform() {
             </section>
 
             {/* Procurement flow — set as a hairline table row, magazine style */}
-            <section className="border-y border-black/[0.08] bg-white">
-                <div className="mx-auto max-w-[1180px] px-6 py-16 md:px-8 md:py-20">
+            <section className="border-y border-subtle bg-white">
+                <div className="site-wrap py-16 md:py-20">
                     <RuleLabel label="02 — From RFQ to delivery" />
                     <ol className="mt-10 grid gap-y-8 sm:grid-cols-2 md:mt-12 lg:grid-cols-6 lg:gap-y-0" aria-label="Procurement workflow steps">
                         {flowSteps.map((step, i) => (
-                            <li key={step.label} className="relative pr-8 lg:border-l lg:border-black/[0.08] lg:pl-6 lg:first:border-0 lg:first:pl-0">
-                                <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-primary/35">
+                            <li key={step.label} className="relative pr-8 lg:border-l lg:border-subtle lg:pl-6 lg:first:border-0 lg:first:pl-0">
+                                <span className="font-mono text-xs uppercase tracking-[0.08em] text-muted">
                                     {String(i + 1).padStart(2, '0')}
                                 </span>
-                                <p className="mt-3 font-serif text-2xl tracking-tight text-primary">{step.label}</p>
-                                <p className="mt-1 text-sm text-primary/50">{step.sub}</p>
+                                <p className="mt-3 text-2xl font-light tracking-tight text-primary">{step.label}</p>
+                                <p className="mt-1 text-sm text-muted">{step.sub}</p>
                             </li>
                         ))}
                     </ol>
@@ -433,36 +427,36 @@ export default function Platform() {
 
             {/* Both sides of the tender — one ink card among white */}
             <section className="bg-paper">
-                <div className="mx-auto max-w-[1180px] px-6 py-24 md:px-8 md:py-32">
+                <div className="site-wrap py-16 md:py-24">
                     <RuleLabel label="03 — Both sides of the tender" />
                     <div className="mt-12 grid gap-8 md:mt-16 lg:grid-cols-12">
-                        <h2 className="font-serif text-3xl leading-[1.08] tracking-tight text-primary md:text-[2.75rem] lg:col-span-7">
+                        <h2 className="text-3xl font-light leading-[1.08] tracking-tight text-primary md:text-[2.75rem] lg:col-span-7">
                             Buyers and suppliers work from the same package record.
                         </h2>
-                        <p className="self-end text-lg leading-relaxed text-primary/65 lg:col-span-4 lg:col-start-9">
+                        <p className="self-end text-lg leading-relaxed text-muted lg:col-span-4 lg:col-start-9">
                             Both sides need the process to be clear. Buyers run the tender. Suppliers price it, ask questions, and track the outcome. The same package record holds both views.
                         </p>
                     </div>
 
                     <div className="mt-14 grid gap-6 md:grid-cols-2 md:gap-8">
-                        <article className="flex h-full flex-col rounded-2xl border border-black/[0.08] bg-white p-8 shadow-[0_1px_2px_rgba(0,0,0,0.04)] md:p-10">
+                        <article className="flex h-full flex-col border border-subtle bg-white p-8 md:p-10">
                             <Folio label="For buyers" />
-                            <h3 className="mt-3 font-serif text-2xl leading-snug tracking-tight text-primary">Run the tender without rebuilding it every week.</h3>
+                            <h3 className="mt-3 text-2xl font-normal leading-snug tracking-tight text-primary">Run the tender without rebuilding it every week.</h3>
                             <ul className="mt-6 space-y-4">
                                 {buyerSteps.map((step) => (
-                                    <li key={step} className="flex gap-3 text-[15px] leading-relaxed text-primary/70">
+                                    <li key={step} className="flex gap-3 text-[15px] leading-relaxed text-muted">
                                         <CheckMark />
                                         {step}
                                     </li>
                                 ))}
                             </ul>
                         </article>
-                        <article className="flex h-full flex-col rounded-2xl bg-ink p-8 text-white md:translate-y-8 md:p-10">
+                        <article className="flex h-full flex-col bg-ink p-8 text-white md:p-10">
                             <Folio label="For suppliers" light />
-                            <h3 className="mt-3 font-serif text-2xl leading-snug tracking-tight text-white">Price the work clearly, then keep track of what happens.</h3>
+                            <h3 className="mt-3 text-2xl font-normal leading-snug tracking-tight text-white">Price the work clearly, then keep track of what happens.</h3>
                             <ul className="mt-6 space-y-4">
                                 {supplierSteps.map((step) => (
-                                    <li key={step} className="flex gap-3 text-[15px] leading-relaxed text-white/70">
+                                    <li key={step} className="flex gap-3 text-[15px] leading-relaxed text-[#c6c6c6]">
                                         <CheckMark className="text-accent" />
                                         {step}
                                     </li>
@@ -474,8 +468,8 @@ export default function Platform() {
             </section>
 
             {/* Dark belief statement */}
-            <section className="bg-[#141414]">
-                <div className="mx-auto max-w-[1180px] px-6 py-24 md:px-8 md:py-32">
+            <section className="bg-ink">
+                <div className="site-wrap py-16 md:py-24">
                     <RuleLabel label="04 — The point" light />
                     <motion.div
                         initial={{ opacity: 0, y: 16 }}
@@ -484,12 +478,12 @@ export default function Platform() {
                         transition={{ duration: 0.8, ease: EASE }}
                         className="mt-12 md:mt-16"
                     >
-                        <p className="max-w-4xl font-serif text-3xl leading-[1.12] tracking-tight text-white md:text-5xl">
+                        <p className="max-w-4xl text-3xl font-light leading-[1.12] tracking-tight text-white md:text-5xl">
                             You make better procurement decisions when you can see risk, cost, and compliance in the same place.
                         </p>
                         <div className="mt-10 flex items-center gap-5">
                             <span className="h-px w-12 bg-accent" aria-hidden="true" />
-                            <span className="text-base text-white/60">That is the intelligence layer Metics adds.</span>
+                            <span className="font-mono text-xs uppercase tracking-[0.08em] text-[#c6c6c6]">That is the intelligence layer Metics adds.</span>
                         </div>
                     </motion.div>
                 </div>
@@ -497,9 +491,9 @@ export default function Platform() {
 
             {/* Built-in tools */}
             <section className="bg-white">
-                <div className="mx-auto max-w-[1180px] px-6 py-24 md:px-8 md:py-32">
+                <div className="site-wrap py-16 md:py-24">
                     <RuleLabel label="05 — Built-in tools" />
-                    <h2 className="mt-12 max-w-3xl font-serif text-3xl leading-[1.1] tracking-tight text-primary md:mt-16 md:text-[2.75rem]">
+                    <h2 className="mt-12 max-w-3xl text-3xl font-light leading-[1.1] tracking-tight text-primary md:mt-16 md:text-[2.75rem]">
                         The useful parts are built in. The noisy parts are left out.
                     </h2>
 
@@ -511,11 +505,11 @@ export default function Platform() {
                                 <div key={tool.heading} className="grid items-center gap-10 lg:grid-cols-12 lg:gap-0">
                                     <div className={flipped ? 'lg:order-2 lg:col-span-6 lg:col-start-7 lg:pl-16' : 'lg:col-span-6 lg:pr-16'}>
                                         <div className="flex items-baseline gap-4">
-                                            <span className="font-serif text-5xl leading-none text-black/[0.08]">{String(index + 1).padStart(2, '0')}</span>
-                                            <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-accent">{tool.kicker}</span>
+                                            <span className="font-mono text-5xl leading-none text-subtle">{String(index + 1).padStart(2, '0')}</span>
+                                            <span className="font-mono text-xs uppercase tracking-[0.08em] text-accent">{tool.kicker}</span>
                                         </div>
-                                        <h3 className="mt-5 font-serif text-2xl leading-snug tracking-tight text-primary md:text-3xl">{tool.heading}</h3>
-                                        <p className="mt-4 text-base leading-relaxed text-primary/65 md:text-lg">{tool.body}</p>
+                                        <h3 className="mt-5 text-2xl font-normal leading-snug tracking-tight text-primary md:text-3xl">{tool.heading}</h3>
+                                        <p className="mt-4 text-base leading-relaxed text-muted md:text-lg">{tool.body}</p>
                                     </div>
                                     <div className={flipped ? 'lg:order-1 lg:col-span-5' : 'lg:col-span-5 lg:col-start-8'}>
                                         <Visual />
@@ -529,7 +523,7 @@ export default function Platform() {
 
             {/* Spend analytics */}
             <section className="bg-paper">
-                <div className="mx-auto max-w-[1180px] px-6 py-24 md:px-8 md:py-32">
+                <div className="site-wrap py-16 md:py-24">
                     <RuleLabel label="06 — Spend analytics" />
                     <motion.blockquote
                         initial={{ opacity: 0, y: 16 }}
@@ -538,25 +532,25 @@ export default function Platform() {
                         transition={{ duration: 0.8, ease: EASE }}
                         className="mt-12 max-w-3xl md:mt-16"
                     >
-                        <p className="font-serif text-2xl leading-[1.3] text-primary md:text-4xl">
+                        <p className="text-2xl font-light leading-[1.3] text-primary md:text-4xl">
                             A procurement health score of 60 means something specific is wrong. Slow cycles, sole-source categories, awards above budget. Metics tells you which one.
                         </p>
                     </motion.blockquote>
 
                     <div className="mt-16 grid items-start gap-12 lg:grid-cols-12 lg:gap-16 md:mt-24">
                         <div className="lg:col-span-7">
-                            <h2 className="font-serif text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
+                            <h2 className="text-3xl font-light leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
                                 Numbers that matter once the tenders are running.
                             </h2>
-                            <p className="mt-4 max-w-2xl text-lg text-primary/65">
+                            <p className="mt-4 max-w-2xl text-lg text-muted">
                                 Metics tracks actual PO spend against the target prices you set at RFQ stage. The picture covers every package in a project: what was budgeted, what was awarded, how long each cycle took, and where supplier concentration creates risk.
                             </p>
                             {/* Hairline table, not a card list */}
-                            <dl className="mt-10 border-t border-black/[0.15]">
+                            <dl className="mt-10 border-t border-strong">
                                 {analyticsItems.map(([term, def]) => (
-                                    <div key={term} className="grid gap-1 border-b border-black/[0.08] py-5 sm:grid-cols-[220px_1fr] sm:gap-8">
+                                    <div key={term} className="grid gap-1 border-b border-subtle py-5 sm:grid-cols-[220px_1fr] sm:gap-8">
                                         <dt className="text-sm font-semibold text-primary">{term}</dt>
-                                        <dd className="text-[15px] leading-relaxed text-primary/65">{def}</dd>
+                                        <dd className="text-[15px] leading-relaxed text-muted">{def}</dd>
                                     </div>
                                 ))}
                             </dl>
@@ -569,23 +563,23 @@ export default function Platform() {
             </section>
 
             {/* Governance */}
-            <section className="border-t border-black/[0.08] bg-white">
-                <div className="mx-auto max-w-[1180px] px-6 py-24 md:px-8 md:py-32">
+            <section className="border-t border-subtle bg-white">
+                <div className="site-wrap py-16 md:py-24">
                     <RuleLabel label="07 — Control" />
                     <div className="mt-12 grid items-start gap-12 md:mt-16 lg:grid-cols-12 lg:gap-16">
                         <div className="lg:col-span-5">
-                            <h2 className="font-serif text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
+                            <h2 className="text-3xl font-light leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
                                 Enough governance for serious projects. Simple enough for daily use.
                             </h2>
-                            <p className="mt-4 max-w-2xl text-lg text-primary/65">
+                            <p className="mt-4 max-w-2xl text-lg text-muted">
                                 Metics is built for teams that need decisions to move quickly and still stand up to scrutiny later. The record keeps itself without making people work around the system.
                             </p>
                         </div>
-                        <dl className="border-t border-black/[0.15] lg:col-span-6 lg:col-start-7">
+                        <dl className="border-t border-strong lg:col-span-6 lg:col-start-7">
                             {governanceItems.map(([term, def]) => (
-                                <div key={term} className="grid gap-1 border-b border-black/[0.08] py-5 sm:grid-cols-[140px_1fr] sm:gap-8">
-                                    <dt className="text-[11px] font-semibold uppercase tracking-[0.25em] text-primary/40 sm:pt-1">{term}</dt>
-                                    <dd className="text-[15px] leading-relaxed text-primary/70">{def}</dd>
+                                <div key={term} className="grid gap-1 border-b border-subtle py-5 sm:grid-cols-[140px_1fr] sm:gap-8">
+                                    <dt className="font-mono text-xs uppercase tracking-[0.08em] text-muted sm:pt-1">{term}</dt>
+                                    <dd className="text-[15px] leading-relaxed text-muted">{def}</dd>
                                 </div>
                             ))}
                         </dl>

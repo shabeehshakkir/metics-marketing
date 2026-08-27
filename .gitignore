@@ -4,3 +4,6 @@ dist/
 *.local
 .env
 .env.*
+
+# Junie local skill symlinks (absolute paths)
+.junie/skills/
