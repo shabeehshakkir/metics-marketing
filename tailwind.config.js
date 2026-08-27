@@ -41,7 +41,7 @@ export default {
       fontFamily: {
         sans: ['"Inter Tight"', 'Inter', 'Helvetica Neue', 'Arial', 'sans-serif'],
         serif: ['"Inter Tight"', 'Inter', 'Helvetica Neue', 'Arial', 'sans-serif'],
-        mono: ['"DM Mono"', 'ui-monospace', 'Menlo', 'monospace'],
+        mono: ['"Inter Tight"', 'Inter', 'Helvetica Neue', 'Arial', 'sans-serif'],
       },
       maxWidth: {
         container: '92rem',
