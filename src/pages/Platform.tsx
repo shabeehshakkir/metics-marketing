@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { CTABanner, Folio, PageHero, RuleLabel } from '../components/shared';
-import { TCOVisual } from '../components/graphics';
+import { TCOVisual, InteractiveStage } from '../components/graphics';
 import { usePageMeta } from '../hooks/usePageMeta';
 
 const SNAP: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -388,7 +388,14 @@ export default function Platform() {
                             ))}
                         </div>
                         <div className="lg:col-span-5 lg:sticky lg:top-28 lg:mt-10">
-                            <PackageCard />
+                            <InteractiveStage
+                                chips={[
+                                    { label: 'Shortlist', sub: 'Commercial review', x: '4%', y: '4%', z: 48 },
+                                    { label: '5 bids', sub: 'same structure', x: '72%', y: '78%', z: 32 },
+                                ]}
+                            >
+                                <PackageCard />
+                            </InteractiveStage>
                         </div>
                     </div>
                 </div>

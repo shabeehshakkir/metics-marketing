@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { CTABanner, RuleLabel } from '../components/shared';
-import { WorkflowVisual } from '../components/graphics';
+import { WorkflowVisual, HeroWorkspace, InteractiveStage } from '../components/graphics';
 import { usePageMeta } from '../hooks/usePageMeta';
 
 const easeOut: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -109,68 +109,6 @@ const strip = [
     },
 ];
 
-const heroBids = [
-    { supplier: 'Nordbau GmbH', amount: '€412,300', width: '72%', accent: true },
-    { supplier: 'Delta Steel Co.', amount: '€448,150', width: '84%', accent: false },
-    { supplier: 'Meridian Supply', amount: '€463,900', width: '92%', accent: false },
-];
-
-function HeroRecordCard() {
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.28, delay: 0.08, ease: easeOut }}
-            className="product-stage group border border-subtle bg-layer p-6 md:p-8"
-        >
-            <div className="flex items-start justify-between gap-4">
-                <div>
-                    <p className="font-mono text-xs uppercase tracking-[0.08em] text-muted">RFQ package</p>
-                    <p className="mt-1 text-xl font-normal text-primary">Structural Steel, Block C</p>
-                </div>
-                <span className="inline-flex items-center gap-2 border border-subtle bg-paper px-3 py-1 text-xs font-semibold text-support">
-                    <span className="live-dot h-1.5 w-1.5 bg-support" aria-hidden="true" />
-                    Bids closed
-                </span>
-            </div>
-
-            <div className="mt-6 space-y-1">
-                {heroBids.map((bid, i) => (
-                    <div
-                        key={bid.supplier}
-                        className={`-mx-2 flex items-center gap-4 px-2 py-2 transition-colors duration-150 ${
-                            bid.accent ? 'bg-highlight' : 'hover:bg-paper'
-                        }`}
-                    >
-                        <span className="w-32 shrink-0 truncate text-xs font-medium text-muted">{bid.supplier}</span>
-                        <div className="h-2 flex-1 overflow-hidden bg-subtle">
-                            <motion.div
-                                initial={{ width: 0 }}
-                                animate={{ width: bid.width }}
-                                transition={{ duration: 0.38, delay: 0.06 + i * 0.05, ease: easeOut }}
-                                className={`h-full ${bid.accent ? 'bg-accent' : 'bg-strong'}`}
-                            />
-                        </div>
-                        <span className={`w-20 shrink-0 text-right font-mono text-xs tabular-nums ${bid.accent ? 'font-semibold text-primary' : 'text-muted'}`}>
-                            {bid.amount}
-                        </span>
-                    </div>
-                ))}
-            </div>
-
-            <div className="mt-6 flex items-center justify-between border-t border-subtle pt-4">
-                <span className="text-xs text-muted">3 bids · 2 clarifications · TCO comparison ready</span>
-                <span className="inline-flex items-center gap-2 text-xs font-semibold text-accent transition-transform duration-150 group-hover:translate-x-0.5">
-                    Review award
-                    <svg viewBox="0 0 20 20" fill="none" className="h-4 w-4" aria-hidden="true">
-                        <path d="M11.8 4.4 17.4 10l-5.6 5.6M17.4 10H2.6" stroke="currentColor" strokeWidth="1.5" />
-                    </svg>
-                </span>
-            </div>
-        </motion.div>
-    );
-}
-
 export default function Home() {
     usePageMeta(
         undefined,
@@ -236,9 +174,14 @@ export default function Home() {
                                 </p>
                             </div>
                         </motion.aside>
-                        <div className="lg:col-span-8">
-                            <HeroRecordCard />
-                        </div>
+                        <motion.div
+                            initial={{ opacity: 0, y: 12 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.32, delay: 0.1, ease: easeOut }}
+                            className="lg:col-span-8"
+                        >
+                            <HeroWorkspace />
+                        </motion.div>
                     </div>
                 </div>
             </section>
@@ -264,7 +207,9 @@ export default function Home() {
                     <RuleLabel label="How the workflow runs" />
                     <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-8">
                         <div className="hidden lg:col-span-5 lg:block lg:self-center">
-                            <WorkflowVisual />
+                            <InteractiveStage>
+                                <WorkflowVisual />
+                            </InteractiveStage>
                         </div>
                         <div className="lg:col-span-7">
                             {proofPoints.map((item) => (

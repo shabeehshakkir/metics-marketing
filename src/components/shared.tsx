@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
@@ -217,7 +218,7 @@ export function PageHero({
     eyebrow: string;
     title: string;
     subtitle: string;
-    children?: React.ReactNode;
+    children?: ReactNode;
 }) {
     return (
         <section className="leadspace border-b border-subtle bg-paper pb-16 pt-12 md:min-h-[480px] md:pb-20 md:pt-16">
