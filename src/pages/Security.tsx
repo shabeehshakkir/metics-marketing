@@ -21,7 +21,7 @@ const pillars = [
     },
     {
         title: 'Role-based access',
-        body: 'Procurement, commercial, project, finance, and supplier roles each see exactly what their role requires — nothing more.',
+        body: 'Procurement, commercial, project, finance, and supplier roles each see exactly what their role requires, nothing more.',
     },
     {
         title: 'Complete audit trail',
@@ -37,7 +37,7 @@ const practices = [
     'Data processing agreement (DPA) available for every customer.',
     'Your data can be exported or deleted on request, in line with GDPR data-subject rights.',
     'Access to production systems is restricted, logged, and reviewed.',
-    'Suppliers only ever see the RFQs they are invited to or matched with — never other suppliers\u2019 bids during tendering.',
+    'Suppliers only ever see the RFQs they are invited to or matched with, never other suppliers\u2019 bids during tendering.',
     'Document history is kept for drawings, specifications, contracts, certificates, and PO changes.',
 ];
 
@@ -51,20 +51,20 @@ export default function Security() {
         <div className="bg-paper">
             <PageHero
                 eyebrow="Security & Trust"
-                title="Procurement data that stands up to scrutiny."
+                title="Procurement data that can survive a review."
                 subtitle="Tenders, bids, and awards are commercially sensitive by nature. Metics is built so that data stays in the EU, access follows roles, and every decision leaves a record."
             />
 
             {/* Trust pillars — hairline grid, no icon cards */}
             <section className="border-t border-subtle bg-white">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="01 — Foundations" />
+                    <RuleLabel label="01. Foundations" />
                     <div className="mt-12 grid gap-8 md:mt-16 lg:grid-cols-12 lg:gap-12">
                         <h2 className="text-3xl leading-[1.08] tracking-tight text-primary md:text-[2.75rem] lg:col-span-7">
                             Six things you can hold us to.
                         </h2>
                         <p className="self-end text-lg leading-relaxed text-muted lg:col-span-4 lg:col-start-9">
-                            We claim what the platform actually does — no more, no less.
+                            We describe what the platform does. If something is not here, we do not claim it.
                         </p>
                     </div>
                     <div className="mt-16 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
@@ -84,14 +84,14 @@ export default function Security() {
                 <div className="site-wrap py-16 md:py-24">
                     <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
                         <div className="lg:col-span-6">
-                            <Folio label="02 — Audit trail" className="mb-5" />
+                            <Folio label="02. Audit trail" className="mb-5" />
                             <h2 className="text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
-                                The audit trail is not a feature we added. It is how the product works.
+                                The audit trail writes itself as people use the product.
                             </h2>
                             <p className="mt-5 text-lg leading-relaxed text-muted">
                                 Because every RFQ, clarification, bid, approval, and purchase order lives in one shared record, the
-                                audit trail writes itself as the work happens. When a client, auditor, or board asks why a supplier
-                                won, the answer is already in the record — with names, timestamps, and the documents that were on
+                                audit trail is not a separate module. When a client, auditor, or board asks why a supplier
+                                won, the answer is already in the record, with names, timestamps, and the documents that were on
                                 the table at the time.
                             </p>
                             <p className="mt-4 text-lg leading-relaxed text-muted">
@@ -108,14 +108,14 @@ export default function Security() {
             {/* Data practices */}
             <section className="border-t border-subtle bg-white">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="03 — Data practices" />
+                    <RuleLabel label="03. Data practices" />
                     <div className="mt-12 grid items-start gap-12 md:mt-16 lg:grid-cols-12 lg:gap-16">
                         <div className="lg:col-span-5">
                             <h2 className="text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
                                 Straight answers for your security review.
                             </h2>
                             <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
-                                If your review needs more detail — data flows, sub-processors, retention terms — ask us directly and
+                                If your review needs more detail (data flows, sub-processors, retention terms), ask us directly and
                                 we will walk your team through it.
                             </p>
                             <Link to="/contact" className="btn-primary mt-8">
@@ -148,7 +148,7 @@ export default function Security() {
             {/* Dark statement */}
             <section className="bg-ink">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="04 — On trust" light />
+                    <RuleLabel label="04. On trust" light />
                     <motion.div
                         initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -157,8 +157,8 @@ export default function Security() {
                         className="mt-12 md:mt-16"
                     >
                         <p className="max-w-4xl text-3xl font-light leading-[1.15] tracking-tight text-white md:text-5xl">
-                            Trust in a procurement platform is earned the same way trust in a procurement process is: by keeping
-                            the record straight.
+                            Trust in a procurement platform is earned by keeping the record straight. That is the same bar as a
+                            procurement process.
                         </p>
                         <div className="mt-10 flex items-center gap-5">
                             <span className="h-px w-12 bg-accent" aria-hidden="true" />
@@ -176,7 +176,7 @@ export default function Security() {
 
             <CTABanner
                 heading="Bring your security checklist"
-                body="We will go through it line by line — data residency, access controls, audit exports, and the DPA — with the people who built the platform."
+                body="We will go through it line by line: data residency, access controls, audit exports, and the DPA, with the people who built the platform."
                 primaryLabel="Book a Security Review"
                 primaryTo="/contact"
                 secondaryLabel="Read the FAQ"

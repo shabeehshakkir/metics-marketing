@@ -20,7 +20,7 @@ const labelClass = 'block text-sm font-medium text-primary mb-1.5';
 export default function Contact() {
     usePageMeta(
         'Contact',
-        'Book a Metics walkthrough with your real procurement workflow — RFQ setup, supplier responses, bid comparison, approvals, and PO output.'
+        'Book a Metics walkthrough with your real procurement workflow: RFQ setup, supplier responses, bid comparison, approvals, and PO output.'
     );
     const [submitted, setSubmitted] = useState(false);
     const [submitting, setSubmitting] = useState(false);

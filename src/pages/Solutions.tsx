@@ -85,7 +85,7 @@ export default function Solutions() {
             <PageHero
                 eyebrow="Solutions"
                 title="Procurement looks different depending on who you ask."
-                subtitle="Most tools manage the process. Metics helps you make the call. Each team sees the TCO analysis, risk scores, and approval record they need without losing the full picture."
+                subtitle="Each team needs different numbers from the same tender. TCO analysis, risk scores, and the approval record stay on the package, so nobody loses the full picture."
             >
                 <div className="mt-8 flex flex-wrap gap-3">
                     <Link to="/contact" className="btn-primary">
@@ -100,9 +100,9 @@ export default function Solutions() {
             {/* By role — full-width editorial entries, not cards */}
             <section className="border-t border-subtle bg-white">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="01 — By role" />
+                    <RuleLabel label="01. By role" />
                     <h2 className="mt-12 max-w-2xl text-3xl leading-[1.1] tracking-tight text-primary md:mt-16 md:text-[2.75rem]">
-                        Different pressures. One procurement record.
+                        Same package, different jobs.
                     </h2>
 
                     <div className="mt-14 border-t border-subtle">
@@ -136,13 +136,13 @@ export default function Solutions() {
                 <div className="site-wrap py-16 md:py-24">
                     <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
                         <div className="lg:col-span-5">
-                            <Folio label="02 — The spend picture" className="mb-5" />
+                            <Folio label="02. The spend picture" className="mb-5" />
                             <h2 className="text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
                                 Every role reads the same live numbers.
                             </h2>
                             <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
                                 Actual PO values track against the target prices set at RFQ stage. Savings, cycle time, and
-                                supplier concentration stay visible across every active project — without anyone assembling a
+                                supplier concentration stay visible across every active project, without anyone assembling a
                                 report first. Commercial teams analyse it, project teams act on it, and owners hold budgets
                                 against it.
                             </p>
@@ -157,7 +157,7 @@ export default function Solutions() {
             {/* Dark statement */}
             <section className="bg-ink">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="03 — A position" light />
+                    <RuleLabel label="03. A position" light />
                     <motion.p
                         initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -173,9 +173,9 @@ export default function Solutions() {
             {/* By sector — hairline columns, no cards */}
             <section className="bg-paper">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="04 — By sector" />
+                    <RuleLabel label="04. By sector" />
                     <h2 className="mt-12 max-w-2xl text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
-                        Across every sector that buys at scale.
+                        Construction, manufacturing, energy, and public sector.
                     </h2>
 
                     <div className="mt-14 grid gap-y-10 border-t border-subtle pt-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -193,7 +193,7 @@ export default function Solutions() {
             {/* What changes — two-column list */}
             <section className="border-t border-subtle bg-white">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="05 — What changes" />
+                    <RuleLabel label="05. What changes" />
                     <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-12">
                         <h2 className="text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem] lg:col-span-4">
                             The work gets easier to follow.

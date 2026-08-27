@@ -66,13 +66,13 @@ export default function Pricing() {
         <div className="bg-paper">
             <PageHero
                 eyebrow="Pricing"
-                title="Pricing that matches how procurement teams roll out software."
+                title="Pricing that matches how teams actually roll this out."
                 subtitle="Start with a small team, prove the workflow, then scale across projects. Suppliers are free, because bid coverage matters more than charging both sides."
             />
 
             <section className="border-t border-subtle py-16 md:py-24">
                 <div className="site-wrap">
-                    <RuleLabel label="01 — Plans" />
+                    <RuleLabel label="01. Plans" />
                     <div className="mt-12 grid items-stretch gap-6 md:mt-16 lg:grid-cols-3 lg:gap-8">
                         {plans.map((plan) => (
                             <article
@@ -135,7 +135,7 @@ export default function Pricing() {
 
             <section className="pb-24 md:pb-32">
                 <div className="site-wrap">
-                    <RuleLabel label="02 — Questions" />
+                    <RuleLabel label="02. Questions" />
                     <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-12">
                         <h2 className="text-3xl font-light leading-[1.19] tracking-tight text-primary md:text-[2.625rem] md:leading-[50px] lg:col-span-4">
                             Clear answers before you book a call.

@@ -50,16 +50,16 @@ export default function About() {
             <PageHero
                 eyebrow="About"
                 title="Procurement decisions deserve the whole record."
-                subtitle="Metics is a procurement decision-intelligence platform for construction. We exist because buying decisions made with partial information quietly cost projects millions — and because the fix is not more software, but one complete record."
+                subtitle="Metics is a procurement platform for construction. Buying with partial information costs projects millions. The gap is usually the record: spreadsheet, email, phone, inbox. We put the RFQ, the bids, the approval, and the PO in one place."
             />
 
             {/* Why Metics exists */}
             <section className="border-t border-subtle bg-white">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="01 — Why we exist" />
+                    <RuleLabel label="01. Why we exist" />
                     <div className="mt-12 grid items-start gap-12 md:mt-16 lg:grid-cols-12 lg:gap-16">
                         <h2 className="text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem] lg:col-span-5">
-                            The most expensive procurement mistakes are made with partial information.
+                            Awards go wrong when the person deciding never sees the full picture.
                         </h2>
                         <div className="space-y-5 text-lg leading-relaxed text-muted lg:col-span-6 lg:col-start-7">
                             <p>
@@ -74,7 +74,7 @@ export default function About() {
                             </p>
                             <p>
                                 Metics was built to close that gap. Every RFQ, bid, clarification, approval, and purchase order lives
-                                in one shared record — so the decision is made with everything on the table, and the reasoning is
+                                in one shared record, so the decision is made with everything on the table, and the reasoning is
                                 still there when someone asks about it later.
                             </p>
                         </div>
@@ -85,13 +85,13 @@ export default function About() {
             {/* What we believe — hairline columns */}
             <section className="bg-paper">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="02 — What we believe" />
+                    <RuleLabel label="02. What we believe" />
                     <div className="mt-12 grid gap-8 md:mt-16 lg:grid-cols-12 lg:gap-12">
                         <h2 className="text-3xl leading-[1.08] tracking-tight text-primary md:text-[2.75rem] lg:col-span-7">
                             Good procurement is boring in the right places.
                         </h2>
                         <p className="self-end text-lg leading-relaxed text-muted lg:col-span-4 lg:col-start-9">
-                            Clear scope, comparable bids, visible decisions, and a record nobody has to reconstruct. Three convictions shape everything we build.
+                            Clear scope, comparable bids, visible decisions, and a record nobody has to reconstruct. These three points shape what we ship.
                         </p>
                     </div>
                     <div className="mt-16 grid gap-x-10 gap-y-10 md:grid-cols-3">
@@ -112,7 +112,7 @@ export default function About() {
             {/* Dark statement */}
             <section className="bg-ink">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="03 — The measure" light />
+                    <RuleLabel label="03. The measure" light />
                     <motion.div
                         initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -134,7 +134,7 @@ export default function About() {
             {/* How we work — numbered hairline rows */}
             <section className="bg-white">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="04 — How we work" />
+                    <RuleLabel label="04. How we work" />
                     <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-12">
                         <h2 className="text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem] lg:col-span-4">
                             A small set of rules we hold ourselves to.
@@ -164,14 +164,14 @@ export default function About() {
                 <div className="site-wrap py-16 md:py-24">
                     <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
                         <div className="lg:col-span-6">
-                            <Folio label="05 — Who we build for" className="mb-5" />
+                            <Folio label="05. Who we build for" className="mb-5" />
                             <h2 className="text-3xl leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
                                 Both sides of the tender, one shared record.
                             </h2>
                             <p className="mt-5 text-lg leading-relaxed text-muted">
                                 General contractors, QS and commercial teams, developers and owners run the buying side. Suppliers
-                                price the work and track the outcome. Metics is designed so both sides work from the same package
-                                record — GDPR compliant, hosted with EU data residency, and free for suppliers.
+                                price the work and track the outcome. Metics is built so both sides work from the same package
+                                record. The platform is GDPR compliant, hosted with EU data residency, and free for suppliers.
                             </p>
                             <div className="mt-8 flex flex-wrap gap-3">
                                 <Link to="/solutions" className="btn-primary">

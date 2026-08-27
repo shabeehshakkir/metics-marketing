@@ -8,7 +8,7 @@ const sections: LegalSection[] = [
         body: (
             <>
                 <p>
-                    These Terms of Service govern access to and use of the Metics platform — the procurement
+                    These Terms of Service govern access to and use of the Metics platform: the procurement
                     decision-intelligence service that keeps RFQs, supplier bids, approvals, and purchase orders in one
                     shared record. By creating an account or using the platform, you agree to these terms on behalf of
                     yourself and, where applicable, the organisation you represent.
@@ -77,7 +77,7 @@ const sections: LegalSection[] = [
         body: (
             <>
                 <p>
-                    You retain all rights to the content your organisation puts into the platform — RFQs, bids,
+                    You retain all rights to the content your organisation puts into the platform: RFQs, bids,
                     documents, and records. You grant Metics the limited licence needed to host, process, and display
                     that content in order to provide the service.
                 </p>

@@ -101,7 +101,7 @@ const industries: {
 export default function Industries() {
     usePageMeta(
         'Industries',
-        'Metics runs procurement for construction, manufacturing, energy, and public sector teams — structured RFQs, comparable bids, and auditable awards.'
+        'Metics runs procurement for construction, manufacturing, energy, and public sector teams: structured RFQs, comparable bids, and auditable awards.'
     );
     const [activeIdx, setActiveIdx] = useState(0);
     const active = industries[activeIdx];
@@ -110,8 +110,8 @@ export default function Industries() {
         <div className="bg-paper">
             <PageHero
                 eyebrow="Industries"
-                title="Built for teams that buy at scale."
-                subtitle="Procurement looks different depending on the sector. Metics adapts to the specifics without needing a custom implementation."
+                title="Built for the sectors that buy this way."
+                subtitle="Procurement looks different depending on the sector. Metics follows those specifics without needing a custom implementation."
             >
                 <div className="mt-8 flex flex-wrap gap-3">
                     <Link to="/contact" className="btn-primary">
@@ -126,7 +126,7 @@ export default function Industries() {
             {/* Sector selector + detail panel */}
             <section className="border-t border-subtle bg-white">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="01 — Choose a sector" />
+                    <RuleLabel label="01. Choose a sector" />
                     <div
                         className="mt-10 flex flex-wrap border-b border-subtle"
                         role="tablist"
@@ -220,7 +220,7 @@ export default function Industries() {
             {/* Dark statement */}
             <section className="bg-ink">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="02 — One record" light />
+                    <RuleLabel label="02. One record" light />
                     <motion.p
                         initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}

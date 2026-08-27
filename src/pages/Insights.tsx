@@ -7,25 +7,25 @@ const articles = [
     {
         category: 'Analysis',
         heading: 'What total cost of ownership actually changes about a procurement decision.',
-        summary: 'Unit price comparison puts the cheapest number first. TCO analysis puts the right supplier first. The gap between the two is where procurement value lives.',
+        summary: 'A unit-price table puts the cheapest bid first. TCO ranking puts the supplier who will actually cost less first. Those two lists are often not the same.',
         date: 'Jun 2025',
         body: [
-            "In commercial procurement, it is tempting to believe the spreadsheet does not lie. When bids are normalized and unit prices sit side-by-side, the lowest number appears to be the obvious winner. But this is where the real cost of a supplier relationship is hidden.",
-            "Total Cost of Ownership (TCO) shifts the analysis from simple unit prices to the complete financial impact of the transaction. For a package of long-lead manufacturing equipment, the raw purchase price might only represent 70% of the lifecycle cost. The remaining 30% consists of delivery logistics, customs duties, import tariffs, extended warranties, and commissioning support.",
-            "Logistics parameters like Incoterms (e.g., EXW vs. DDP) drastically shift risk and expense. A supplier quoting EXW (Ex Works) leaves the buyer responsible for freight, insurance, and import clearance. A slightly higher bid quoting DDP (Delivered Duty Paid) may actually be cheaper and lower risk once shipping rates are factored in. Furthermore, delivery lead times must be matched against the project schedule: a late delivery on a critical path item costs more in site downtime than any unit price saving can cover.",
-            "Metics automates this complex analysis. When setting up an RFQ, buyers define TCO adjustments—including shipping, customs, quality margins, and program delays. As suppliers submit structured bids, Metics automatically calculates the total cost of ownership for each line item. The resulting ranking shows buyers the true financial exposure, giving commercial teams the data they need to make the right award decision."
+            "It is easy to trust a cleaned spreadsheet. Once bids sit side by side, the lowest unit price looks like the obvious winner. That is usually where the real cost of the supplier relationship is still hiding.",
+            "Total cost of ownership (TCO) looks at the whole financial impact of the deal, not just the unit price. For a package of long-lead manufacturing equipment, the raw purchase price might only be 70% of the lifecycle cost. The other 30% is delivery logistics, customs duties, import tariffs, extended warranties, and commissioning support.",
+            "Incoterms move that cost around. A supplier quoting EXW (Ex Works) leaves the buyer with freight, insurance, and import clearance. A slightly higher bid quoting DDP (Delivered Duty Paid) can be cheaper and lower risk once shipping rates are in. Lead time has to match the programme too: a late delivery on a critical path item costs more in site downtime than any unit price saving can cover.",
+            "In Metics, buyers set TCO adjustments when they build the RFQ: shipping, customs, quality margins, and programme delays. As suppliers submit structured bids, the platform calculates total cost of ownership for each line item. The ranking shows financial exposure, so commercial teams can award on that number rather than unit price alone."
         ]
     },
     {
         category: 'Risk',
         heading: 'When one supplier holds 80% of a category.',
-        summary: 'Supplier concentration is a risk that builds slowly and fails fast. Most teams only measure it after the first disruption.',
+        summary: 'Supplier concentration builds slowly and fails fast. Most teams only measure it after the first disruption.',
         date: 'May 2025',
         body: [
-            "Every procurement team understands the value of volume leverage. By concentrating spend with a single supplier, you negotiate better unit rates, establish preferred SLAs, and simplify contract management. However, there is a fine line between volume leverage and dangerous dependency.",
-            "Supplier concentration risk is a systemic vulnerability that builds slowly and fails instantly. When a sole-source supplier suffers a production shutdown, labor strike, or logistics failure, the buyer’s operations grind to a halt. The cost of a supply chain stoppage almost always dwarfs the marginal savings gained through sole-sourcing.",
-            "To manage this risk, teams must have visibility into category exposure at the point of decision. This requires tracking the percentage of total category spend allocated to each vendor in real-time. When a new RFQ is issued, the commercial manager must see how the proposed award changes the overall concentration score.",
-            "Metics builds concentration analytics directly into the award workflow. When analyzing bids for a package, the platform highlights the supplier's share of your active project pipeline. If an award would push a vendor's share of a critical category past 80%, the system flags it. Buyers can then use Metics' split-award functionality to distribute the package across multiple qualified suppliers—balancing price optimization with supply chain resilience."
+            "Every procurement team understands volume leverage. Put spend with one supplier and you can negotiate better unit rates, lock in SLAs, and simplify the contract. The problem is the line between that and a dependency you cannot absorb.",
+            "Concentration risk builds slowly and fails instantly. If a sole-source supplier has a production shutdown, a labor strike, or a logistics failure, the buyer's operations stop. The cost of that stoppage almost always dwarfs the extra savings from sole-sourcing.",
+            "You need to see category exposure at the point of award. That means tracking what share of category spend each vendor already has. When a new RFQ is out, the commercial manager should see how the proposed award changes that score.",
+            "Metics puts concentration analytics in the award workflow. When you analyse bids, the platform shows the supplier's share of the active project pipeline. If an award would push a vendor past 80% of a critical category, it flags it. You can then split the package across qualified suppliers so you are not choosing between price and resilience after the fact."
         ]
     },
     {
@@ -34,10 +34,10 @@ const articles = [
         summary: 'Award records reconstructed from emails are slow to produce and unreliable. The record should write itself as the process runs.',
         date: 'May 2025',
         body: [
-            "An audit request is rarely a pleasant experience, but it is far worse when it requires forensic email reconstruction. When a project owner, client, or external auditor asks why a specific supplier was awarded a multimillion-dollar contract, the explanation cannot simply be 'they had the best proposal.'",
-            "Reconstructing the decision trail from scattered email threads, personal Excel spreadsheets, and local PDFs is slow and prone to errors. It also raises questions about governance. An audit-ready procurement process should compile its records automatically as the work happens, not months after the contract is signed.",
-            "A complete award record requires documenting the entire lifecycle: the original RFQ specifications, the supplier list, the submitted bids (including revisions), the side-by-side comparison matrix, clarification Q&As, team scoring notes, the final recommendation, internal approvals, and the issued purchase order.",
-            "Metics makes audit compliance passive. Every interaction on the platform—from an RFQ update to a supplier bid revision—is logged in an immutable audit trail. Clarification chats stay attached to the line items they reference, and approvals route through defined team roles. When a review is requested, commercial managers can export a complete, timestamped audit pack in a single click, proving compliance by design."
+            "An audit request is rarely pleasant. It is worse when it means reconstructing the story from email. When a project owner, client, or external auditor asks why a supplier won a multimillion-dollar contract, 'they had the best proposal' is not an answer.",
+            "Pulling the trail out of email threads, personal Excel files, and local PDFs is slow and error-prone. It also looks like weak governance. The record should compile itself as the work happens, not months after the contract is signed.",
+            "A complete award record covers the whole lifecycle: original RFQ specifications, the supplier list, submitted bids including revisions, the comparison matrix, clarification Q&As, team scoring notes, the final recommendation, internal approvals, and the issued purchase order.",
+            "In Metics every interaction is logged: an RFQ update, a supplier bid revision, all of it. Clarification chats stay on the line items they refer to, and approvals go through defined team roles. When a review is requested, commercial managers can export a timestamped audit pack in one click."
         ]
     },
     {
@@ -46,10 +46,10 @@ const articles = [
         summary: 'CSRD reporting extends into scope 3 emissions. For most businesses that means supplier carbon data has to sit inside the procurement record, not in a separate tool.',
         date: 'Apr 2025',
         body: [
-            "The Corporate Sustainability Reporting Directive (CSRD) is transforming corporate sustainability from a marketing narrative into a strict accounting discipline. For businesses operating in or trading with the European Union, emissions reporting is no longer voluntary—and it extends far beyond your own office walls.",
-            "Under CSRD, organizations must report Scope 3 emissions, which represent the indirect greenhouse gas emissions in their value chain. For most industrial and construction firms, Scope 3 emissions account for over 80% of their total carbon footprint. This means B2B buyers must track the carbon intensity of the materials and services they procure from suppliers.",
-            "Historically, carbon tracking was done through annual supplier surveys or generic environmental databases. Neither method provides the transaction-level accuracy needed for auditable CSRD reports. Carbon data must be captured at the point of procurement, matching actual quantities purchased.",
-            "Metics integrates carbon accounting into the standard RFQ workflow. Buyers can require carbon footprints (kg CO2e per unit) as a bidding attribute. Suppliers input these values directly alongside their pricing. The bid comparison screen then displays both the financial cost and the carbon cost of each proposal, allowing teams to weight decisions based on sustainability targets and generate carbon-audit-ready PO records."
+            "The Corporate Sustainability Reporting Directive (CSRD) treats sustainability as an accounting discipline, not a brochure. For businesses operating in or trading with the European Union, emissions reporting is no longer voluntary, and it extends well beyond your own office walls.",
+            "Under CSRD, organizations must report Scope 3 emissions, which are the indirect greenhouse gas emissions in their value chain. For most industrial and construction firms, Scope 3 emissions account for over 80% of their total carbon footprint. B2B buyers therefore have to track the carbon intensity of the materials and services they buy.",
+            "Historically, carbon tracking was done through annual supplier surveys or generic environmental databases. Neither method gives the transaction-level accuracy needed for auditable CSRD reports. Carbon data has to be captured at the point of procurement, matching actual quantities purchased.",
+            "Metics puts carbon accounting in the standard RFQ workflow. Buyers can require carbon footprints (kg CO2e per unit) as a bidding attribute. Suppliers enter those values alongside pricing. The bid comparison then shows financial cost and carbon cost together, so teams can weight awards against sustainability targets and keep carbon-audit-ready PO records."
         ]
     },
     {
@@ -58,10 +58,10 @@ const articles = [
         summary: 'A participation fee reduces the supplier pool. Fewer bids means weaker competition and higher award prices. The cost of the fee is paid by the buyer.',
         date: 'Apr 2025',
         body: [
-            "For years, enterprise software providers have sold procurement platforms under the 'supplier network' model. The premise is simple: the buyer pays a software license, and suppliers pay a registration or transaction fee to participate in tenders. While this shifts software costs off the buyer, it introduces a hidden, much larger expense.",
-            "Supplier participation fees drastically reduce bid coverage. When small and medium enterprises (SMEs) face a fee to bid on a contract they might not win, they simply opt out. The supplier pool shrinks, leaving only the largest, high-overhead vendors who can absorb the registration cost.",
-            "Fewer bids mean weaker competition. A drop in bid coverage from five suppliers to two typically increases the final award price by 8% to 15%. This premium paid on materials and services dwarfs any software license savings. The buyer ultimately pays the supplier's fee, multiplied many times over in inflated contract values.",
-            "At Metics, we believe the supplier relationship is the core of procurement success. The platform is entirely free for suppliers—no registration costs, no transaction fees, and no paywalls. By removing participation barriers, Metics helps buyers achieve maximum bid coverage, invite local SME specialists, and drive true competitive pricing."
+            "For years, enterprise software providers have sold procurement platforms under a supplier-network model. The buyer pays a software license, and suppliers pay a registration or transaction fee to join tenders. That shifts software cost off the buyer. It also introduces a larger hidden expense.",
+            "Participation fees cut bid coverage. When small and medium enterprises face a fee to bid on a contract they might not win, they opt out. The pool shrinks to the largest vendors, the ones who can absorb the registration cost.",
+            "Fewer bids mean weaker competition. A drop in bid coverage from five suppliers to two typically increases the final award price by 8% to 15%. That premium on materials and services dwarfs any software license savings. The buyer pays the supplier's fee, multiplied many times over in contract values.",
+            "Metics is free for suppliers: no registration cost, no transaction fee, no paywall. That is so buyers can keep bid coverage up, invite local SME specialists, and get a real comparison."
         ]
     },
     {
@@ -70,10 +70,10 @@ const articles = [
         summary: 'One number covering competitive bidding rate, savings rate, cycle time, and supplier diversity. Useful when it moves, not just when it is printed in a report.',
         date: 'Mar 2025',
         body: [
-            "Commercial directors are flooded with data: PO totals, supplier lists, cycle times, and budget variances. Yet, identifying whether procurement operations are improving or deteriorating across multiple projects remains difficult. What is missing is a single, leading indicator of procurement health.",
-            "A useful Procurement Health Score must measure process quality, not just spend volume. It should combine four core dimensions: competitive bidding rate (percentage of packages with 3+ bids), savings rate (actual PO price vs. target budget), cycle time (RFQ creation to PO execution), and supplier diversity.",
-            "When tracked as a live metric, the health score alerts management to bottlenecks before they delay projects. If cycle times are spiking in concrete packages, or competitive bidding rates are dropping in finishes, commercial directors can intervene early.",
-            "Metics calculates a real-time Procurement Health Score for every project and team. The score updates automatically as packages move through the pipeline. Rather than waiting for a retrospective quarterly report, commercial teams have a live dashboard showing the operational efficiency and governance strength of their entire pipeline."
+            "Commercial directors are flooded with data: PO totals, supplier lists, cycle times, and budget variances. Telling whether procurement is improving or slipping across several projects is still hard. What is missing is a single leading indicator of procurement health.",
+            "A useful procurement health score has to measure process quality, not just spend volume. It should combine four dimensions: competitive bidding rate (percentage of packages with 3+ bids), savings rate (actual PO price vs. target budget), cycle time (RFQ creation to PO execution), and supplier diversity.",
+            "Tracked live, the score flags bottlenecks before they delay projects. If cycle times spike in concrete packages, or competitive bidding drops in finishes, commercial directors can step in early.",
+            "Metics calculates a procurement health score for every project and team. The score updates as packages move through the pipeline. Commercial teams get a live view of operational efficiency and governance across the pipeline, rather than waiting for a retrospective quarterly report."
         ]
     },
 ];
@@ -115,7 +115,7 @@ export default function Insights() {
         <div className="bg-paper">
             <PageHero
                 eyebrow="Insights"
-                title="Procurement thinking."
+                title="Notes on how awards actually get made."
                 subtitle="Short reads on how procurement decisions are made well, what data matters before the award, and where the process breaks down when it does."
             />
 
@@ -130,7 +130,7 @@ export default function Insights() {
                             onClick={() => setSelectedArticle(featured)}
                             className="group mb-24 cursor-pointer"
                         >
-                            <RuleLabel label={`Featured — ${featured.category}`} />
+                            <RuleLabel label={`Featured: ${featured.category}`} />
                             <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:gap-12">
                                 <h2 className="text-3xl font-light leading-[1.05] tracking-tight text-primary transition-colors group-hover:text-accent md:text-6xl lg:col-span-8">
                                     {featured.heading}
@@ -218,7 +218,7 @@ export default function Insights() {
 
             <CTABanner
                 heading="See the platform behind these ideas"
-                body="Metics puts TCO analysis, health scores, audit trails, and spend analytics into the procurement workflow. Not in a separate tool."
+                body="Metics puts TCO analysis, health scores, audit trails, and spend analytics in the procurement workflow, not in a separate tool."
                 primaryLabel="Book a demo"
                 primaryTo="/contact"
                 secondaryLabel="View platform"

@@ -125,8 +125,8 @@ export default function Faq() {
 
             <PageHero
                 eyebrow="FAQ"
-                title="Clear answers, before you ask."
-                subtitle="How RFQs, bids, purchase orders, and supplier access work in Metics. If your question is not here, we answer directly — no ticket queue."
+                title="Questions we get asked before a trial."
+                subtitle="How RFQs, bids, purchase orders, and supplier access work in Metics. If your question is not here, we answer directly. There is no ticket queue."
             />
 
             <section className="border-t border-subtle py-16 md:py-24">
@@ -232,7 +232,7 @@ export default function Faq() {
 
             <CTABanner
                 heading="Ask us the harder questions"
-                body="Rollout plans, integrations, security reviews — bring whatever is on your list. We will answer with specifics, not a sales script."
+                body="Rollout plans, integrations, security reviews: bring whatever is on your list. We will answer with specifics, not a sales script."
                 primaryLabel="Contact Us"
                 primaryTo="/contact"
                 secondaryLabel="View Pricing"

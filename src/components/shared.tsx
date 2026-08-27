@@ -157,8 +157,8 @@ export function StatCard({
 }
 
 export function CTABanner({
-    heading = 'Ready to transform procurement?',
-    body = 'See how Metics gives your team complete visibility and control over every RFQ, bid, and purchase order.',
+    heading = 'See how a package moves through Metics',
+    body = 'Bring one real procurement workflow to the call. We will walk through how the RFQ, supplier responses, approvals, and PO would sit in the platform.',
     primaryLabel = 'Request a Demo',
     primaryTo = '/contact',
     secondaryLabel,

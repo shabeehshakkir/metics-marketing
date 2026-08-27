@@ -234,19 +234,9 @@ export default function Layout() {
                             <Link to="/" className="mb-6 inline-block" aria-label="Metics home">
                                 <img src="/Metics-blue.png" alt="Metics" height="20" className="h-5 w-auto brightness-0 invert" />
                             </Link>
-                            <p className="mb-6 max-w-sm text-base leading-6 text-[#c6c6c6]">
-                                Procurement decision intelligence. RFQs, bids, approvals, and purchase orders in one shared record.
+                            <p className="max-w-sm text-base leading-6 text-[#c6c6c6]">
+                                RFQs, bids, approvals, and purchase orders in one shared record.
                             </p>
-                            <div className="flex flex-wrap gap-1">
-                                {['GDPR compliant', 'EU data residency', 'Free for suppliers'].map(badge => (
-                                    <span
-                                        key={badge}
-                                        className="border border-[#393939] px-3 py-1 font-mono text-xs text-[#c6c6c6]"
-                                    >
-                                        {badge}
-                                    </span>
-                                ))}
-                            </div>
                         </div>
 
                         <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:col-span-9 lg:col-start-8">

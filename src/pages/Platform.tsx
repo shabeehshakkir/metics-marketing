@@ -343,7 +343,7 @@ function HealthScorePanel() {
 export default function Platform() {
     usePageMeta(
         'Platform',
-        'One shared record for RFQs, bids, TCO comparison, approvals, and purchase orders — with spend analytics and governance built in.'
+        'One shared record for RFQs, bids, TCO comparison, approvals, and purchase orders, with spend analytics and governance built in.'
     );
     return (
         <div className="bg-paper">
@@ -368,7 +368,7 @@ export default function Platform() {
             {/* Workflow proof points + package card */}
             <section className="border-t border-subtle bg-white">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="01 — The workflow" />
+                    <RuleLabel label="01. The workflow" />
                     <div className="mt-12 grid items-start gap-12 md:mt-16 lg:grid-cols-12 lg:gap-16">
                         <div className="lg:col-span-7" aria-label="Platform workflow">
                             {proofPoints.map((item, i) => (
@@ -410,7 +410,7 @@ export default function Platform() {
             {/* Procurement flow — set as a hairline table row, magazine style */}
             <section className="border-y border-subtle bg-white">
                 <div className="site-wrap py-16 md:py-20">
-                    <RuleLabel label="02 — From RFQ to delivery" />
+                    <RuleLabel label="02. From RFQ to delivery" />
                     <ol className="mt-10 grid gap-y-8 sm:grid-cols-2 md:mt-12 lg:grid-cols-6 lg:gap-y-0" aria-label="Procurement workflow steps">
                         {flowSteps.map((step, i) => (
                             <li key={step.label} className="relative pr-8 lg:border-l lg:border-subtle lg:pl-6 lg:first:border-0 lg:first:pl-0">
@@ -428,7 +428,7 @@ export default function Platform() {
             {/* Both sides of the tender — one ink card among white */}
             <section className="bg-paper">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="03 — Both sides of the tender" />
+                    <RuleLabel label="03. Both sides of the tender" />
                     <div className="mt-12 grid gap-8 md:mt-16 lg:grid-cols-12">
                         <h2 className="text-3xl font-light leading-[1.08] tracking-tight text-primary md:text-[2.75rem] lg:col-span-7">
                             Buyers and suppliers work from the same package record.
@@ -470,7 +470,7 @@ export default function Platform() {
             {/* Dark belief statement */}
             <section className="bg-ink">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="04 — The point" light />
+                    <RuleLabel label="04. The point" light />
                     <motion.div
                         initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -483,7 +483,7 @@ export default function Platform() {
                         </p>
                         <div className="mt-10 flex items-center gap-5">
                             <span className="h-px w-12 bg-accent" aria-hidden="true" />
-                            <span className="font-mono text-xs uppercase tracking-[0.08em] text-[#c6c6c6]">That is the intelligence layer Metics adds.</span>
+                            <span className="font-mono text-xs uppercase tracking-[0.08em] text-[#c6c6c6]">That sits on top of the workflow.</span>
                         </div>
                     </motion.div>
                 </div>
@@ -492,9 +492,9 @@ export default function Platform() {
             {/* Built-in tools */}
             <section className="bg-white">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="05 — Built-in tools" />
+                    <RuleLabel label="05. Built-in tools" />
                     <h2 className="mt-12 max-w-3xl text-3xl font-light leading-[1.1] tracking-tight text-primary md:mt-16 md:text-[2.75rem]">
-                        The useful parts are built in. The noisy parts are left out.
+                        RFQ builder, bid room, award record, TCO, and carbon data. That is the product.
                     </h2>
 
                     <div className="mt-16 space-y-24 md:space-y-32">
@@ -524,7 +524,7 @@ export default function Platform() {
             {/* Spend analytics */}
             <section className="bg-paper">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="06 — Spend analytics" />
+                    <RuleLabel label="06. Spend analytics" />
                     <motion.blockquote
                         initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -565,14 +565,14 @@ export default function Platform() {
             {/* Governance */}
             <section className="border-t border-subtle bg-white">
                 <div className="site-wrap py-16 md:py-24">
-                    <RuleLabel label="07 — Control" />
+                    <RuleLabel label="07. Control" />
                     <div className="mt-12 grid items-start gap-12 md:mt-16 lg:grid-cols-12 lg:gap-16">
                         <div className="lg:col-span-5">
                             <h2 className="text-3xl font-light leading-[1.1] tracking-tight text-primary md:text-[2.75rem]">
-                                Enough governance for serious projects. Simple enough for daily use.
+                                Enough control for a serious project, without making people work around the system.
                             </h2>
                             <p className="mt-4 max-w-2xl text-lg text-muted">
-                                Metics is built for teams that need decisions to move quickly and still stand up to scrutiny later. The record keeps itself without making people work around the system.
+                                Metics is built for teams that need decisions to move quickly and still be defensible later. The record keeps itself.
                             </p>
                         </div>
                         <dl className="border-t border-strong lg:col-span-6 lg:col-start-7">

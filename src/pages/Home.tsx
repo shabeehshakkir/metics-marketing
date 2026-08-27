@@ -10,19 +10,19 @@ const easeOut: [number, number, number, number] = [0.2, 0, 0.38, 0.9];
 const proofPoints = [
     {
         title: 'Start with one package',
-        body: 'Create an RFQ from a BOQ, a template, or a blank sheet. Invite the suppliers who should see it.',
+        body: 'Open an RFQ from a BOQ, a template, or a blank sheet. Invite the suppliers who should see it.',
     },
     {
         title: 'Keep bids comparable',
-        body: 'Suppliers answer in the same structure, so price, scope, and delivery dates sit side by side.',
+        body: 'Everyone answers in the same layout, so price, scope, and delivery dates sit next to each other.',
     },
     {
         title: 'Decide with the record open',
-        body: 'Clarifications, revisions, approvals, and notes stay attached to the package.',
+        body: 'Clarifications, revisions, approvals, and notes stay on the package.',
     },
     {
         title: 'Issue the PO',
-        body: 'Turn an awarded bid into a purchase order without rebuilding the work in another system.',
+        body: 'Turn the awarded bid into a purchase order without rebuilding the job in another system.',
     },
 ];
 
@@ -30,26 +30,26 @@ const roles = [
     {
         tab: 'Contractors',
         title: 'General contractors',
-        body: 'Each package gets one record: the RFQ, supplier list, bids, clarifications, approvals, and PO. The status is always current. Delays show up early enough to do something about them.',
-        outcome: 'Award cycles get shorter within the first few packages.',
+        body: 'Each package is one record: RFQ, supplier list, bids, clarifications, approvals, and PO. Status stays current, so a delay shows up while you can still do something about it.',
+        outcome: 'Award cycles usually shorten after the first few packages.',
     },
     {
         tab: 'QS teams',
         title: 'QS and commercial teams',
-        body: 'Supplier responses land in a consistent structure. You compare at package or line level without rebuilding the spreadsheet. The commercial review starts when bids close, not after someone cleans the data.',
-        outcome: 'The analysis starts the same day bids close.',
+        body: 'Supplier responses arrive in the same structure. You can compare at package or line level without rebuilding a spreadsheet first. Commercial review can start when bids close.',
+        outcome: 'The analysis can start the same day bids close.',
     },
     {
         tab: 'Developers',
         title: 'Developers and owners',
-        body: 'Package status, bid comparisons, and approval history are live. You do not need a report from every project team to see where things stand. Ask harder questions earlier, before decisions lock in.',
-        outcome: 'You carry the budget risk. Now you have the data to manage it.',
+        body: 'Package status, bid comparisons, and approval history are live. You do not need a report from every project team to see where things stand. You can ask the hard questions before a decision locks in.',
+        outcome: 'You carry the budget risk. This is the data to manage it.',
     },
     {
         tab: 'Suppliers',
         title: 'Suppliers',
-        body: 'RFQs come with scope, line items, and dates. Bid status updates when it changes. Clarification threads stay attached to the package. No chasing, no resubmitting the same document twice.',
-        outcome: 'Suppliers price faster when the RFQ makes sense.',
+        body: 'RFQs come with scope, line items, and dates. Bid status updates when it changes. Clarification threads stay on the package, so you are not chasing or resubmitting the same file twice.',
+        outcome: 'Suppliers price faster when the RFQ is clear.',
     },
 ];
 
@@ -74,38 +74,38 @@ const testimonials = [
 const tools = [
     {
         kicker: 'RFQ builder',
-        heading: 'A package starts as structured work, not a messy attachment.',
-        body: 'Metics gives each tender a clear shape: scope, line items, drawings, dates, rules, suppliers, and internal reviewers. You can still import from spreadsheets, but the working record lives in one place.',
+        heading: 'Start the package as structured work, not a pile of attachments.',
+        body: 'Each tender has a shape: scope, line items, drawings, dates, rules, suppliers, and reviewers. You can still import a spreadsheet. After that, the working record stays here.',
     },
     {
         kicker: 'Bid room',
-        heading: 'Supplier answers arrive ready to compare.',
-        body: 'Every bid keeps its commercial terms, comments, alternates, and files attached to the right line. Buyers can ask questions without losing the thread.',
+        heading: 'Supplier answers arrive in a form you can compare.',
+        body: 'Commercial terms, comments, alternates, and files sit on the right line. Buyers can ask questions without losing the thread.',
     },
     {
         kicker: 'Award record',
-        heading: 'The reason for the award stays with the award.',
-        body: 'Shortlists, scoring notes, approvals, and final purchase orders are kept together. When someone asks why a supplier won, the answer is already there.',
+        heading: 'Why you awarded stays with the award.',
+        body: 'Shortlists, scoring notes, approvals, and the PO stay together. If someone asks why a supplier won, you can point at the record.',
     },
     {
         kicker: 'Spend analytics',
-        heading: 'The numbers that matter once the tenders are running.',
-        body: 'Actual PO spend tracks against the target prices set at RFQ stage. Cycle time, supplier concentration, and a procurement health score are visible without a separate report.',
+        heading: 'The numbers you need while tenders are still running.',
+        body: 'Actual PO spend tracks against the target prices set at RFQ. Cycle time, supplier concentration, and a procurement health score are on the record, without a separate report.',
     },
 ];
 
 const strip = [
     {
-        title: 'Decision intelligence',
-        body: 'Not just another procurement workflow tool. Live analytics and total cost comparisons built in.',
+        title: 'Total cost in the comparison',
+        body: 'Live analytics and TCO sit next to the bids, so you are not rebuilding the cost picture after close.',
     },
     {
         title: 'Free for suppliers',
-        body: 'No platform fees, no registration barriers, no paywalls. More bid coverage for buyers.',
+        body: 'Suppliers register and bid at no cost. That keeps more of them in the comparison.',
     },
     {
-        title: 'CSRD compliance',
-        body: 'Scope 3 carbon tracking and sustainability metrics built directly into the RFQ and PO record.',
+        title: 'CSRD in the package',
+        body: 'Scope 3 carbon and sustainability metrics sit on the RFQ and PO, not in a side spreadsheet.',
     },
 ];
 
@@ -126,7 +126,7 @@ function HeroRecordCard() {
             <div className="flex items-start justify-between gap-4">
                 <div>
                     <p className="font-mono text-xs uppercase tracking-[0.08em] text-muted">RFQ package</p>
-                    <p className="mt-1 text-xl font-normal text-primary">Structural Steel — Block C</p>
+                    <p className="mt-1 text-xl font-normal text-primary">Structural Steel, Block C</p>
                 </div>
                 <span className="inline-flex items-center gap-2 border border-subtle bg-paper px-3 py-1 text-xs font-semibold text-support">
                     <span className="h-1.5 w-1.5 bg-support" aria-hidden="true" />
@@ -257,7 +257,7 @@ export default function Home() {
 
             <section className="bg-paper py-16 md:py-24" aria-label="How the workflow runs">
                 <div className="site-wrap">
-                    <RuleLabel label="01 — How the workflow runs" />
+                    <RuleLabel label="01. How the workflow runs" />
                     <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-8">
                         <div className="hidden lg:col-span-5 lg:block lg:self-center">
                             <WorkflowVisual />
@@ -284,7 +284,7 @@ export default function Home() {
 
             <section className="bg-ink py-16 md:py-24">
                 <div className="site-wrap">
-                    <RuleLabel label="02 — The point" light />
+                    <RuleLabel label="02. The point" light />
                     <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
@@ -293,12 +293,12 @@ export default function Home() {
                         className="mt-12"
                     >
                         <p className="max-w-4xl text-3xl font-light leading-[1.19] text-white md:text-[3.375rem] md:leading-[64px]">
-                            The teams that award well are the ones who saw the full picture before the decision was made.
+                            You award better when cost, supplier risk, and the approval trail are visible before you sign.
                         </p>
                         <div className="mt-10 flex items-center gap-4">
                             <span className="h-px w-8 bg-accent" aria-hidden="true" />
                             <span className="font-mono text-xs uppercase tracking-[0.08em] text-[#c6c6c6]">
-                                That is what Metics is built to give you.
+                                That is the job of the record.
                             </span>
                         </div>
                     </motion.div>
@@ -307,11 +307,11 @@ export default function Home() {
 
             <section className="bg-paper py-16 md:py-24">
                 <div className="site-wrap">
-                    <RuleLabel label="03 — Who it's for" />
+                    <RuleLabel label="03. Who it's for" />
                     <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-8">
                         <div className="lg:col-span-4">
                             <h2 className="text-3xl leading-[1.19] text-primary md:text-[2.625rem] md:leading-[50px]">
-                                Different pressures. One procurement record.
+                                Contractors, QS teams, developers, and suppliers work from the same package.
                             </h2>
                             <div className="mt-8 flex flex-wrap border-b border-subtle lg:flex-col lg:items-stretch lg:border-b-0 lg:border-l" role="tablist" aria-label="Roles">
                                 {roles.map((role, i) => (
@@ -366,9 +366,9 @@ export default function Home() {
 
             <section className="border-t border-subtle bg-layer py-16 md:py-24">
                 <div className="site-wrap">
-                    <RuleLabel label="04 — What's inside" />
+                    <RuleLabel label="04. What's inside" />
                     <h2 className="mt-12 max-w-3xl text-3xl leading-[1.19] text-primary md:text-[2.625rem] md:leading-[50px]">
-                        The useful parts are built in. The noisy parts are left out.
+                        RFQ builder, bid room, award record, and spend analytics. That is the product.
                     </h2>
 
                     <div className="mt-12 border-t border-subtle">
@@ -399,7 +399,7 @@ export default function Home() {
 
             <section className="bg-paper py-16 md:py-24">
                 <div className="site-wrap">
-                    <RuleLabel label="05 — What teams say" />
+                    <RuleLabel label="05. What teams say" />
 
                     <figure className="mt-12 max-w-4xl md:mt-16">
                         <blockquote className="text-3xl font-light leading-[1.19] text-primary md:text-[2.625rem] md:leading-[50px]">

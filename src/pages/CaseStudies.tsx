@@ -17,9 +17,9 @@ const allStudies = [
             { value: '100%', label: 'documented' },
         ],
         body: [
-            "A regional main contractor running three commercial building sites struggled with fragmented tendering. Subcontractor packages (steel, concrete, MEP, glazing) were managed by individual project managers using their own spreadsheets, email chains, and WhatsApp messages.",
-            "The lack of standardization meant bid comparisons were inconsistent, contract sign-offs were delayed, and the corporate commercial team had no visibility into total spend until invoices arrived. If a trade subcontractor delayed their bid submission, it directly threatened the construction program.",
-            "By adopting Metics, the contractor consolidated all forty trade packages into a single workspace. Project managers built RFQs using importable BOQ templates, while suppliers responded in a standard format. Sign-offs were handled digitally through a multi-step approval workflow. The contractor shortened award cycle times by 32%, established a complete audit trail for client reviews, and achieved 100% visibility into concurrent packages."
+            "A regional main contractor running three commercial building sites had fragmented tendering. Subcontractor packages (steel, concrete, MEP, glazing) were managed by individual project managers using their own spreadsheets, email chains, and WhatsApp messages.",
+            "Bid comparisons were inconsistent, contract sign-offs ran late, and the corporate commercial team had no view of total spend until invoices arrived. If a trade subcontractor delayed a bid, it threatened the construction program.",
+            "The contractor put all forty trade packages into Metics. Project managers built RFQs from importable BOQ templates. Suppliers responded in a standard format. Sign-offs ran through a multi-step digital approval workflow. Award cycle times shortened by 32%, they had an audit trail for client reviews, and they had 100% visibility into concurrent packages."
         ]
     },
     {
@@ -34,8 +34,8 @@ const allStudies = [
         ],
         body: [
             "An industrial component manufacturer relied on a complex supplier network for specialized raw materials. Over time, the sourcing team shifted volume to a single preferred supplier to secure volume discounts.",
-            "However, this concentration was not tracked systematically. When that supplier suffered a major furnace failure, raw material deliveries stopped, halting the production line for ten days. The resulting delivery delays to clients cost the manufacturer over EUR 250,000 in penalties and damaged relationships.",
-            "The manufacturer implemented Metics to build resilience into their raw material sourcing. The platform’s live analytics automatically calculated supplier concentration metrics across all active category packages. When the team ran a new raw material tender, the platform highlighted that awarding the entire volume to their preferred supplier would exceed safe concentration levels. The team used Metics to execute a split-award, dividing the contract 60/40 between two qualified suppliers, reducing single-source exposure by 45% while maintaining production safety."
+            "That concentration was not tracked systematically. When the supplier suffered a major furnace failure, raw material deliveries stopped and the production line halted for ten days. Delivery delays to clients cost the manufacturer over EUR 250,000 in penalties and damaged relationships.",
+            "The manufacturer used Metics to put resilience into raw material sourcing. Live analytics calculated supplier concentration across active category packages. On a new raw material tender, the platform showed that awarding the entire volume to the preferred supplier would exceed safe concentration levels. The team split the contract 60/40 between two qualified suppliers, reducing single-source exposure by 45% while keeping production safety."
         ]
     },
     {
@@ -50,8 +50,8 @@ const allStudies = [
         ],
         body: [
             "A utility provider executing substation upgrades faced bottlenecked procurement approvals. Technical reviews, health and safety checks, commercial scores, and executive sign-offs were routed via email.",
-            "Approval packages frequently sat in managers' inboxes for weeks, with no shared record of who was holding up the sign-off. When project deadlines neared, packages had to be escalated manually, creating administrative chaos and delaying equipment orders.",
-            "The provider mapped their multi-step approval workflow directly into Metics. When bids close, the package is routed sequentially to technical, safety, and commercial teams for digital reviews. The current status—and days elapsed—is visible on a live dashboard. As a result, approval bottlenecks are immediately visible, order cycles have shortened by 14 days, and all compliance approvals are permanently archived with the final purchase order."
+            "Approval packages frequently sat in managers' inboxes for weeks, with no shared record of who was holding up the sign-off. When project deadlines neared, packages had to be escalated manually, which delayed equipment orders.",
+            "The provider mapped their multi-step approval workflow into Metics. When bids close, the package is routed sequentially to technical, safety, and commercial teams for digital reviews. Current status and days elapsed are visible on a live dashboard. Approval bottlenecks show up immediately, order cycles have shortened by 14 days, and compliance approvals stay archived with the final purchase order."
         ]
     },
     {
@@ -65,9 +65,9 @@ const allStudies = [
             { value: '100%', label: 'compliance score' },
         ],
         body: [
-            "A municipal public sector procurement office was subject to strict compliance audits. For every public tender, they were required to prove that the evaluation process was fair, transparent, and in line with municipal guidelines.",
-            "Reconstructing this audit trail was a massive manual effort. When auditors requested information on a past award, staff spent weeks searching email archives, shared network drives, and paper files to locate the original RFQ specifications, all supplier bids, scorecard evaluations, and sign-offs.",
-            "The municipality deployed Metics to automate compliance. Every action in the procurement lifecycle is now logged in an immutable, timestamped audit log. Bids are compared, scored, and approved directly on the platform. When audit reviews occur, staff simply enter the package number and export a complete compliance pack. Retrieval times dropped from three weeks to three minutes, and the office achieved a 100% audit compliance score."
+            "A municipal public sector procurement office was subject to strict compliance audits. For every public tender, they had to prove that evaluation was fair, transparent, and in line with municipal guidelines.",
+            "Reconstructing that trail was a large manual effort. When auditors asked about a past award, staff spent weeks searching email archives, shared network drives, and paper files for the original RFQ specifications, all supplier bids, scorecard evaluations, and sign-offs.",
+            "The municipality used Metics so every action in the procurement lifecycle is logged in a timestamped audit log. Bids are compared, scored, and approved on the platform. For audit reviews, staff enter the package number and export a complete compliance pack. Retrieval times dropped from three weeks to three minutes, and the office achieved a 100% audit compliance score."
         ]
     },
 ];
@@ -136,7 +136,7 @@ export default function CaseStudies() {
         <div className="bg-paper">
             <PageHero
                 eyebrow="How teams use Metics"
-                title="Procurement that moved differently."
+                title="How teams run tenders in Metics."
                 subtitle="Patterns from teams that changed how they run tenders, compare bids, and keep award records. The details vary by sector. The underlying problem is usually the same."
             >
                 <div className="mt-8 flex flex-wrap gap-1">
@@ -194,7 +194,7 @@ export default function CaseStudies() {
                                     onClick={() => setSelectedStudy(featured)}
                                     className="group cursor-pointer"
                                 >
-                                    <RuleLabel label={`Featured — ${featured.industry}`} />
+                                    <RuleLabel label={`Featured: ${featured.industry}`} />
                                     <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:gap-12">
                                         <div className="lg:col-span-7">
                                             <h2 className="text-3xl font-light leading-[1.05] tracking-tight text-primary transition-colors group-hover:text-accent md:text-6xl">
@@ -323,12 +323,12 @@ export default function CaseStudies() {
                             <p className="mt-3 font-mono text-xs uppercase tracking-[0.08em] text-muted">{selectedStudy.team}</p>
 
                             <div className="mt-10">
-                                <h3 className="mb-3 font-mono text-xs uppercase tracking-[0.08em] text-muted">The Problem</h3>
+                                <h3 className="mb-3 font-mono text-xs uppercase tracking-[0.08em] text-muted">The problem</h3>
                                 <p className="leading-relaxed text-muted">{selectedStudy.problem}</p>
                             </div>
 
                             <div className="mt-10">
-                                <h3 className="mb-3 font-mono text-xs uppercase tracking-[0.08em] text-muted">The Execution</h3>
+                                <h3 className="mb-3 font-mono text-xs uppercase tracking-[0.08em] text-muted">How they ran it</h3>
                                 <div className="space-y-4">
                                     {selectedStudy.body.map((p, index) => (
                                         <p key={index} className="leading-relaxed text-muted">{p}</p>
@@ -337,7 +337,7 @@ export default function CaseStudies() {
                             </div>
 
                             <div className="mt-10">
-                                <h3 className="mb-3 font-mono text-xs uppercase tracking-[0.08em] text-muted">Outcome &amp; Impact</h3>
+                                <h3 className="mb-3 font-mono text-xs uppercase tracking-[0.08em] text-muted">Outcome</h3>
                                 <p className="leading-relaxed text-muted">{selectedStudy.outcome}</p>
                                 {selectedStudy.stats.length > 0 && (
                                     <div className="mt-8 border-t border-subtle pt-6">
