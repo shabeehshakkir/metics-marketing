@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Folio, PageHero, RuleLabel } from '../components/shared';
+import { PageHero, RuleLabel } from '../components/shared';
 import { usePageMeta } from '../hooks/usePageMeta';
 
 const expectations = [
@@ -8,8 +8,6 @@ const expectations = [
     ['A product walkthrough', 'You will see RFQ setup, supplier responses, bid comparison, approvals, and PO output in the same flow.'],
     ['A rollout path', 'We will talk through first project setup, data import, team onboarding, and security requirements.']
 ];
-
-const trustItems = ['GDPR-ready', 'EU data residency options', 'SSO and SAML paths', 'Role-based access', 'Exportable audit trail'];
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const VIEWPORT = { once: true, margin: '-80px' } as const;
@@ -145,20 +143,6 @@ export default function Contact() {
                                         </div>
                                     </article>
                                 ))}
-                            </div>
-
-                            <div className="mt-10">
-                                <Folio label="Trust" className="mb-4" />
-                                <ul className="flex flex-wrap gap-2">
-                                    {trustItems.map((item) => (
-                                        <li
-                                            key={item}
-                                            className="border border-subtle bg-layer px-3 py-1.5 font-mono text-xs uppercase tracking-[0.08em] text-muted"
-                                        >
-                                            {item}
-                                        </li>
-                                    ))}
-                                </ul>
                             </div>
                         </div>
 
