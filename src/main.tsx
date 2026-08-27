@@ -10,6 +10,7 @@ const Platform = React.lazy(() => import('./pages/Platform'));
 const Solutions = React.lazy(() => import('./pages/Solutions'));
 const Industries = React.lazy(() => import('./pages/Industries'));
 const CaseStudies = React.lazy(() => import('./pages/CaseStudies'));
+const CaseStudy = React.lazy(() => import('./pages/CaseStudy'));
 const Insights = React.lazy(() => import('./pages/Insights'));
 const Pricing = React.lazy(() => import('./pages/Pricing'));
 const Contact = React.lazy(() => import('./pages/Contact'));
@@ -40,6 +41,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <Route path="solutions" element={<Solutions />} />
             <Route path="industries" element={<Industries />} />
             <Route path="case-studies" element={<CaseStudies />} />
+            <Route path="case-studies/:slug" element={<CaseStudy />} />
             <Route path="insights" element={<Insights />} />
             <Route path="pricing" element={<Pricing />} />
             <Route path="contact" element={<Contact />} />

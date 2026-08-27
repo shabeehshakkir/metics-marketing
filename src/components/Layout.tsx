@@ -19,7 +19,10 @@ function prefetchRoute(routeName: string) {
         case '/platform': import('../pages/Platform'); break;
         case '/solutions': import('../pages/Solutions'); break;
         case '/industries': import('../pages/Industries'); break;
-        case '/case-studies': import('../pages/CaseStudies'); break;
+        case '/case-studies':
+            import('../pages/CaseStudies');
+            import('../pages/CaseStudy');
+            break;
         case '/insights': import('../pages/Insights'); break;
         case '/pricing': import('../pages/Pricing'); break;
         case '/contact': import('../pages/Contact'); break;
@@ -98,7 +101,10 @@ export default function Layout() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, []);
 
-    const isActive = (path: string) => location.pathname === path;
+    const isActive = (path: string) =>
+        path === '/'
+            ? location.pathname === '/'
+            : location.pathname === path || location.pathname.startsWith(`${path}/`);
 
     return (
         <div className="min-h-screen bg-paper">
