@@ -5,7 +5,7 @@ import { CTABanner, Folio, RuleLabel } from '../components/shared';
 import { WorkflowVisual } from '../components/graphics';
 import { usePageMeta } from '../hooks/usePageMeta';
 
-const easeOut: [number, number, number, number] = [0.2, 0, 0.38, 0.9];
+const easeOut: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const proofPoints = [
     {
@@ -118,10 +118,10 @@ const heroBids = [
 function HeroRecordCard() {
     return (
         <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.2, ease: easeOut }}
-            className="border border-subtle bg-layer p-6 md:p-8"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.28, delay: 0.08, ease: easeOut }}
+            className="product-stage group border border-subtle bg-layer p-6 md:p-8"
         >
             <div className="flex items-start justify-between gap-4">
                 <div>
@@ -129,20 +129,25 @@ function HeroRecordCard() {
                     <p className="mt-1 text-xl font-normal text-primary">Structural Steel, Block C</p>
                 </div>
                 <span className="inline-flex items-center gap-2 border border-subtle bg-paper px-3 py-1 text-xs font-semibold text-support">
-                    <span className="h-1.5 w-1.5 bg-support" aria-hidden="true" />
+                    <span className="live-dot h-1.5 w-1.5 bg-support" aria-hidden="true" />
                     Bids closed
                 </span>
             </div>
 
-            <div className="mt-6 space-y-3">
-                {heroBids.map((bid) => (
-                    <div key={bid.supplier} className="flex items-center gap-4">
+            <div className="mt-6 space-y-1">
+                {heroBids.map((bid, i) => (
+                    <div
+                        key={bid.supplier}
+                        className={`-mx-2 flex items-center gap-4 px-2 py-2 transition-colors duration-150 ${
+                            bid.accent ? 'bg-highlight' : 'hover:bg-paper'
+                        }`}
+                    >
                         <span className="w-32 shrink-0 truncate text-xs font-medium text-muted">{bid.supplier}</span>
                         <div className="h-2 flex-1 overflow-hidden bg-subtle">
                             <motion.div
                                 initial={{ width: 0 }}
                                 animate={{ width: bid.width }}
-                                transition={{ duration: 0.7, delay: 0.35, ease: easeOut }}
+                                transition={{ duration: 0.38, delay: 0.06 + i * 0.05, ease: easeOut }}
                                 className={`h-full ${bid.accent ? 'bg-accent' : 'bg-strong'}`}
                             />
                         </div>
@@ -155,7 +160,7 @@ function HeroRecordCard() {
 
             <div className="mt-6 flex items-center justify-between border-t border-subtle pt-4">
                 <span className="text-xs text-muted">3 bids · 2 clarifications · TCO comparison ready</span>
-                <span className="inline-flex items-center gap-2 text-xs font-semibold text-accent">
+                <span className="inline-flex items-center gap-2 text-xs font-semibold text-accent transition-transform duration-150 group-hover:translate-x-0.5">
                     Review award
                     <svg viewBox="0 0 20 20" fill="none" className="h-4 w-4" aria-hidden="true">
                         <path d="M11.8 4.4 17.4 10l-5.6 5.6M17.4 10H2.6" stroke="currentColor" strokeWidth="1.5" />
@@ -189,7 +194,7 @@ export default function Home() {
                         <motion.h1
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ duration: 0.4, delay: 0.06, ease: easeOut }}
+                            transition={{ duration: 0.28, delay: 0.04, ease: easeOut }}
                             className="title-rail text-4xl leading-[1.18] text-primary md:text-5xl lg:col-span-10 lg:text-[3.375rem] lg:leading-[64px]"
                         >
                             The procurement workspace your projects can <span className="text-accent">live in</span>.
@@ -198,7 +203,7 @@ export default function Home() {
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ duration: 0.4, delay: 0.12, ease: easeOut }}
+                            transition={{ duration: 0.28, delay: 0.08, ease: easeOut }}
                             className="lg:col-span-8"
                         >
                             <p className="text-base leading-6 text-muted md:text-lg md:leading-7">
@@ -222,7 +227,7 @@ export default function Home() {
                         <motion.aside
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ duration: 0.4, delay: 0.18, ease: easeOut }}
+                            transition={{ duration: 0.28, delay: 0.1, ease: easeOut }}
                             className="lg:col-span-4"
                         >
                             <div className="border-t border-strong pt-6">

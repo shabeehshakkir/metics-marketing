@@ -64,7 +64,7 @@
     }
 
     .btn {
-        @apply inline-flex h-12 items-center justify-center gap-3 px-5 text-sm font-semibold no-underline transition-colors duration-150 ease-editorial;
+        @apply inline-flex h-12 items-center justify-center gap-3 px-5 text-sm font-semibold no-underline transition-[color,background-color,border-color,transform] duration-150 ease-editorial hover:-translate-y-px active:translate-y-0 active:scale-[0.98];
     }
 
     .btn-primary {
@@ -167,7 +167,7 @@
 }
 
 .page-enter {
-    animation: pageEnter 240ms cubic-bezier(0.2, 0, 0.38, 0.9) both;
+    animation: pageEnter 140ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .back-to-top {
@@ -196,6 +196,25 @@
     pointer-events: auto;
 }
 
+.product-stage {
+    transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), border-color 150ms ease;
+}
+
+.product-stage:hover {
+    transform: translateY(-3px);
+    border-color: #ff6719;
+}
+
+.live-dot {
+    display: inline-block;
+    animation: livePulse 1.2s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.28; }
+}
+
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
@@ -207,5 +226,21 @@
 
     .page-enter {
         animation: none !important;
+    }
+
+    .product-stage {
+        transition: none;
+    }
+
+    .product-stage:hover {
+        transform: none;
+    }
+
+    .live-dot {
+        animation: none !important;
+    }
+
+    .btn {
+        transform: none !important;
     }
 }

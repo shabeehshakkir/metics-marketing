@@ -8,7 +8,7 @@
  */
 import { motion, useReducedMotion } from 'framer-motion';
 
-const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const SNAP: [number, number, number, number] = [0.16, 1, 0.3, 1];
 const VIEWPORT = { once: true, margin: '-60px' } as const;
 const METICS_SANS = '"Inter Tight", Inter, Helvetica Neue, Arial, sans-serif';
 
@@ -18,14 +18,14 @@ export interface VisualProps {
     className?: string;
 }
 
-/** Fade-and-rise entrance, or nothing when animation is off. */
-function fadeUp(anim: boolean, delay = 0, y = 10) {
+/** Fast rise-in, or nothing when animation is off. */
+function fadeUp(anim: boolean, delay = 0, y = 8) {
     return anim
         ? {
               initial: { opacity: 0, y },
               whileInView: { opacity: 1, y: 0 },
               viewport: VIEWPORT,
-              transition: { duration: 0.6, delay, ease: EASE },
+              transition: { duration: 0.28, delay, ease: SNAP },
           }
         : {};
 }
@@ -48,8 +48,8 @@ export function BidComparisonVisual({ animated = true, className }: VisualProps)
 
     return (
         <motion.div
-            {...fadeUp(anim, 0, 14)}
-            className={`w-full border border-subtle bg-white p-6 md:p-8 ${className ?? ''}`}
+            {...fadeUp(anim, 0, 8)}
+            className={`product-stage w-full border border-subtle bg-white p-6 md:p-8 ${className ?? ''}`}
         >
             {/* Package header */}
             <div className="flex items-start justify-between gap-4 border-b border-subtle pb-5">
@@ -67,9 +67,14 @@ export function BidComparisonVisual({ animated = true, className }: VisualProps)
             </div>
 
             {/* Supplier rows */}
-            <div className="mt-5 space-y-4">
+            <div className="mt-5 space-y-1">
                 {BIDS.map((bid, i) => (
-                    <div key={bid.supplier}>
+                    <div
+                        key={bid.supplier}
+                        className={`-mx-2 px-2 py-2 transition-colors duration-150 ${
+                            bid.leading ? 'bg-highlight' : 'hover:bg-layer'
+                        }`}
+                    >
                         <div className="mb-1.5 flex items-baseline justify-between gap-4">
                             <span className="flex items-center gap-2 text-sm font-medium text-primary">
                                 {bid.supplier}
@@ -95,9 +100,9 @@ export function BidComparisonVisual({ animated = true, className }: VisualProps)
                                           whileInView: { scaleX: 1 },
                                           viewport: VIEWPORT,
                                           transition: {
-                                              duration: 0.7,
-                                              delay: 0.15 + i * 0.09,
-                                              ease: EASE,
+                                              duration: 0.38,
+                                              delay: 0.04 + i * 0.05,
+                                              ease: SNAP,
                                           },
                                       }
                                     : {})}
@@ -158,9 +163,9 @@ export function WorkflowVisual({ animated = true, className }: VisualProps) {
                                   whileInView: { pathLength: 1, opacity: 1 },
                                   viewport: VIEWPORT,
                                   transition: {
-                                      duration: 0.55,
-                                      delay: 0.25 + i * 0.22,
-                                      ease: EASE,
+                                      duration: 0.28,
+                                      delay: 0.08 + i * 0.08,
+                                      ease: SNAP,
                                   },
                               }
                             : {})}
@@ -175,13 +180,14 @@ export function WorkflowVisual({ animated = true, className }: VisualProps) {
                             key={step.label}
                             {...(anim
                                 ? {
-                                      initial: { opacity: 0, scale: 0.85 },
+                                      initial: { opacity: 0, scale: 0.72 },
                                       whileInView: { opacity: 1, scale: 1 },
                                       viewport: VIEWPORT,
                                       transition: {
-                                          duration: 0.5,
-                                          delay: 0.1 + i * 0.22,
-                                          ease: EASE,
+                                          type: 'spring',
+                                          stiffness: 520,
+                                          damping: 28,
+                                          delay: 0.04 + i * 0.08,
                                       },
                                   }
                                 : {})}
@@ -251,8 +257,8 @@ export function AnalyticsVisual({ animated = true, className }: VisualProps) {
 
     return (
         <motion.div
-            {...fadeUp(anim, 0, 14)}
-            className={`w-full border border-subtle bg-white p-6 md:p-8 ${className ?? ''}`}
+            {...fadeUp(anim, 0, 8)}
+            className={`product-stage w-full border border-subtle bg-white p-6 md:p-8 ${className ?? ''}`}
         >
             {/* Header with stat chips */}
             <div className="flex flex-wrap items-start justify-between gap-4">
@@ -332,7 +338,7 @@ export function AnalyticsVisual({ animated = true, className }: VisualProps) {
                                       initial: { opacity: 0 },
                                       whileInView: { opacity: 1 },
                                       viewport: VIEWPORT,
-                                      transition: { duration: 0.8, delay: 0.5, ease: EASE },
+                                      transition: { duration: 0.32, delay: 0.18, ease: SNAP },
                                   }
                                 : {})}
                         />
@@ -347,7 +353,7 @@ export function AnalyticsVisual({ animated = true, className }: VisualProps) {
                                       initial: { pathLength: 0 },
                                       whileInView: { pathLength: 1 },
                                       viewport: VIEWPORT,
-                                      transition: { duration: 1.1, delay: 0.15, ease: EASE },
+                                      transition: { duration: 0.55, delay: 0.06, ease: SNAP },
                                   }
                                 : {})}
                         />
@@ -364,7 +370,7 @@ export function AnalyticsVisual({ animated = true, className }: VisualProps) {
                                       initial: { opacity: 0, scale: 0 },
                                       whileInView: { opacity: 1, scale: 1 },
                                       viewport: VIEWPORT,
-                                      transition: { duration: 0.4, delay: 1.15, ease: EASE },
+                                      transition: { type: 'spring', stiffness: 500, damping: 22, delay: 0.52 },
                                   }
                                 : {})}
                             style={{ transformOrigin: '480px 30px' }}
@@ -419,7 +425,7 @@ export function RecordTimelineVisual({ animated = true, className }: VisualProps
                 {EVENTS.map((event, i) => (
                     <motion.div
                         key={event.title}
-                        {...fadeUp(anim, i * 0.1, 10)}
+                        {...fadeUp(anim, i * 0.05, 6)}
                         className="relative flex items-start gap-4 pl-0"
                     >
                         {/* Dot */}
@@ -432,7 +438,7 @@ export function RecordTimelineVisual({ animated = true, className }: VisualProps
                             }`}
                         />
                         {/* Event card */}
-                        <div className="min-w-0 flex-1 border border-subtle bg-white px-4 py-3">
+                        <div className="min-w-0 flex-1 border border-subtle bg-white px-4 py-3 transition-colors duration-150 hover:border-accent hover:bg-highlight">
                             <p className="text-sm font-medium leading-snug text-primary">
                                 {event.title}
                             </p>
@@ -490,8 +496,8 @@ export function TCOVisual({ animated = true, className }: VisualProps) {
 
     return (
         <motion.div
-            {...fadeUp(anim, 0, 14)}
-            className={`w-full border border-subtle bg-white p-6 md:p-8 ${className ?? ''}`}
+            {...fadeUp(anim, 0, 8)}
+            className={`product-stage w-full border border-subtle bg-white p-6 md:p-8 ${className ?? ''}`}
         >
             <div className="flex items-baseline justify-between gap-4">
                 <p className="font-mono text-xs uppercase tracking-[0.08em] text-muted">
@@ -500,9 +506,14 @@ export function TCOVisual({ animated = true, className }: VisualProps) {
                 <p className="text-xs text-muted">Structural steel · 24-week programme</p>
             </div>
 
-            <div className="mt-6 space-y-5">
+            <div className="mt-6 space-y-1">
                 {TCO_ROWS.map((row, i) => (
-                    <div key={row.supplier}>
+                    <div
+                        key={row.supplier}
+                        className={`-mx-2 px-2 py-2 transition-colors duration-150 ${
+                            row.best ? 'bg-highlight' : 'hover:bg-layer'
+                        }`}
+                    >
                         <div className="mb-1.5 flex items-baseline justify-between gap-4">
                             <span className="flex items-center gap-2 text-sm font-medium text-primary">
                                 {row.supplier}
@@ -530,9 +541,9 @@ export function TCOVisual({ animated = true, className }: VisualProps) {
                                               whileInView: { scaleX: 1 },
                                               viewport: VIEWPORT,
                                               transition: {
-                                                  duration: 0.6,
-                                                  delay: 0.15 + i * 0.1 + j * 0.12,
-                                                  ease: EASE,
+                                                  duration: 0.32,
+                                                  delay: 0.04 + i * 0.06 + j * 0.05,
+                                                  ease: SNAP,
                                               },
                                           }
                                         : {})}

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
-const EASE: [number, number, number, number] = [0.2, 0, 0.38, 0.9];
+const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export function Folio({
     label,
@@ -233,7 +233,7 @@ export function PageHero({
                     <motion.h1
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ duration: 0.4, delay: 0.06, ease: EASE }}
+                        transition={{ duration: 0.28, delay: 0.04, ease: EASE }}
                         className="title-rail text-4xl leading-[1.18] text-primary md:text-5xl lg:col-span-10 lg:text-[3.375rem] lg:leading-[64px]"
                     >
                         {title}
@@ -241,7 +241,7 @@ export function PageHero({
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ duration: 0.4, delay: 0.12, ease: EASE }}
+                        transition={{ duration: 0.28, delay: 0.08, ease: EASE }}
                         className="lg:col-span-8"
                     >
                         <p className="text-base leading-6 text-muted md:text-lg md:leading-7">{subtitle}</p>

@@ -4,7 +4,7 @@ import { CTABanner, Folio, PageHero, RuleLabel } from '../components/shared';
 import { TCOVisual } from '../components/graphics';
 import { usePageMeta } from '../hooks/usePageMeta';
 
-const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const SNAP: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 function CheckMark({ className = 'text-accent' }: { className?: string }) {
     return (
@@ -114,8 +114,8 @@ function PackageCard() {
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.7, ease: EASE }}
-            className="border border-subtle bg-white p-6"
+            transition={{ duration: 0.28, ease: SNAP }}
+            className="product-stage border border-subtle bg-white p-6"
             aria-label="Example procurement package"
         >
             <div className="flex items-baseline justify-between">
@@ -127,7 +127,7 @@ function PackageCard() {
                     initial={{ width: 0 }}
                     whileInView={{ width: '62%' }}
                     viewport={{ once: true }}
-                    transition={{ duration: 1, ease: EASE, delay: 0.3 }}
+                    transition={{ duration: 0.38, ease: SNAP, delay: 0.08 }}
                     className="h-full bg-accent"
                 />
             </div>
@@ -144,7 +144,7 @@ function PackageCard() {
                 ))}
             </dl>
             <div className="mt-6 flex items-center gap-2 bg-layer px-4 py-3 text-sm text-muted">
-                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-secondary" aria-hidden="true" />
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-secondary live-dot" aria-hidden="true" />
                 Shortlist ready for commercial review
             </div>
         </motion.div>
@@ -162,7 +162,7 @@ function RfqBuilderVisual() {
         { name: 'w-32', qty: '1,120', unit: 'lm' },
     ];
     return (
-        <div className="border border-subtle bg-white p-6">
+        <div className="product-stage border border-subtle bg-white p-6">
             <div className="flex items-center justify-between border-b border-subtle pb-4">
                 <div className="space-y-2">
                     <SkeletonBar w="w-32" />
@@ -177,7 +177,7 @@ function RfqBuilderVisual() {
             </div>
             <div className="mt-2 divide-y divide-subtle">
                 {rows.map((row, i) => (
-                    <div key={i} className="grid grid-cols-[1fr_auto_auto] items-center gap-x-6 py-3.5">
+                    <div key={i} className="grid grid-cols-[1fr_auto_auto] items-center gap-x-6 py-3.5 transition-colors duration-150 hover:bg-highlight">
                         <SkeletonBar w={row.name} />
                         <span className="text-right text-sm tabular-nums text-muted">{row.qty}</span>
                         <span className="w-8 text-right text-sm text-muted">{row.unit}</span>
@@ -200,10 +200,10 @@ function BidRoomVisual() {
         { name: 'Supplier C', status: 'Bid received', tone: 'green' },
     ];
     return (
-        <div className="border border-subtle bg-white p-6">
+        <div className="product-stage border border-subtle bg-white p-6">
             <div className="divide-y divide-subtle">
                 {bids.map((bid) => (
-                    <div key={bid.name} className="flex items-center justify-between gap-4 py-4">
+                    <div key={bid.name} className="flex items-center justify-between gap-4 py-4 transition-colors duration-150 hover:bg-highlight">
                         <div className="flex items-center gap-3">
                             <span className="flex h-9 w-9 items-center justify-center bg-layer text-xs font-semibold text-muted">
                                 {bid.name.slice(-1)}
@@ -241,11 +241,11 @@ function AwardRecordVisual() {
         { label: 'Purchase order', done: false },
     ];
     return (
-        <div className="border border-subtle bg-white p-6">
+        <div className="product-stage border border-subtle bg-white p-6">
             <div className="relative pl-2">
                 <div className="absolute bottom-4 left-[19px] top-4 w-px bg-subtle" aria-hidden="true" />
                 {steps.map((step) => (
-                    <div key={step.label} className="relative flex items-center gap-4 py-3">
+                    <div key={step.label} className="relative flex items-center gap-4 py-3 transition-colors duration-150 hover:bg-highlight">
                         <span
                             className={`relative z-10 flex h-7 w-7 shrink-0 items-center justify-center border ${
                                 step.done ? 'border-secondary/30 bg-secondary/10 text-secondary' : 'border-accent/40 bg-white text-accent'
@@ -256,7 +256,7 @@ function AwardRecordVisual() {
                                     <path d="M5 12.5l4.5 4.5L19 7.5" />
                                 </svg>
                             ) : (
-                                <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
+                                <span className="h-1.5 w-1.5 rounded-full bg-accent live-dot" aria-hidden="true" />
                             )}
                         </span>
                         <div className="flex flex-1 items-center justify-between gap-4">
@@ -277,17 +277,23 @@ function SustainabilityVisual() {
         { name: 'Supplier C', pct: 64 },
     ];
     return (
-        <div className="border border-subtle bg-white p-6">
+        <div className="product-stage border border-subtle bg-white p-6">
             <div className="flex items-center justify-between">
                 <p className="font-mono text-xs uppercase tracking-[0.08em] text-muted">Carbon estimate per bid</p>
                 <span className="border border-subtle bg-layer px-3 py-1 text-xs font-semibold text-secondary">Emissions-weighted</span>
             </div>
             <div className="mt-5 space-y-4">
-                {rows.map((row) => (
+                {rows.map((row, i) => (
                     <div key={row.name} className="grid grid-cols-[88px_1fr] items-center gap-4">
                         <span className="text-xs text-muted">{row.name}</span>
-                        <div className="h-2 bg-subtle">
-                            <div style={{ width: `${row.pct}%` }} className="h-full bg-accent" />
+                        <div className="h-2 overflow-hidden bg-subtle">
+                            <motion.div
+                                initial={{ width: 0 }}
+                                whileInView={{ width: `${row.pct}%` }}
+                                viewport={{ once: true, margin: '-80px' }}
+                                transition={{ duration: 0.35, ease: SNAP, delay: i * 0.05 }}
+                                className="h-full bg-accent"
+                            />
                         </div>
                     </div>
                 ))}
@@ -311,7 +317,7 @@ function HealthScorePanel() {
         { label: 'Supplier diversity', score: 76 },
     ];
     return (
-        <div className="border border-subtle bg-white p-8" aria-label="Procurement health score">
+        <div className="product-stage border border-subtle bg-white p-8" aria-label="Procurement health score">
             <p className="font-mono text-xs uppercase tracking-[0.08em] text-muted">Health score</p>
             <div className="mt-4 flex items-baseline gap-3">
                 <span className="text-6xl font-light leading-none text-primary">74</span>
@@ -329,7 +335,7 @@ function HealthScorePanel() {
                                 initial={{ width: 0 }}
                                 whileInView={{ width: `${bar.score}%` }}
                                 viewport={{ once: true, margin: '-80px' }}
-                                transition={{ duration: 0.8, ease: EASE, delay: i * 0.08 }}
+                                transition={{ duration: 0.35, ease: SNAP, delay: i * 0.05 }}
                                 className="h-full bg-accent"
                             />
                         </div>
@@ -475,7 +481,7 @@ export default function Platform() {
                         initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: '-80px' }}
-                        transition={{ duration: 0.8, ease: EASE }}
+                        transition={{ duration: 0.4, ease: SNAP }}
                         className="mt-12 md:mt-16"
                     >
                         <p className="max-w-4xl text-3xl font-light leading-[1.12] tracking-tight text-white md:text-5xl">
@@ -529,7 +535,7 @@ export default function Platform() {
                         initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: '-80px' }}
-                        transition={{ duration: 0.8, ease: EASE }}
+                        transition={{ duration: 0.4, ease: SNAP }}
                         className="mt-12 max-w-3xl md:mt-16"
                     >
                         <p className="text-2xl font-light leading-[1.3] text-primary md:text-4xl">
