@@ -35,8 +35,6 @@ export {
 } from './product-visuals';
 export type { VisualProps } from './product-visuals';
 
-export { InteractiveStage, HeroWorkspace } from './InteractiveStage';
-
 /* Background patterns */
 export { DotGrid, HairlineGrid, RadialGlow, TopographyLines } from './patterns';
 export type { PatternProps } from './patterns';

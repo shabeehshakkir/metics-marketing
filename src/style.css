@@ -205,38 +205,6 @@
     border-color: #ff6719;
 }
 
-.stage-scene {
-    perspective: 1600px;
-    perspective-origin: 58% 38%;
-}
-
-.stage-rig {
-    position: relative;
-    padding: 2.5rem 1.25rem 3rem;
-    transform-style: preserve-3d;
-}
-
-.stage-card {
-    position: relative;
-    z-index: 1;
-    transform: translateZ(32px);
-    transform-style: preserve-3d;
-}
-
-.stage-card .product-stage:hover {
-    transform: none;
-}
-
-.stage-chip {
-    position: absolute;
-    z-index: 2;
-    border: 1px solid #dce2e8;
-    background: #ffffff;
-    padding: 0.5rem 0.75rem;
-    pointer-events: none;
-    white-space: nowrap;
-}
-
 .live-dot {
     display: inline-block;
     animation: livePulse 1.2s ease-in-out infinite;
@@ -245,20 +213,6 @@
 @keyframes livePulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.28; }
-}
-
-@media (max-width: 1023px) {
-    .stage-rig {
-        padding: 0;
-    }
-
-    .stage-card {
-        transform: none;
-    }
-
-    .stage-chip {
-        display: none;
-    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -284,10 +238,6 @@
 
     .live-dot {
         animation: none !important;
-    }
-
-    .stage-card {
-        transform: none;
     }
 
     .btn {
