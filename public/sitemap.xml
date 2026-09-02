@@ -51,6 +51,36 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.metics.net/insights/audit-trail-before-anyone-asks</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.metics.net/insights/bid-coverage-supplier-fees</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.metics.net/insights/csrd-procurement-scope-3</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.metics.net/insights/procurement-health-score</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.metics.net/insights/supplier-concentration-risk</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.metics.net/insights/tco-procurement-decision</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.metics.net/pricing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>

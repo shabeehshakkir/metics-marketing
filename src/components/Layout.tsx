@@ -23,7 +23,10 @@ function prefetchRoute(routeName: string) {
             import('../pages/CaseStudies');
             import('../pages/CaseStudy');
             break;
-        case '/insights': import('../pages/Insights'); break;
+        case '/insights':
+            import('../pages/Insights');
+            import('../pages/Insight');
+            break;
         case '/pricing': import('../pages/Pricing'); break;
         case '/contact': import('../pages/Contact'); break;
         case '/about': import('../pages/About'); break;
